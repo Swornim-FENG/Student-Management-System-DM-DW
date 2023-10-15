@@ -21,3 +21,11 @@ Route::get('/admin', function () {
     return view('admindashboard');
 });
 
+Route::get('/professor', function () {
+    return view('professor');
+});
+
+Route::get('/test', function () {
+    return view('professortest');
+});
+
