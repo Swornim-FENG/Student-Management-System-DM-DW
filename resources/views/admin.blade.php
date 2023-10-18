@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
-    <title>Responsive Dashboard Design #2 | AsmrProg</title>
+    <title>Admin</title>
 </head>
    <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
@@ -24,6 +24,22 @@
     --light-warning: #FFF2C6;
     --success: #388E3C;
     --light-success: #BBF7D0;
+}
+.logo{
+  margin: 2rem 0 1rem 0;
+  padding-bottom: 3rem;
+  display: flex;
+  align-items: center;
+}
+.logo img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 0.4rem;
+}
+.logo h4{
+  margin-left: 1rem;
+  text-transform: uppercase;
 }
 
 *{
@@ -630,6 +646,7 @@ body{
     .content main .bottom-data .reminders .task-list{
         min-width: 340px;
     }
+    
 
 }
     </style>
@@ -638,17 +655,18 @@ body{
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="#" class="logo">
-            <i class='bx bx-code-alt'></i>
-            <div class="logo-name"><span>Asmr</span>Prog</div>
-        </a>
+    <div class="logo">
+          <img src="images/ku logo.png" alt="">
+          <h4>Admin</h4>
+        </div>
         <ul class="side-menu">
-            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li class="active"><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-            <li><a href="#"><i class='bx bx-group'></i>Users</a></li>
-            <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
+            <li class="active"><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li ><a href="#"><i class='bx bx-group'></i>Students</a></li>
+            <li ><a href="#"><i class='bx bx-group'></i>Professors</a></li>
+            <li ><a href="#"><i class='bx bx-book'></i>Courses</a></li>
+            <li><a href="#"><i class='bx bx-news'></i>Notice</a></li>
+            
+            <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li>
         </ul>
         <ul class="side-menu">
             <li>
@@ -676,10 +694,10 @@ body{
             <label for="theme-toggle" class="theme-toggle"></label>
             <a href="#" class="notif">
                 <i class='bx bx-bell'></i>
-                <span class="count">12</span>
+                <span class="count">8</span>
             </a>
             <a href="#" class="profile">
-                <img src="images/logo.png">
+            <img src="images/ku logo.png" alt="">
             </a>
         </nav>
 
@@ -689,53 +707,44 @@ body{
             <div class="header">
                 <div class="left">
                     <h1>Dashboard</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#">
-                                Analytics
-                            </a></li>
-                        /
-                        <li><a href="#" class="active">Shop</a></li>
-                    </ul>
+                    
                 </div>
-                <a href="#" class="report">
-                    <i class='bx bx-cloud-download'></i>
-                    <span>Download CSV</span>
-                </a>
+                
             </div>
 
             <!-- Insights -->
             <ul class="insights">
                 <li>
-                    <i class='bx bx-calendar-check'></i>
+                    <i class='bx bx-group'></i>
                     <span class="info">
                         <h3>
-                            1,074
+                            174
                         </h3>
-                        <p>Paid Order</p>
+                        <p>Students</p>
                     </span>
                 </li>
-                <li><i class='bx bx-show-alt'></i>
+                <li><i class='bx bx-group'></i>
                     <span class="info">
                         <h3>
-                            3,944
+                            9
                         </h3>
-                        <p>Site Visit</p>
+                        <p>Professors</p>
                     </span>
                 </li>
-                <li><i class='bx bx-line-chart'></i>
+                <li><i class='bx bx-book'></i>
                     <span class="info">
                         <h3>
-                            14,721
+                            14
                         </h3>
-                        <p>Searches</p>
+                        <p>Courses</p>
                     </span>
                 </li>
-                <li><i class='bx bx-dollar-circle'></i>
+                <li><i class='bx bx-spreadsheet'></i>
                     <span class="info">
                         <h3>
-                            $6,742
+                            4
                         </h3>
-                        <p>Total Sales</p>
+                        <p>Documents</p>
                     </span>
                 </li>
             </ul>
@@ -745,42 +754,42 @@ body{
                 <div class="orders">
                     <div class="header">
                         <i class='bx bx-receipt'></i>
-                        <h3>Recent Orders</h3>
+                        <h3>Recent Enrolls</h3>
                         <i class='bx bx-filter'></i>
                         <i class='bx bx-search'></i>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>User</th>
-                                <th>Order Date</th>
-                                <th>Status</th>
+                                <th>Name </th>
+                                <th>Date</th>
+                                <th>Semester</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    <img src="images/profile-1.jpg">
-                                    <p>John Doe</p>
+                                    <img src="images/ku logo.png">
+                                    <p>Swornim </p>
                                 </td>
-                                <td>14-08-2023</td>
-                                <td><span class="status completed">Completed</span></td>
+                                <td>10-18-2023</td>
+                                <td><span >5</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="images/profile-1.jpg">
-                                    <p>John Doe</p>
+                                    <img src="images/ku logo.png">
+                                    <p>Rikshal</p>
                                 </td>
-                                <td>14-08-2023</td>
-                                <td><span class="status pending">Pending</span></td>
+                                <td>10-18-2023</td>
+                                <td><span >2</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="images/profile-1.jpg">
-                                    <p>John Doe</p>
+                                    <img src="images/ku logo.png">
+                                    <p>Arpan</p>
                                 </td>
-                                <td>14-08-2023</td>
-                                <td><span class="status process">Processing</span></td>
+                                <td>10-18-2023</td>
+                                <td><span >3</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -798,21 +807,21 @@ body{
                         <li class="completed">
                             <div class="task-title">
                                 <i class='bx bx-check-circle'></i>
-                                <p>Start Our Meeting</p>
+                                <p>Meeting</p>
                             </div>
                             <i class='bx bx-dots-vertical-rounded'></i>
                         </li>
                         <li class="completed">
                             <div class="task-title">
                                 <i class='bx bx-check-circle'></i>
-                                <p>Analyse Our Site</p>
+                                <p>Analysis</p>
                             </div>
                             <i class='bx bx-dots-vertical-rounded'></i>
                         </li>
                         <li class="not-completed">
                             <div class="task-title">
                                 <i class='bx bx-x-circle'></i>
-                                <p>Play Footbal</p>
+                                <p>Checking</p>
                             </div>
                             <i class='bx bx-dots-vertical-rounded'></i>
                         </li>

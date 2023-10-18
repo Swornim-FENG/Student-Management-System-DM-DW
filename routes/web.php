@@ -17,15 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
-    return view('admindashboard');
+Route::get('/superadmin', function () {
+    return view('superadmindashboard');
 });
 
 Route::get('/professor', function () {
     return view('professor');
 });
 
-Route::get('/test', function () {
-    return view('professortest');
+Route::get('/admin', function () {
+    return view('admin');
 });
 
