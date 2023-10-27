@@ -13,7 +13,7 @@ class Roleseeder extends Seeder
     public function run(): void
     {
         $roles=new Roles;
-        $roles->role_name='Student';
+        $roles->role_name='Professor';
         $roles->save();
     }
 }

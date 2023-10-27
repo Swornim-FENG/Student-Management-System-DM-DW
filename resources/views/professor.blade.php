@@ -791,7 +791,7 @@ main .recent-orders a{
                     </span>
                     <h3>New Login</h3>
                 </a>
-                <a href="#">
+                <a href="{{url('/')}}/logout">
                     <span class="material-icons-sharp">
                         logout
                     </span>

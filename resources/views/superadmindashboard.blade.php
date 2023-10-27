@@ -229,7 +229,7 @@ h1{
             <span class="nav-item">Help</span>
           </a>
           </li>
-          <li><a href="#" class="logout">
+          <li><a href="{{url('/')}}/logout" class="logout">
             <i class="fas fa-sign-out-alt"></i>
             <span class="nav-item">Logout</span>
           </a>
