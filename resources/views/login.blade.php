@@ -7,7 +7,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <title>Sign-in Page</title>
+    <title>Login</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -84,7 +84,7 @@
     />
 
     <div class="signup-container">
-      <h2>Sign-In</h2>
+      <h2>Login</h2>
       <form id="signup-form" action="{{url('/')}}/login"method="post">
       @csrf
         <label for="email">Email:</label>
