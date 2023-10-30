@@ -16,10 +16,9 @@ return new class extends Migration
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('Firstname',50);
             $table->string('Lastname',50);
+            $table->char('registration_no',10);
             $table->string('permanent_address',255);
             $table->string('temporary_address',255);
-            $table->date('enrolled_year');
-            $table->date('academic_year');
         });
     }
 

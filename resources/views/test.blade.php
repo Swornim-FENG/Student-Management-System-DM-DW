@@ -847,7 +847,7 @@
             <h3>Settings</h3>
           </a>
 
-          <a href="{{url('/')}}/logout">
+          <a href="#">
             <span class="material-icons-sharp"> logout </span>
             <h3>Logout</h3>
           </a>

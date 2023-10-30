@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ProfessorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,8 +28,17 @@ Route::get('/professor', function () {
 });
 
 Route::get('/admin', function () {
-    return view('admin');
+    return view('admindashboard.admindashboard');
 });
+
+
+Route::get('/admin/addstudents',[StudentController::class,'addstudents'])->name('student');
+
+Route::post('/admin/addstudents',[StudentController::class,'insertstudents']);
+
+Route::get('/admin/addprofessors',[ProfessorController::class,'addprofessors'])->name('professor');
+
+Route::post('/admin/addprofessors',[ProfessorController::class,'insertprofessors']);
 
 Route::get('/login', function () {
     return view('login');
@@ -38,3 +49,7 @@ Route::get('/login',[LoginController::class,'loginpage'])->name('login');
 Route::post('/login',[LoginController::class,'login']);
 
 Route::get('/logout',[LoginController::class,'logout']);
+
+Route::get('/test', function () {
+    return view('test');
+});
