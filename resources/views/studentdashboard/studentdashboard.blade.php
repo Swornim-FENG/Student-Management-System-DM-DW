@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Admin</title>
+    <title>Student</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
@@ -546,79 +546,6 @@
         align-items: center;
         gap: 0.6rem;
       }
-      .job_card {
-        width: 100%;
-        padding: 15px;
-        cursor: pointer;
-        display: flex;
-        border-radius: 10px;
-        background: #fff;
-        margin-bottom: 15px;
-        justify-content: space-between;
-        border: 2px solid rgb(190, 190, 190);
-        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-      }
-      .job_details {
-        display: flex;
-      }
-      .job_details .img {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .job_details .img i {
-        width: 70px;
-        font-size: 3rem;
-        margin-left: 1rem;
-        padding: 10px;
-        color: rgb(82, 22, 138);
-        background: rgb(216, 205, 226);
-      }
-      .job_details .text {
-        margin-left: 2.3rem;
-      }
-      .job_details .text span {
-        color: rgb(116, 112, 112);
-      }
-      .job_salary {
-        text-align: right;
-        color: rgb(54, 54, 54);
-      }
-      .job_card:active {
-        border: 2px solid blueviolet;
-        transition: 0.4s;
-      }
-      .search_bar {
-        display: flex;
-        padding: 10px;
-        justify-content: space-between;
-      }
-      .search_bar input {
-        width: 50%;
-        padding: 10px;
-        border: 1px solid rgb(190, 190, 190);
-      }
-      .search_bar input:focus {
-        border: 1px solid blueviolet;
-      }
-      .search_bar select {
-        border: 1px solid rgb(190, 190, 190);
-        padding: 10px;
-        margin-left: 2rem;
-      }
-      .search_bar .filter {
-        width: 100px;
-        border: 1px solid blueviolet;
-        border-radius: 10px;
-        background-color: #6c9bcf;
-      }
-      .search_bar .name {
-        border-radius: 10px;
-      }
-      .search_bar .school {
-        border-radius: 10px;
-        margin-left: -170px;
-      }
 
       @media screen and (max-width: 1200px) {
         .container {
@@ -798,8 +725,8 @@
       <aside>
         <div class="toggle">
           <div class="logo">
-            <img src="kathmandu_university_logo_nepal .png" />
-            <h2><span class="danger">Admin</span></h2>
+            <img src= "https://kusoa.edu.np/wp-content/uploads/2018/08/kathmandu_university_logo_nepal.png"/>
+            <h2><span class="danger">Student</span></h2>
           </div>
           <div class="close" id="close-btn">
             <span class="material-icons-sharp"> close </span>
@@ -811,11 +738,11 @@
             <span class="material-icons-sharp"> dashboard </span>
             <h3>Dashboard</h3>
           </a>
-          <a href="#">
-            <span class="material-icons-sharp"> person_outline </span>
-            <h3>Students</h3>
-          </a>
 
+          <a href="#">
+            <span class="material-icons-sharp"> receipt_long </span>
+            <h3>Grades</h3>
+          </a>
           <a href="#">
             <span class="material-icons-sharp"> insights </span>
             <h3>Analytics</h3>
@@ -829,17 +756,9 @@
             <h3>Messages</h3>
             <span class="message-count">18</span>
           </a>
-          <a href="student-signup.html">
-            <span class="material-icons-sharp"> add </span>
-            <h3>Add a student</h3>
-          </a>
-          <a href="prof-signup.html">
-            <span class="material-icons-sharp"> add </span>
-            <h3>Add a professor</h3>
-          </a>
-          <a href="add-school.html">
-            <span class="material-icons-sharp"> add </span>
-            <h3>Add a school</h3>
+          <a href="#">
+            <span class="material-icons-sharp"> inventory </span>
+            <h3>To do List</h3>
           </a>
 
           <a href="#">
@@ -857,67 +776,87 @@
 
       <!-- Main Content -->
       <main>
-        <h1>This is what admins see</h1>
-        <div class="search_bar">
-          <input
-            class="name"
-            type="search"
-            placeholder="Search users here..."
-          />
-          <select class="school" name="" id="">
-            <option>school</option>
-            <option>KUSOM</option>
-            <option>KUSOE</option>
-            <option>KUSL</option>
-            <option>KUSMS</option>
-            <option>KUSOA</option>
-          </select>
-          <button class="filter">filter</button>
-        </div>
-        <h2>schools</h2>
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Management</h2>
+        <h1>Dashboard</h1>
+        <!-- Analyses -->
+        <div class="analyse">
+          <div class="sales">
+            <div class="status">
+              <div class="info">
+                <h3>MAS</h3>
+                <h1>48</h1>
+              </div>
+              <div class="progresss">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="percentage">
+                  <p>81%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="visits">
+            <div class="status">
+              <div class="info">
+                <h3>DSA</h3>
+                <h1>118</h1>
+              </div>
+              <div class="progresss">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="percentage">
+                  <p>10%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="searches">
+            <div class="status">
+              <div class="info">
+                <h3>MKT</h3>
+                <h1>98</h1>
+              </div>
+              <div class="progresss">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="percentage">
+                  <p>21%</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Law</h2>
-            </div>
-          </div>
-        </div>
+        <!-- End of Analyses -->
 
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Arts</h2>
+        <!-- New Users Section -->
+        <div class="new-users">
+          <h2>Your Courses</h2>
+          <div class="user-list">
+            <div class="user">
+              <img src= "https://kusoa.edu.np/wp-content/uploads/2018/08/kathmandu_university_logo_nepal.png"/>
+              <h2>COM 111</h2>
+              <p>54 Min Ago</p>
+            </div>
+            <div class="user">
+              <img src="https://kusoa.edu.np/wp-content/uploads/2018/08/kathmandu_university_logo_nepal.png" />
+              <h2>COM 221</h2>
+              <p>3 Hours Ago</p>
+            </div>
+            <div class="user">
+              <img src="https://kusoa.edu.np/wp-content/uploads/2018/08/kathmandu_university_logo_nepal.png" />
+              <h2>MAS 110</h2>
+              <p>6 Hours Ago</p>
+            </div>
+            <div class="user">
+              <img src="https://kusoa.edu.np/wp-content/uploads/2018/08/kathmandu_university_logo_nepal.png" />
+              <h2>MKT 1</h2>
+              <p>8 Hours ago</p>
             </div>
           </div>
         </div>
-
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Engineering</h2>
-            </div>
-          </div>
-        </div>
-
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Medical Science</h2>
-            </div>
-          </div>
-        </div>
+        <!-- End of New Users Section -->
       </main>
       <!-- End of Main Content -->
 
@@ -937,7 +876,7 @@
               <p>Hey, <b>Feng</b></p>
             </div>
             <div class="profile-photo">
-              <img src="kathmandu_university_logo_nepal.png" />
+              <img src="https://kusoa.edu.np/wp-content/uploads/2018/08/kathmandu_university_logo_nepal.png" />
             </div>
           </div>
         </div>

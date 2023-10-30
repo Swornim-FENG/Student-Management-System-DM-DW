@@ -33,7 +33,7 @@ class LoginController extends Controller
      }
            else if(Auth::user()->role_id==4){
                  
-            return redirect()->intended('/superadmin');
+            return redirect()->intended('/student');
      }
            
         }

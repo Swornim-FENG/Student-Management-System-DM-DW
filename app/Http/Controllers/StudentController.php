@@ -8,7 +8,12 @@ use App\Models\User;
 
 
 class StudentController extends Controller
-{   
+{    
+
+    //To show add students dashboard 
+    public function showstudent(){
+        return view('studentdashboard.studentdashboard');
+    }
     //To show add students form 
     public function addstudents(){
         return view('admindashboard.addstudents');

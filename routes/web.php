@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuperadminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,18 +21,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/superadmin', function () {
-    return view('superadmindashboard');
-});
+
+Route::get('/superadmin',[SuperadminController::class,'showsuperadmin']);
 
 Route::get('/professor', function () {
     return view('professor');
 });
 
-Route::get('/admin', function () {
-    return view('admindashboard.admindashboard');
-});
+Route::get('/admin',[AdminController::class,'showadmin']);
 
+Route::get('/admin/add',[AdminController::class,'showaddadmin'])->name('addadmin');
+
+Route::post('/admin/add',[AdminController::class,'insertadmin']);
+
+Route::get('/student',[StudentController::class,'showstudent']);
 
 Route::get('/admin/addstudents',[StudentController::class,'addstudents'])->name('student');
 

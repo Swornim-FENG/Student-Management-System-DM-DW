@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Students</title>
+    <title>Admin Signup</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -68,11 +68,8 @@
   </head>
   <body>
     <div>
-      <br>
-      <br>
-      <br>
-      <h3>Add a student</h3>
-      <form action="{{url('/')}}/admin/addstudents" method="post">
+      <h3>Add An Admin</h3>
+      <form action="{{url('/')}}/admin/add" method="post">
       @csrf
         <label for="fname">First Name:</label>
         <input type="text" id="fname" name="first_name" value="{{old('first_name')}}" />
@@ -98,10 +95,20 @@
                @enderror
                </span>
 
+
         <label for="tem_address">Temporary Address:</label>
         <input type="text" id="tem_address" name="tem_address" value="{{old('tem_address')}}" />
         <span class="text-danger"style="color:red">
             @error('tem_address')
+               {{$message}}
+               @enderror
+               </span>
+        
+               
+          <label for="phone_number">Phone Number:</label>
+          <input type="tel" id="phone_number" name="phone_number" value="{{old('phone_number')}}" />
+          <span class="text-danger"style="color:red">
+            @error('phone_number')
                {{$message}}
                @enderror
                </span>
@@ -114,14 +121,6 @@
                @enderror
                </span>
                
-
-        <label for="SId">Registration No.:</label>
-        <input type="text" id="SId" name="SID"  value="{{old('SID')}}"/>
-        <span class="text-danger"style="color:red">
-            @error('SID')
-               {{$message}}
-               @enderror
-               </span>
               
 
         <label for="password">Password:</label>
@@ -146,6 +145,8 @@
       </form>
     </div>
 
-    
+    <script>
+      
+    </script>
   </body>
 </html>

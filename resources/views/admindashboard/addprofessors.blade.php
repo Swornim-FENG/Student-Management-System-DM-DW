@@ -131,7 +131,7 @@
                 @endif
                 
     
-        <input type="submit" value="Sign Up" />
+        <input type="submit" value="Enroll" />
       </form>
     </div>
 
