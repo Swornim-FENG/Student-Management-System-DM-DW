@@ -25,10 +25,10 @@ class StudentController extends Controller
             [
                 'first_name'=>'required',
                 'last_name'=>'required',
-                'per_address'=>'required',
-                'tem_address'=>'required',
+                'permanent_address'=>'required',
+                'temporary_address'=>'required',
                 'email'=>'required|email',
-                'SID'=>'required',
+                'registration_no'=>'required',
                 'password'=>'required',
                 
             ]
@@ -56,7 +56,7 @@ class StudentController extends Controller
             $student->Firstname=$request['first_name'];
             $student->Lastname=$request['last_name'];
 
-            $requestedreg = $request['SID'];
+            $requestedreg = $request['registration_no'];
              // Check if the Regisration number already exists in the database
              $existingreg = Students::where('registration_no', $requestedreg)->first();
             
@@ -68,8 +68,8 @@ class StudentController extends Controller
                  // Assign the Registration number to the user  
             $student->registration_no= $requestedreg;
             $user->save();
-            $student->permanent_address=$request['per_address'];
-            $student->temporary_address=$request['tem_address'];
+            $student->permanent_address=$request['permanent_address'];
+            $student->temporary_address=$request['temporary_address'];
             $lastInsertedUserId = $user->getKey();
             $student->user_id=$lastInsertedUserId;
             $student->save();

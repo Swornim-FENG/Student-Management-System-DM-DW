@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Admin</title>
+    <title>Professor-to-do</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
@@ -233,161 +233,85 @@
       }
 
       main {
-        margin-top: 1.4rem;
-      }
-
-      main .analyse {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.6rem;
-      }
-
-      main .analyse > div {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      main .analyse > div:hover {
-        box-shadow: none;
-      }
-
-      main .analyse > div .status {
         display: flex;
+        justify-content: center;
         align-items: center;
-        justify-content: space-between;
+        height: 100vh;
       }
 
-      main .analyse h3 {
-        margin-left: 0.6rem;
+      .to-do-list {
+        background-color: #f6f6f9;
+        padding: 2rem;
+        border-radius: 1.8rem;
+        box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+        width: 40rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #363949;
+      }
+
+      .task-input {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
+
+      input {
+        padding: 0.8rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 0.4rem;
         font-size: 1rem;
       }
 
-      main .analyse .progresss {
-        position: relative;
-        width: 92px;
-        height: 92px;
-        border-radius: 50%;
-      }
-
-      main .analyse svg {
-        width: 7rem;
-        height: 7rem;
-      }
-
-      main .analyse svg circle {
-        fill: none;
-        stroke-width: 10;
-        stroke-linecap: round;
-        transform: translate(5px, 5px);
-      }
-
-      main .analyse .sales svg circle {
-        stroke: var(--color-success);
-        stroke-dashoffset: -30;
-        stroke-dasharray: 200;
-      }
-
-      main .analyse .visits svg circle {
-        stroke: var(--color-danger);
-        stroke-dashoffset: -30;
-        stroke-dasharray: 200;
-      }
-
-      main .analyse .searches svg circle {
-        stroke: var(--color-primary);
-        stroke-dashoffset: -30;
-        stroke-dasharray: 200;
-      }
-
-      main .analyse .progresss .percentage {
-        position: absolute;
-        top: -3px;
-        left: -1px;
+      .datetime-input {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        width: 100%;
+        gap: 0.5rem;
       }
 
-      main .new-users {
-        margin-top: 1.3rem;
+      label {
+        font-size: 0.9rem;
+        color: #677483;
       }
 
-      main .new-users .user-list {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        gap: 1.4rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      main .new-users .user-list:hover {
-        box-shadow: none;
-      }
-
-      main .new-users .user-list .user {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-
-      main .new-users .user-list .user img {
-        width: 5rem;
-        height: 5rem;
-        margin-bottom: 0.4rem;
-        border-radius: 50%;
-      }
-
-      main .recent-orders {
-        margin-top: 1.3rem;
-      }
-
-      main .recent-orders h2 {
-        margin-bottom: 0.8rem;
-      }
-
-      main .recent-orders table {
-        background-color: var(--color-white);
-        width: 100%;
-        padding: var(--card-padding);
-        text-align: center;
-        box-shadow: var(--box-shadow);
-        border-radius: var(--card-border-radius);
-        transition: all 0.3s ease;
-      }
-
-      main .recent-orders table:hover {
-        box-shadow: none;
-      }
-
-      main table tbody td {
-        height: 2.8rem;
-        border-bottom: 1px solid var(--color-light);
-        color: var(--color-dark-variant);
-      }
-
-      main table tbody tr:last-child td {
+      button {
+        padding: 0.8rem;
+        background-color: #6c9bcf;
+        color: #fff;
         border: none;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
       }
 
-      main .recent-orders a {
-        text-align: center;
-        display: block;
-        margin: 1rem auto;
-        color: var(--color-primary);
+      button:hover {
+        background-color: #1b9c85;
+      }
+
+      #taskList li {
+        list-style: none;
+        padding: 1rem;
+        border-radius: 0.4rem;
+        margin-bottom: 0.5rem;
+        box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+        position: relative;
+      }
+
+      #taskList li::before {
+        content: "\e909"; /* Unicode for the "inventory" icon */
+        font-family: "Material Icons Sharp";
+        color: #1b9c85; /* Change the color as per your preference */
+        font-size: 1.2rem; /* Adjust the size as needed */
+        margin-right: 0.5rem; /* Add some spacing to the right of the marker */
+        position: absolute;
+        left: -1.5rem; /* Adjust the position as needed */
+        top: 50%;
+        transform: translateY(-50%);
       }
 
       .right-section {
@@ -545,79 +469,6 @@
         display: flex;
         align-items: center;
         gap: 0.6rem;
-      }
-      .job_card {
-        width: 100%;
-        padding: 15px;
-        cursor: pointer;
-        display: flex;
-        border-radius: 10px;
-        background: #fff;
-        margin-bottom: 15px;
-        justify-content: space-between;
-        border: 2px solid rgb(190, 190, 190);
-        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-      }
-      .job_details {
-        display: flex;
-      }
-      .job_details .img {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .job_details .img i {
-        width: 70px;
-        font-size: 3rem;
-        margin-left: 1rem;
-        padding: 10px;
-        color: rgb(82, 22, 138);
-        background: rgb(216, 205, 226);
-      }
-      .job_details .text {
-        margin-left: 2.3rem;
-      }
-      .job_details .text span {
-        color: rgb(116, 112, 112);
-      }
-      .job_salary {
-        text-align: right;
-        color: rgb(54, 54, 54);
-      }
-      .job_card:active {
-        border: 2px solid blueviolet;
-        transition: 0.4s;
-      }
-      .search_bar {
-        display: flex;
-        padding: 10px;
-        justify-content: space-between;
-      }
-      .search_bar input {
-        width: 50%;
-        padding: 10px;
-        border: 1px solid rgb(190, 190, 190);
-      }
-      .search_bar input:focus {
-        border: 1px solid blueviolet;
-      }
-      .search_bar select {
-        border: 1px solid rgb(190, 190, 190);
-        padding: 10px;
-        margin-left: 2rem;
-      }
-      .search_bar .filter {
-        width: 100px;
-        border: 1px solid blueviolet;
-        border-radius: 10px;
-        background-color: #6c9bcf;
-      }
-      .search_bar .name {
-        border-radius: 10px;
-      }
-      .search_bar .school {
-        border-radius: 10px;
-        margin-left: -170px;
       }
 
       @media screen and (max-width: 1200px) {
@@ -799,7 +650,7 @@
         <div class="toggle">
           <div class="logo">
             <img src="kathmandu_university_logo_nepal .png" />
-            <h2><span class="danger">Admin</span></h2>
+            <h2><span class="danger">Professor</span></h2>
           </div>
           <div class="close" id="close-btn">
             <span class="material-icons-sharp"> close </span>
@@ -807,15 +658,18 @@
         </div>
 
         <div class="sidebar">
-          <a href="#" class="active">
+          <a href="prof-main.html">
             <span class="material-icons-sharp"> dashboard </span>
             <h3>Dashboard</h3>
           </a>
-          <a href="#">
+          <a href="prof-students.html">
             <span class="material-icons-sharp"> person_outline </span>
             <h3>Students</h3>
           </a>
-
+          <a href="#">
+            <span class="material-icons-sharp"> receipt_long </span>
+            <h3>Grades</h3>
+          </a>
           <a href="#">
             <span class="material-icons-sharp"> insights </span>
             <h3>Analytics</h3>
@@ -829,24 +683,19 @@
             <h3>Messages</h3>
             <span class="message-count">18</span>
           </a>
-          <a href="student-signup.html">
-            <span class="material-icons-sharp"> add </span>
-            <h3>Add a student</h3>
-          </a>
-          <a href="prof-signup.html">
-            <span class="material-icons-sharp"> add </span>
-            <h3>Add a professor</h3>
-          </a>
-          <a href="add-school.html">
-            <span class="material-icons-sharp"> add </span>
-            <h3>Add a school</h3>
+          <a href="prof-to-do.html" class="active">
+            <span class="material-icons-sharp"> inventory </span>
+            <h3>To do List</h3>
           </a>
 
           <a href="#">
             <span class="material-icons-sharp"> settings </span>
             <h3>Settings</h3>
           </a>
-
+          <a href="#">
+            <span class="material-icons-sharp"> add </span>
+            <h3>New Login</h3>
+          </a>
           <a href="#">
             <span class="material-icons-sharp"> logout </span>
             <h3>Logout</h3>
@@ -856,69 +705,25 @@
       <!-- End of Sidebar Section -->
 
       <!-- Main Content -->
+
       <main>
-        <h1>This is what admins see</h1>
-        <div class="search_bar">
-          <input
-            class="name"
-            type="search"
-            placeholder="Search users here..."
-          />
-          <select class="school" name="" id="">
-            <option>school</option>
-            <option>KUSOM</option>
-            <option>KUSOE</option>
-            <option>KUSL</option>
-            <option>KUSMS</option>
-            <option>KUSOA</option>
-          </select>
-          <button class="filter">filter</button>
-        </div>
-        <h2>schools</h2>
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Management</h2>
-            </div>
-          </div>
-        </div>
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Law</h2>
-            </div>
-          </div>
-        </div>
+        <div class="to-do-list">
+          <h2>To-Do List</h2>
 
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Arts</h2>
-            </div>
-          </div>
-        </div>
+          <div class="task-input">
+            <input type="text" id="taskInput" placeholder="Enter your task" />
+            <div class="datetime-input">
+              <label for="dateInput">Date:</label>
+              <input type="date" id="dateInput" />
 
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Engineering</h2>
+              <label for="timeInput">Time:</label>
+              <input type="time" id="timeInput" />
             </div>
-          </div>
-        </div>
-
-        <div class="job_card">
-          <div class="job_details">
-            <div class="img"></div>
-            <div class="text">
-              <h2>Kathmandu Univeristy School of Medical Science</h2>
-            </div>
+            <button onclick="addTask()">Add Task</button>
           </div>
         </div>
       </main>
+
       <!-- End of Main Content -->
 
       <!-- Right Section -->
@@ -937,7 +742,7 @@
               <p>Hey, <b>Feng</b></p>
             </div>
             <div class="profile-photo">
-              <img src="kathmandu_university_logo_nepal.png" />
+              <img src="kathmandu_university_logo_nepal .png" />
             </div>
           </div>
         </div>
@@ -948,39 +753,9 @@
             <h2>Reminders</h2>
             <span class="material-icons-sharp"> notifications_none </span>
           </div>
-
-          <div class="notification">
-            <div class="icon">
-              <span class="material-icons-sharp"> volume_up </span>
-            </div>
-            <div class="content">
-              <div class="info">
-                <h3>Workshop</h3>
-                <small class="text_muted"> 08:00 AM - 12:00 PM </small>
-              </div>
-              <span class="material-icons-sharp"> more_vert </span>
-            </div>
-          </div>
-
-          <div class="notification deactive">
-            <div class="icon">
-              <span class="material-icons-sharp"> edit </span>
-            </div>
-            <div class="content">
-              <div class="info">
-                <h3>Class</h3>
-                <small class="text_muted"> 1:00 PM - 4:00 PM </small>
-              </div>
-              <span class="material-icons-sharp"> more_vert </span>
-            </div>
-          </div>
-
-          <div class="notification add-reminder">
-            <div>
-              <span class="material-icons-sharp"> add </span>
-              <h3>Add Reminder</h3>
-            </div>
-          </div>
+          <ul id="taskList">
+            <!-- Tasks will be dynamically added here using JavaScript -->
+          </ul>
         </div>
       </div>
     </div>
@@ -1009,18 +784,18 @@
       Orders.forEach((order) => {
         const tr = document.createElement("tr");
         const trContent = `
-        <td>${order.productName}</td>
-        <td>${order.productNumber}</td>
-        <td>${order.paymentStatus}</td>
-        <td class="${
-          order.status === "Declined"
-            ? "danger"
-            : order.status === "Pending"
-            ? "warning"
-            : "primary"
-        }">${order.status}</td>
-        <td class="primary">Details</td>
-    `;
+            <td>${order.productName}</td>
+            <td>${order.productNumber}</td>
+            <td>${order.paymentStatus}</td>
+            <td class="${
+              order.status === "Declined"
+                ? "danger"
+                : order.status === "Pending"
+                ? "warning"
+                : "primary"
+            }">${order.status}</td>
+            <td class="primary">Details</td>
+        `;
         tr.innerHTML = trContent;
         document.querySelector("table tbody").appendChild(tr);
       });
@@ -1044,6 +819,56 @@
           status: "Active",
         },
       ];
+      function addTask() {
+        const taskInput = document.getElementById("taskInput");
+        const dateInput = document.getElementById("dateInput");
+        const timeInput = document.getElementById("timeInput");
+        const taskList = document.getElementById("taskList");
+
+        // Check if the task input is not empty
+        if (taskInput.value.trim() === "") {
+          alert("Please enter a task.");
+          return;
+        }
+
+        // Create a list item element
+        const listItem = document.createElement("li");
+        listItem.style.listStyle = "none";
+        listItem.style.padding = "1rem";
+        listItem.style.borderRadius = "0.4rem";
+        listItem.style.marginBottom = "0.5rem";
+        listItem.style.boxShadow = "0 2rem 3rem rgba(132, 139, 200, 0.18)";
+        listItem.style.position = "relative";
+
+        // Create and style the Material Icons "inventory" icon
+        const marker = document.createElement("span");
+        marker.classList.add("material-icons-sharp");
+        marker.textContent = "inventory";
+        marker.style.color = "#1b9c85"; // Change the color as per your preference
+        marker.style.fontSize = "1.2rem"; // Adjust the size as needed
+        marker.style.marginRight = "0.5rem"; // Add some spacing to the right of the marker
+        marker.style.position = "absolute";
+        marker.style.left = "-1.5rem"; // Adjust the position as needed
+        marker.style.top = "50%";
+        marker.style.transform = "translateY(-50%)";
+
+        // Create and style the task content
+        const taskContent = document.createElement("span");
+        taskContent.textContent = `${taskInput.value} - Date: ${dateInput.value}, Time: ${timeInput.value}`;
+        taskContent.style.fontSize = "1rem";
+
+        // Append the marker and task content to the list item
+        listItem.appendChild(marker);
+        listItem.appendChild(taskContent);
+
+        // Add the list item to the task list
+        taskList.appendChild(listItem);
+
+        // Clear the input fields
+        taskInput.value = "";
+        dateInput.value = "";
+        timeInput.value = "";
+      }
     </script>
   </body>
 </html>

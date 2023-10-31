@@ -6,18 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Professors;
 use App\Models\User;
 class ProfessorController extends Controller
-{
+{   
+    //To show add professor form
     public function addprofessors(){
         return view('admindashboard.addprofessors');
     }
+    // To show professor dashboard
+    public function showprofessors(){
+        return view('professordashboard.professordashboard');
+    }
+
     //To validate and insert students into the system
     public function insertprofessors(Request $request){
         $request->validate(
             [
                 'first_name'=>'required',
                 'last_name'=>'required',
-                'per_address'=>'required',
-                'tem_address'=>'required',
+                'permanent_address'=>'required',
+                'temporary_address'=>'required',
                 'email'=>'required|email',
                 'password'=>'required',
                 
@@ -45,8 +51,8 @@ class ProfessorController extends Controller
             $professors=new Professors;
             $professors->Firstname=$request['first_name'];
             $professors->Lastname=$request['last_name'];
-            $professors->permanent_address=$request['per_address'];
-            $professors->temporary_address=$request['tem_address'];
+            $professors->permanent_address=$request['permanent_address'];
+            $professors->temporary_address=$request['temporary_address'];
             $lastInsertedUserId = $user->getKey();
             $professors->user_id=$lastInsertedUserId;
             $professors->save();

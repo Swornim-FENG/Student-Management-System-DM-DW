@@ -91,17 +91,17 @@
                </span>
 
         <label for="per_address">Permanent Address:</label>
-        <input type="text" id="per_address" name="per_address" value="{{old('per_address')}}" />
+        <input type="text" id="per_address" name="permanent_address" value="{{old('permanent_address')}}" />
         <span class="text-danger"style="color:red">
-            @error('per_address')
+            @error('permanent_address')
                {{$message}}
                @enderror
                </span>
 
         <label for="tem_address">Temporary Address:</label>
-        <input type="text" id="tem_address" name="tem_address" value="{{old('tem_address')}}" />
+        <input type="text" id="tem_address" name="temporary_address" value="{{old('temporary_address')}}" />
         <span class="text-danger"style="color:red">
-            @error('tem_address')
+            @error('temporary_address')
                {{$message}}
                @enderror
                </span>
@@ -116,9 +116,9 @@
                
 
         <label for="SId">Registration No.:</label>
-        <input type="text" id="SId" name="SID"  value="{{old('SID')}}"/>
+        <input type="text" id="SId" name="registration_no"  value="{{old('registration_no')}}"/>
         <span class="text-danger"style="color:red">
-            @error('SID')
+            @error('registration_no')
                {{$message}}
                @enderror
                </span>

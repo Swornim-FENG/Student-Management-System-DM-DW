@@ -24,9 +24,7 @@ Route::get('/', function () {
 
 Route::get('/superadmin',[SuperadminController::class,'showsuperadmin']);
 
-Route::get('/professor', function () {
-    return view('professor');
-});
+Route::get('professor',[ProfessorController::class,'showprofessors']);
 
 Route::get('/admin',[AdminController::class,'showadmin']);
 
@@ -43,10 +41,6 @@ Route::post('/admin/addstudents',[StudentController::class,'insertstudents']);
 Route::get('/admin/addprofessors',[ProfessorController::class,'addprofessors'])->name('professor');
 
 Route::post('/admin/addprofessors',[ProfessorController::class,'insertprofessors']);
-
-Route::get('/login', function () {
-    return view('login');
-});
 
 Route::get('/login',[LoginController::class,'loginpage'])->name('login');
 
