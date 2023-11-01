@@ -6,6 +6,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuperadminController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\SchoolController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,14 @@ Route::get('/', function () {
 
 
 Route::get('/superadmin',[SuperadminController::class,'showsuperadmin']);
+
+Route::get('/add/department',[DepartmentController::class,'showadddepartment'])->name('adddepartment');
+
+Route::post('/add/department',[DepartmentController::class,'insertdepartment']);
+
+Route::get('/add/school',[SchoolController::class,'showaddschool'])->name('addschool');
+
+Route::post('/add/school',[SchoolController::class,'insertschool']);
 
 Route::get('professor',[ProfessorController::class,'showprofessors']);
 

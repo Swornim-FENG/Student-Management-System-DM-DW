@@ -10,4 +10,6 @@ class SuperadminController extends Controller
     public function showsuperadmin(){
         return view('superadmindashboard.superadmindashboard');
     }
+    
+    
 }

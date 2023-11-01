@@ -662,10 +662,14 @@ body{
         <ul class="side-menu">
             <li class="active"><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li ><a href="/admin/add"><i class='bx bx-group'></i>Admin</a></li>
-            <li ><a href="#"><i class='bx bx-group'></i>Department</a></li>
+            <li ><a href="/add/school"><i class='bx bx-building'></i>School</a></li>
+            <li ><a href="/add/department"><i class='bx bx-home-alt'></i>Department</a></li>
+            <li ><a href="/admin/addstudents"><i class='bx bx-group'></i>Students</a></li>
+            <li ><a href="/admin/addprofessors"><i class='bx bx-group'></i>Professors</a></li>
+            <li ><a href="#"><i class='bx bx-book'></i>Courses</a></li>
             <li><a href="#"><i class='bx bx-news'></i>Notice</a></li>
             
-            <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li>
+            <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
         </ul>
         <ul class="side-menu">
             <li>
