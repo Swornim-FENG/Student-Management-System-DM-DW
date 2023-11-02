@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\CourseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/superadmin/course',[CourseController::class,'showcourse']);
+
+Route::get('/superadmin/addcourse',[CourseController::class,'addcourse'])->name('addcourse');
+
+Route::post('/superadmin/addcourse',[CourseController::class,'insertcourse']);
 
 Route::get('/superadmin',[SuperadminController::class,'showsuperadmin']);
 
