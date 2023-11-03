@@ -31,37 +31,57 @@ class CourseController extends Controller
                 'department'=>'required',
             ]
             );
-            
-            $course=new Courses;
-            $cusers=new Course_users;
-            $requestedprofessor = $request['professor_email'];
-            
-            // Check if the email exists in the database
-            $existingemail = User::where('email', $requestedprofessor)->first();
-            
-            if($existingemail) {
-            //Assign            
-            $course->name=$request['name'];
-            $course->course_code=$request['code'];
-            $course->cr_hour=$request['credit_hour'];
-            $course->save();
-            $departmentid = Departments::where('name',$request['department'])->first();
-            $cusers->dep_id=$departmentid->dep_id;
-            $lastInsertedcourseId = $course->getKey();
-            $cusers->course_id=$lastInsertedcourseId;
-            $cusers->prof_id=$existingemail->user_id;
-            $cusers->save();
-            $studentEmails = $request['student_emails'];
-            $studentIds= User::whereIn('email', $studentEmails)->pluck('user_id');
-            foreach ($studentIds as $studentId) {
-                $cusers=new Course_users;
-                $cusers->stud_id=$studentId;
-                $cusers->save();
-                }
-            return redirect('/superadmin/course');}
-            else {
-                // Email doesnot exists, show a message or take appropriate action
-                return redirect()->route('addcourse')->withError('The email of the professor doesnot exists');}
+            $course = new Courses;
+$requestedprofessor = $request['professor_email'];
 
+// Check if the professor's email exists in the database
+$existingemail = User::where('email', $requestedprofessor)->first();
+
+if ($existingemail) {
+    // Assign course details
+    $course->name = $request['name'];
+    $course->course_code = $request['code'];
+    $course->cr_hour = $request['credit_hour'];
+    $studentEmails = $request['student_emails'];
+
+    $studentIds = [];
+    $nonExistentStudentEmails = [];
+
+    // Check if each student email exists
+    foreach ($studentEmails as $studentEmail) {
+        $student = User::where('email', $studentEmail)->first();
+
+        if ($student) {
+            $studentIds[] = $student->user_id;
+        } else {
+            $nonExistentStudentEmails[] = $studentEmail;
+        }
+    }
+
+    if (empty($nonExistentStudentEmails)) {
+        $course->save();
+        $departmentid = Departments::where('name', $request['department'])->first();
+        $lastInsertedcourseId = $course->getKey();
+
+        foreach ($studentIds as $studentId) {
+            $cusers = new Course_users;
+            $cusers->prof_id = $existingemail->user_id;
+            $cusers->dep_id = $departmentid->dep_id;
+            $cusers->course_id = $lastInsertedcourseId;
+            $cusers->stud_id = $studentId;
+            $cusers->save();
+        }
+
+        return redirect('/superadmin/course');
+    } else {
+        // Handle the case where some student emails do not exist
+        $errorMessage = 'The following student emails do not exist: ' . implode(', ', $nonExistentStudentEmails);
+        return redirect()->route('addcourse')->withError($errorMessage);
+    }
+} else {
+    // Handle the case where the professor's email does not exist
+    return redirect()->route('addcourse')->withError('The email of the professor does not exist');
+}
+            
         }
 }
