@@ -29,6 +29,7 @@ class CourseController extends Controller
                 'credit_hour'=>'required',
                 'professor_email'=>'required|email',
                 'department'=>'required',
+                
             ]
             );
             $course = new Courses;

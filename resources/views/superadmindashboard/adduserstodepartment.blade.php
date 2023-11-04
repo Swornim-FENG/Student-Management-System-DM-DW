@@ -832,60 +832,37 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Courses</h1>
-            <h2>>add course</h2>
+            <h1>Department</h1>
+            <h2>>add users</h2>
           </div>
         </div>
 
         <div>
-          <form class="add-form" action="{{url('/')}}/superadmin/addcourse" method="post">
+          <form class="add-form" action="/add/department/users" method="post">
           @csrf
-            <label for="name">Course Name:</label>
-            <input type="text" id="name" name="name" value="{{old('name')}}"/>
-            <span class="text-danger"style="color:red">
-            @error('name')
-               {{$message}}
-               @enderror
-               </span>
-            <label for="code">Course Code:</label>
-            <input type="text" id="code" name="code" value="{{old('code')}}"/>
-            <span class="text-danger"style="color:red">
-            @error('code')
-               {{$message}}
-               @enderror
-               </span>
-
-            <label for="chr">Credit Hour :</label>
-            <input type="int" id="chr" name="credit_hour" value="{{old('credit_hour')}}" />
-            <span class="text-danger"style="color:red">
-            @error('credit_hour')
-               {{$message}}
-               @enderror
-               </span>
-
-            <label for="email">Professor Email:</label>
-            <input type="email" id="email" name="professor_email" value="{{old('professor_email')}}"  />
-            <span class="text-danger"style="color:red">
-            @error('professor_email')
-               {{$message}}
-               @enderror
-               </span>
-             
-               <label for="department">Choose Department:</label>
+          <label for="department">Choose Department:</label>
                <select name="department" id="department">
                 @foreach($departments as $department)
                  <option >{{ $department->name }}</option>
                  @endforeach
                  </select>
 
+                 <label for="a_email">Admin Email:</label>
+            <input type="email" id="a_email" name="admin_email" value="{{old('admin_email')}}"  />
+            <span class="text-danger"style="color:red">
+            @error('admin_email')
+               {{$message}}
+               @enderror
+               </span>  
+  
+             
            
-            <label for="email-list">Student Email:</label>
+            <label for="email-list">Student & professor Email:</label>
             <div class="email-list" id="email-list">
               <div class="email-item">
-                <input type="email" name="student_emails[]" required />
+                <input type="email" name="users_emails[]"required  />
               </div>
             </div>
-      
             @if(session('error'))
                <span class="alert alert-danger"style="color:red">
                {{ session('error') }}
@@ -896,7 +873,7 @@
               <button class="button1S" type="button" id="add-email">
                 Add Email
               </button>
-              <button type="submit">Add course</button>
+              <button type="submit">Enroll</button>
             </div>
           </form>
         </div>
@@ -973,7 +950,7 @@
           var emailItem = document.createElement("div");
           emailItem.className = "email-item";
           emailItem.innerHTML = `
-                <input type="email" name="student_emails[]" required>
+                <input type="email" name="users_emails[]" required>
                 <span class="remove-button" onclick="removeEmail(this)">&#10006;</span>
             `;
           emailList.appendChild(emailItem);
@@ -984,6 +961,7 @@
         var emailList = document.getElementById("email-list");
         emailList.removeChild(emailItem);
       }
+      
     </script>
   </body>
 </html>

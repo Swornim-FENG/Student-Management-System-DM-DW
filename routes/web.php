@@ -36,6 +36,10 @@ Route::get('/add/department',[DepartmentController::class,'showadddepartment'])-
 
 Route::post('/add/department',[DepartmentController::class,'insertdepartment']);
 
+Route::get('/add/department/users',[DepartmentController::class,'show_addusers_to_department'])->name('add_users_to_department');
+
+Route::post('/add/department/users',[DepartmentController::class,'insert_users_to_department']);
+
 Route::get('/add/school',[SchoolController::class,'showaddschool'])->name('addschool');
 
 Route::post('/add/school',[SchoolController::class,'insertschool']);
