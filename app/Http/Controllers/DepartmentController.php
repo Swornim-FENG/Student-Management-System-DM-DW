@@ -57,7 +57,7 @@ class DepartmentController extends Controller
 
         //To validate and insert users into the department
     public function insert_users_to_department (Request $request){
-        // try {
+        try {
             $request->validate([
                 'admin_email' => 'required|email',
                 'department' => 'required',
@@ -112,15 +112,15 @@ class DepartmentController extends Controller
                 // Handle the case where the professor's email does not exist
                 return redirect()->route('add_users_to_department')->withError('The email of the admin does not exist');
             }
-        // } catch (QueryException $e) {
-        //     // Handle database-related exceptions, e.g., database connection issues or constraint violations
-        //     $errorMessage = 'An error occurred while inserting data. Please try again later.';
-        //     return redirect()->route('add_users_to_department')->withError($errorMessage);
-        // } catch (\Exception $e) {
-        //     // Handle other exceptions that may occur
-        //     $errorMessage = 'An unexpected error occurred. Please try again later.';
-        //     return redirect()->route('add_users_to_department')->withError($errorMessage);
-        // }
+        } catch (QueryException $e) {
+            // Handle database-related exceptions, e.g., database connection issues or constraint violations
+            $errorMessage = 'An error occurred while inserting data. Please try again later.';
+            return redirect()->route('add_users_to_department')->withError($errorMessage);
+        } catch (\Exception $e) {
+            // Handle other exceptions that may occur
+            $errorMessage = 'An unexpected error occurred. Please try again later.';
+            return redirect()->route('add_users_to_department')->withError($errorMessage);
+        }
     
             
         }

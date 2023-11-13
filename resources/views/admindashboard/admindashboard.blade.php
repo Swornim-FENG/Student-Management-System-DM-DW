@@ -663,7 +663,7 @@ body{
             <li class="active"><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li ><a href="/admin/addstudents"><i class='bx bx-group'></i>Students</a></li>
             <li ><a href="/admin/addprofessors"><i class='bx bx-group'></i>Professors</a></li>
-            <li ><a href="#"><i class='bx bx-book'></i>Courses</a></li>
+            <li ><a href="/superadmin/course"><i class='bx bx-book'></i>Courses</a></li>
             <li><a href="#"><i class='bx bx-news'></i>Notice</a></li>
             
             <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li>

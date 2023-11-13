@@ -9,6 +9,7 @@ use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProgramController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +36,10 @@ Route::get('/superadmin',[SuperadminController::class,'showsuperadmin']);
 Route::get('/add/department',[DepartmentController::class,'showadddepartment'])->name('adddepartment');
 
 Route::post('/add/department',[DepartmentController::class,'insertdepartment']);
+
+Route::get('/add/program',[ProgramController::class,'showaddprogram'])->name('addprogram');
+
+Route::post('/add/program',[ProgramController::class,'insertprogram']);
 
 Route::get('/add/department/users',[DepartmentController::class,'show_addusers_to_department'])->name('add_users_to_department');
 

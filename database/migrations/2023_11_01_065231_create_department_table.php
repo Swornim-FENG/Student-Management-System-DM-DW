@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('department', function (Blueprint $table) {
             $table->id('dep_id');
-            $table->string('name',30);
+            $table->string('name',255);
             $table->unsignedBigInteger('school_id');
             $table->foreign('school_id')->references('school_id')->on('school');
         });

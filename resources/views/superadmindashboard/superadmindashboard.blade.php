@@ -664,6 +664,7 @@ body{
             <li ><a href="/admin/add"><i class='bx bx-group'></i>Admin</a></li>
             <li ><a href="/add/school"><i class='bx bx-building'></i>School</a></li>
             <li ><a href="/add/department"><i class='bx bx-home-alt'></i>Department</a></li>
+            <li ><a href="/add/program"><i class='bx bx-home-alt'></i>Program</a></li>
             <li ><a href="/admin/addstudents"><i class='bx bx-group'></i>Students</a></li>
             <li ><a href="/admin/addprofessors"><i class='bx bx-group'></i>Professors</a></li>
             <li ><a href="/superadmin/course"><i class='bx bx-book'></i>Courses</a></li>
