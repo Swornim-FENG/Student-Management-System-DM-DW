@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('course_id');
             $table->string('name',50);
             $table->string('course_code',50);
+            $table->string('course_desc',255);
             $table->char('cr_hour',10);
         });
     }

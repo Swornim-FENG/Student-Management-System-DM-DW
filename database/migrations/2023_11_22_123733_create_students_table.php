@@ -19,6 +19,11 @@ return new class extends Migration
             $table->char('registration_no',10);
             $table->string('permanent_address',255);
             $table->string('temporary_address',255);
+            $table->string('Mother_name',50);
+            $table->string('Father_name',50);
+            $table->date('dob');
+            $table->unsignedBigInteger('program_id')->nullable();
+             $table->foreign('program_id')->references('program_id')->on('program')->nullable();
         });
     }
 

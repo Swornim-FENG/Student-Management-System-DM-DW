@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('Fullname',255);
             $table->string('email', 255)->unique();
             $table->string('password',255);
+            $table->char('phone_number',10);
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('role_id')->on('roles');
             $table->timestamps();
