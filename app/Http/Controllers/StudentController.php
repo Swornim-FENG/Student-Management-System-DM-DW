@@ -10,11 +10,11 @@ use App\Models\User;
 class StudentController extends Controller
 {    
 
-    //To show add students dashboard 
+    //To show students dashboard 
     public function showstudent(){
         return view('studentdashboard.studentdashboard');
     }
-    //To show add students form 
+    //To show add students form of admin dashboard
     public function addstudents(){
         return view('admindashboard.addstudents');
     }
@@ -30,6 +30,11 @@ class StudentController extends Controller
                 'email'=>'required|email',
                 'registration_no'=>'required',
                 'password'=>'required',
+                'date_of_birth'=>'required',
+                'phone_number'=>'required',
+                'mother_name'=>'required',
+                'father_name'=>'required',
+
                 
             ]
             );
@@ -51,6 +56,7 @@ class StudentController extends Controller
 
             $user->password=\Hash::make($request['password']);
             $user->role_id=4;
+            $user->phone_number=$request['phone_number'];
            
             $student=new Students;
             $student->Firstname=$request['first_name'];
@@ -70,10 +76,85 @@ class StudentController extends Controller
             $user->save();
             $student->permanent_address=$request['permanent_address'];
             $student->temporary_address=$request['temporary_address'];
+            $student->Mother_name=$request['mother_name'];
+            $student->Father_name=$request['father_name'];
+            $student->dob=$request['date_of_birth'];
             $lastInsertedUserId = $user->getKey();
             $student->user_id=$lastInsertedUserId;
             $student->save();
             return redirect('/admin');
        
         }}}
+
+        //To show add students form of superadmin dashboard 
+    public function add_students(){
+        return view('superadmindashboard.addstudents');
+    }
+    
+    //To validate and insert students into the system
+    public function insert_students(Request $request){
+        $request->validate(
+            [
+                'first_name'=>'required',
+                'last_name'=>'required',
+                'permanent_address'=>'required',
+                'temporary_address'=>'required',
+                'email'=>'required|email',
+                'registration_no'=>'required',
+                'password'=>'required',
+                'date_of_birth'=>'required',
+                'phone_number'=>'required',
+                'mother_name'=>'required',
+                'father_name'=>'required',
+
+                
+            ]
+            );
+            $user=new User;
+            $user->Fullname = $request['first_name'] . ' ' . $request['last_name'];
+            
+            $requestedEmail = $request['email'];
+            
+            // Check if the email already exists in the database
+            $existingEmail = User::where('email', $requestedEmail)->first();
+            
+            if ($existingEmail) {
+                // Email already taken, show a message or take appropriate action
+                return redirect()->route('add_student')->withError('This email has already been taken');
+                
+            } else {
+                // Assign the email to the user
+                $user->email = $requestedEmail;
+
+            $user->password=\Hash::make($request['password']);
+            $user->role_id=4;
+            $user->phone_number=$request['phone_number'];
+           
+            $student=new Students;
+            $student->Firstname=$request['first_name'];
+            $student->Lastname=$request['last_name'];
+
+            $requestedreg = $request['registration_no'];
+             // Check if the Regisration number already exists in the database
+             $existingreg = Students::where('registration_no', $requestedreg)->first();
+            
+             if ($existingreg) {
+                 // Registration number already taken, show a message or take appropriate action
+                 return redirect()->route('add_student')->withError('This registration number has already been taken');
+                 
+             } else {
+                 // Assign the Registration number to the user  
+            $student->registration_no= $requestedreg;
+            $user->save();
+            $student->permanent_address=$request['permanent_address'];
+            $student->temporary_address=$request['temporary_address'];
+            $student->Mother_name=$request['mother_name'];
+            $student->Father_name=$request['father_name'];
+            $student->dob=$request['date_of_birth'];
+            $lastInsertedUserId = $user->getKey();
+            $student->user_id=$lastInsertedUserId;
+            $student->save();
+            return redirect('/superadmin');
+       
+        }} }
 }

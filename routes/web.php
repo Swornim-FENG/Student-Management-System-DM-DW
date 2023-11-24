@@ -67,6 +67,14 @@ Route::get('/admin/addprofessors',[ProfessorController::class,'addprofessors'])-
 
 Route::post('/admin/addprofessors',[ProfessorController::class,'insertprofessors']);
 
+Route::get('/superadmin/addprofessors',[ProfessorController::class,'add_professors'])->name('add_professor');
+
+Route::post('/superadmin/addprofessors',[ProfessorController::class,'insert_professors']);
+
+Route::get('/superadmin/addstudents',[StudentController::class,'add_students'])->name('add_student');
+
+Route::post('/superadmin/addstudents',[StudentController::class,'insert_students']);
+
 Route::get('/login',[LoginController::class,'loginpage'])->name('login');
 
 Route::post('/login',[LoginController::class,'login']);

@@ -642,17 +642,18 @@
     }
 
     button {
-      background-color: #ec190a;
+      background-color: rgb(51, 81, 230);
       color: white;
       padding: 10px 15px;
       margin-top: 10px;
+      margin-left: 120px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
 
     button:hover {
-      background-color: #c51206;
+      background-color: #1525a1;
     }
     .button1S {
       background-color: rgb(71, 173, 232);
@@ -687,6 +688,9 @@
         padding: 8px;
         margin-bottom: 15px;
         box-sizing: border-box;
+      }
+      button {
+        margin-left: 90px;
       }
     }
 
@@ -776,30 +780,61 @@
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
-    <div class="logo">
-          <img src="images/ku logo.png" alt="">
-          <h4>Super Admin</h4>
-        </div>
-        <ul class="side-menu">
-            <li ><a href="/superadmin"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
-            <li ><a href="/admin/add"><i class='bx bx-group'></i>Admin</a></li>
-            <li ><a href="/add/school"><i class='bx bx-building'></i>School</a></li>
-            <li ><a href="/add/department"><i class='bx bx-home-alt'></i>Department</a></li>
-            <li ><a href="/admin/addstudents"><i class='bx bx-group'></i>Students</a></li>
-            <li ><a href="/admin/addprofessors"><i class='bx bx-group'></i>Professors</a></li>
-            <li class="active"><a href="/superadmin/course"><i class='bx bx-book'></i>Courses</a></li>
-            <li><a href="#"><i class='bx bx-news'></i>Notice</a></li>
-            
-            <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
-        </ul>
-        <ul class="side-menu">
-            <li>
-                <a href="{{url('/')}}/logout" class="logout">
-                    <i class='bx bx-log-out-circle'></i>
-                    Logout
-                </a>
-            </li>
-        </ul>
+      <div class="logo">
+        <img src="{{ asset('images/ku logo.png') }}" alt="" />
+        <h4>Super Admin</h4>
+      </div>
+      <ul class="side-menu">
+        <li class="active">
+          <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li>
+          <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
+        </li>
+        <li>
+          <a href="/add/school"
+            ><i class="bx bx-building"></i>School</a
+          >
+        </li>
+        <li>
+          <a href="/add/department"
+            ><i class="bx bx-home-alt"></i>Department</a
+          >
+        </li>
+        <li>
+          <a href="/add/program"
+            ><i class="bx bx-book-open"></i>Program</a
+          >
+        </li>
+        <li>
+          <a href="/superadmin/addstudents"
+            ><i class="bx bx-group"></i>Students</a
+          >
+        </li>
+        <li>
+          <a href="/superadmin/addprofessors"
+            ><i class="bx bx-group"></i>Professors</a
+          >
+        </li>
+        <li>
+          <a href="/superadmin/course"
+            ><i class="bx bx-book"></i>Courses</a
+          >
+        </li>
+        <li>
+          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
+        </li>
+
+        <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="{{url('/')}}/logout" class="logout">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+        </li>
+      </ul>
     </div>
     <!-- End of Sidebar -->
 
@@ -823,7 +858,7 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="kathmandu_university_logo_nepal .png" alt="" />
+          <img src="{{ asset('images/ku logo.png') }}" alt="" />
         </a>
       </nav>
 
@@ -832,14 +867,14 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Courses</h1>
+            <a href="suSdmin-coursepage.html"><h1>Courses</h1></a>
             <h2>>add course</h2>
           </div>
         </div>
 
         <div>
           <form class="add-form" action="{{url('/')}}/superadmin/addcourse" method="post">
-          @csrf
+             @csrf
             <label for="name">Course Name:</label>
             <input type="text" id="name" name="name" value="{{old('name')}}"/>
             <span class="text-danger"style="color:red">
@@ -847,6 +882,7 @@
                {{$message}}
                @enderror
                </span>
+
             <label for="code">Course Code:</label>
             <input type="text" id="code" name="code" value="{{old('code')}}"/>
             <span class="text-danger"style="color:red">
@@ -863,29 +899,14 @@
                @enderror
                </span>
 
-            <label for="email">Professor Email:</label>
-            <input type="email" id="email" name="professor_email" value="{{old('professor_email')}}"  />
+            <label for="desc">Course Description:</label>
+            <input type="text" id="desc" name="course_description" value="{{old('course_description')}}"/>
             <span class="text-danger"style="color:red">
-            @error('professor_email')
+            @error('course_description')
                {{$message}}
                @enderror
                </span>
-             
-               <label for="department">Choose Department:</label>
-               <select name="department" id="department">
-                @foreach($departments as $department)
-                 <option >{{ $department->name }}</option>
-                 @endforeach
-                 </select>
-
-           
-            <label for="email-list">Student Email:</label>
-            <div class="email-list" id="email-list">
-              <div class="email-item">
-                <input type="email" name="student_emails[]" required />
-              </div>
-            </div>
-      
+               
             @if(session('error'))
                <span class="alert alert-danger"style="color:red">
                {{ session('error') }}
@@ -893,10 +914,7 @@
                 @endif
 
             <div class="buttons">
-              <button class="button1S" type="button" id="add-email">
-                Add Email
-              </button>
-              <button type="submit">Add course</button>
+              <button>Add course</button>
             </div>
           </form>
         </div>
@@ -973,7 +991,7 @@
           var emailItem = document.createElement("div");
           emailItem.className = "email-item";
           emailItem.innerHTML = `
-                <input type="email" name="student_emails[]" required>
+                <input type="email" name="emails[]" required>
                 <span class="remove-button" onclick="removeEmail(this)">&#10006;</span>
             `;
           emailList.appendChild(emailItem);
@@ -987,3 +1005,5 @@
     </script>
   </body>
 </html>
+
+

@@ -48,13 +48,13 @@ class AdminController extends Controller
 
             $user->password=\Hash::make($request['password']);
             $user->role_id=2;
+            $user->phone_number=$request['phone_number'];
             $user->save();
             $admins=new Admins;
             $admins->Firstname=$request['first_name'];
             $admins->Lastname=$request['last_name'];
             $admins->permanent_address=$request['per_address'];
             $admins->temporary_address=$request['tem_address'];
-            $admins->phone_number=$request['phone_number'];
             $lastInsertedUserId = $user->getKey();
             $admins->user_id=$lastInsertedUserId;
             $admins->save();

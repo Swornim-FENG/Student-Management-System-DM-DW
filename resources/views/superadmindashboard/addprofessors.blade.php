@@ -209,6 +209,23 @@
       width: calc(100% - 60px);
       left: 60px;
     }
+    .add {
+      margin-left: 900px;
+    }
+    .custom-button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 900px;
+    }
+
+    .custom-button:hover {
+      background-color: #2980b9;
+    }
 
     .content nav {
       height: 56px;
@@ -350,12 +367,22 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
+    .content main .header .left {
+      display: flex;
+    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
+    }
+    .content main .header .left h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -599,6 +626,9 @@
         width: calc(100% - 60px);
         left: 200px;
       }
+      .add {
+        margin-left: 200px;
+      }
     }
 
     @media screen and (max-width: 576px) {
@@ -647,6 +677,174 @@
       .content main .bottom-data .reminders .task-list {
         min-width: 340px;
       }
+      .custom-button {
+        margin-left: 10px;
+      }
+      .content main .header .left h1 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--dark);
+      }
+      .content main .header .left h2 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--dark);
+      }
+    }
+    @media screen and (max-width: 768px) {
+      main {
+        flex-direction: column;
+      }
+
+      .left {
+        max-width: 100%;
+      }
+
+      .header {
+        text-align: center;
+      }
+
+      .add-form {
+        text-align: center;
+      }
+      .first {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .second {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .top {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .third {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .fourth {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .mid {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: -30px;
+      }
+      .fifth {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .bot {
+        display: flex;
+        flex-direction: column;
+        margin-top: -30px;
+        justify-content: space-between;
+      }
+    }
+
+    .add-form {
+      max-width: 800px;
+      margin-top: 80px;
+      margin-left: -180px;
+      padding: 20px;
+      border: 2px solid rgb(235, 225, 225);
+      border-radius: 5px;
+      color: var(--dark);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      background: var(--grey);
+      color: var(--dark);
+      margin-left: 5px;
+    }
+
+    input {
+      width: 300px;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      background: var(--grey);
+      color: var(--dark);
+    }
+
+    .s-button {
+      background-color: rgb(51, 81, 230);
+      color: #fff;
+    }
+    .s-button:hover {
+      background-color: #1525a1;
+    }
+    .first {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .second {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+    }
+    .third {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .fourth {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .mid {
+      display: flex;
+      justify-content: space-between;
+      margin-top: -30px;
+    }
+    .fifth {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-top: -30px;
+    }
+    .bot {
+      display: flex;
+      margin-top: -30px;
+      justify-content: space-between;
     }
   </style>
 
@@ -654,14 +852,14 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="logo">
-        <img src="images/ku logo.png" alt="" />
+        <img src="{{ asset('images/ku logo.png') }}" alt="" />
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li>
+        <li class="active">
           <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
         </li>
         <li>
@@ -680,12 +878,12 @@
           >
         </li>
         <li>
-          <a href="/superadmin/addstudents"
+          <a href="/admin/addstudents"
             ><i class="bx bx-group"></i>Students</a
           >
         </li>
         <li>
-          <a href="/superadmin/addprofessors"
+          <a href="/admin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
@@ -731,7 +929,7 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="images/ku logo.png" alt="" />
+          <img src="{{ asset('images/ku logo.png') }}" alt="" />
         </a>
       </nav>
 
@@ -740,122 +938,97 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Dashboard</h1>
-          </div>
+            <a href="suAdmin-professorpage.html"><h1>Professor</h1></a>
+            <h2>>add professor</h2>
+            <div class="lol">
+              <form class="add-form" action="{{url('/')}}/superadmin/addprofessors" method="post">
+                @csrf
+                <div class="top">
+                  <div class="first">
+
+                    <label for="fname">First Name:</label>
+        <input type="text" id="fname" name="first_name" value="{{old('first_name')}}" />
+        <span class="text-danger"style="color:red">
+            @error('first_name')
+               {{$message}}
+               @enderror
+               </span>
+
+                    <label for="phone_number">Phone Number:</label>
+          <input type="tel" id="phone_number" name="phone_number" value="{{old('phone_number')}}" />
+          <span class="text-danger"style="color:red">
+            @error('phone_number')
+               {{$message}}
+               @enderror
+               </span>
+
+                  </div>
+                  <div class="second">
+                    <label for="lname">Last Name:</label>
+        <input type="text" id="lname" name="last_name" value="{{old('last_name')}}"  />
+        <span class="text-danger"style="color:red">
+            @error('last_name')
+               {{$message}}
+               @enderror
+               </span>
+
+                     <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{old('email')}}"  />
+        <span class="text-danger"style="color:red">
+            @error('email')
+               {{$message}}
+               @enderror
+               </span>
+
+                  </div>
+                </div>
+                <div class="mid">
+                  <div class="third">
+                    <label for="tem_address">Temporary Address:</label>
+        <input type="text" id="tem_address" name="temporary_address" value="{{old('temporary_address')}}" />
+        <span class="text-danger"style="color:red">
+            @error('temporary_address')
+               {{$message}}
+               @enderror
+               </span>
+
+                  </div>
+                  <div class="fourth">
+                    <label for="per_address">Permanent Address:</label>
+        <input type="text" id="per_address" name="permanent_address" value="{{old('permanent_address')}}" />
+        <span class="text-danger"style="color:red">
+            @error('permanent_address')
+               {{$message}}
+               @enderror
+               </span>
+
+                  </div>
+                </div>
+
+                <div class="fifth">
+                  <label for="password">Password:</label>
+        <div class="password-container">
+          <input type="password" id="password" name="password"  />
+          <i class="fas fa-eye" id="togglePassword"></i>
+          <br>
+          <span class="text-danger"style="color:red">
+            @error('password')
+               {{$message}}
+               @enderror
+               </span>
         </div>
-
-        <!-- Insights -->
-        <ul class="insights">
-          <li>
-            <i class="bx bx-group"></i>
-            <span class="info">
-              <h3>174</h3>
-              <p>Students</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bx-group"></i>
-            <span class="info">
-              <h3>9</h3>
-              <p>Professors</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bx-book"></i>
-            <span class="info">
-              <h3>14</h3>
-              <p>Courses</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bx-spreadsheet"></i>
-            <span class="info">
-              <h3>4</h3>
-              <p>Documents</p>
-            </span>
-          </li>
-        </ul>
-        <!-- End of Insights -->
-
-        <div class="bottom-data">
-          <div class="orders">
-            <div class="header">
-              <i class="bx bx-receipt"></i>
-              <h3>Recent Enrolls</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+                  </div>
+                  
+                @if(session('error'))
+               <span class="alert alert-danger"style="color:red">
+               {{ session('error') }}
+                </span>
+                @endif
+                <br>
+                <input class="s-button" type="submit" value="Add Professor" />
+              </form>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Semester</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Swornim</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td><span>5</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Rikshal</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td><span>2</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Arpan</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td><span>3</span></td>
-                </tr>
-              </tbody>
-            </table>
           </div>
-
-          <!-- Reminders -->
-          <div class="reminders">
-            <div class="header">
-              <i class="bx bx-note"></i>
-              <h3>Remiders</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-plus"></i>
-            </div>
-            <ul class="task-list">
-              <li class="completed">
-                <div class="task-title">
-                  <i class="bx bx-check-circle"></i>
-                  <p>Meeting</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-              <li class="completed">
-                <div class="task-title">
-                  <i class="bx bx-check-circle"></i>
-                  <p>Analysis</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-              <li class="not-completed">
-                <div class="task-title">
-                  <i class="bx bx-x-circle"></i>
-                  <p>Checking</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-            </ul>
-          </div>
-
-          <!-- End of Reminders-->
         </div>
       </main>
     </div>

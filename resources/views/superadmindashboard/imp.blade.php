@@ -209,6 +209,23 @@
       width: calc(100% - 60px);
       left: 60px;
     }
+    .add {
+      margin-left: 900px;
+    }
+    .custom-button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 900px;
+    }
+
+    .custom-button:hover {
+      background-color: #2980b9;
+    }
 
     .content nav {
       height: 56px;
@@ -351,11 +368,22 @@
       flex-wrap: wrap;
     }
 
+    .content main .header .left {
+      display: flex;
+    }
+
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
+    }
+    .content main .header .left h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -589,6 +617,55 @@
     .content main .bottom-data .reminders .task-list li:last-child {
       margin-bottom: 0;
     }
+    .add-form {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid rgb(123, 120, 132);
+      border-radius: 5px;
+      margin-left: 450px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    input {
+      width: 350px;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      background: var(--grey);
+      color: var(--dark);
+    }
+
+    button {
+      background-color: #ec190a;
+      color: white;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #c51206;
+    }
+    .button1S {
+      background-color: rgb(71, 173, 232);
+      color: white;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button1S:hover {
+      background-color: #4594a0;
+    }
 
     @media screen and (max-width: 768px) {
       .sidebar {
@@ -598,6 +675,18 @@
       .content {
         width: calc(100% - 60px);
         left: 200px;
+      }
+      .add {
+        margin-left: 200px;
+      }
+      .add-form {
+        margin-left: -10px;
+      }
+      input {
+        width: 270px;
+        padding: 8px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
       }
     }
 
@@ -647,73 +736,76 @@
       .content main .bottom-data .reminders .task-list {
         min-width: 340px;
       }
+      .custom-button {
+        margin-left: 10px;
+      }
+    }
+    .email-list {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .email-item {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+
+      border-radius: 5px;
+      margin: 5px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .email-item input {
+      border: 1px solid #746a6a;
+      outline: none;
+      width: 100%;
+      background: var(--grey);
+      color: var(--dark);
+    }
+    .remove-button {
+      margin-left: -20px;
+      margin-bottom: 16px;
+      background: var(--grey);
+      color: var(--dark);
     }
   </style>
 
   <body>
-    <!-- Sidebar -->
+    
     <div class="sidebar">
-      <div class="logo">
-        <img src="images/ku logo.png" alt="" />
-        <h4>Super Admin</h4>
-      </div>
-      <ul class="side-menu">
-        <li class="active">
-          <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
-        </li>
-        <li>
-          <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
-        </li>
-        <li>
-          <a href="/add/school"
-            ><i class="bx bx-building"></i>School</a
-          >
-        </li>
-        <li>
-          <a href="/add/department"
-            ><i class="bx bx-home-alt"></i>Department</a
-          >
-        </li>
-        <li>
-          <a href="/add/program"
-            ><i class="bx bx-book-open"></i>Program</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/addstudents"
-            ><i class="bx bx-group"></i>Students</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/addprofessors"
-            ><i class="bx bx-group"></i>Professors</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/course"
-            ><i class="bx bx-book"></i>Courses</a
-          >
-        </li>
-        <li>
-          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
-        </li>
-
-        <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
-      </ul>
-      <ul class="side-menu">
-        <li>
-          <a href="{{url('/')}}/logout" class="logout">
-            <i class="bx bx-log-out-circle"></i>
-            Logout
-          </a>
-        </li>
-      </ul>
+    <div class="logo">
+          <img src="{{ asset('images/ku logo.png') }}" alt="">
+          <h4>Super Admin</h4>
+        </div>
+        <ul class="side-menu">
+            <li ><a href="/superadmin"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li ><a href="/admin/add"><i class='bx bx-group'></i>Admin</a></li>
+            <li ><a href="/add/school"><i class='bx bx-building'></i>School</a></li>
+            <li ><a href="/add/department"><i class='bx bx-home-alt'></i>Department</a></li>
+            <li ><a href="/admin/addstudents"><i class='bx bx-group'></i>Students</a></li>
+            <li ><a href="/admin/addprofessors"><i class='bx bx-group'></i>Professors</a></li>
+            <li class="active"><a href="/superadmin/course"><i class='bx bx-book'></i>Courses</a></li>
+            <li><a href="#"><i class='bx bx-news'></i>Notice</a></li>
+            
+            
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="{{url('/')}}/logout" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
     </div>
-    <!-- End of Sidebar -->
+   
 
-    <!-- Main Content -->
+    
     <div class="content">
-      <!-- Navbar -->
+      
       <nav>
         <i class="bx bx-menu"></i>
         <form action="#">
@@ -731,131 +823,82 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="images/ku logo.png" alt="" />
+          <img src="kathmandu_university_logo_nepal .png" alt="" />
         </a>
       </nav>
 
-      <!-- End of Navbar -->
+      
 
       <main>
         <div class="header">
           <div class="left">
-            <h1>Dashboard</h1>
+            <h1>Courses</h1>
+            <h2>>add course</h2>
           </div>
         </div>
 
-        <!-- Insights -->
-        <ul class="insights">
-          <li>
-            <i class="bx bx-group"></i>
-            <span class="info">
-              <h3>174</h3>
-              <p>Students</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bx-group"></i>
-            <span class="info">
-              <h3>9</h3>
-              <p>Professors</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bx-book"></i>
-            <span class="info">
-              <h3>14</h3>
-              <p>Courses</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bx-spreadsheet"></i>
-            <span class="info">
-              <h3>4</h3>
-              <p>Documents</p>
-            </span>
-          </li>
-        </ul>
-        <!-- End of Insights -->
+        <div>
+          <form class="add-form" action="{{url('/')}}/superadmin/addcourse" method="post">
+          @csrf
+            <label for="name">Course Name:</label>
+            <input type="text" id="name" name="name" value="{{old('name')}}"/>
+            <span class="text-danger"style="color:red">
+            @error('name')
+               {{$message}}
+               @enderror
+               </span>
+            <label for="code">Course Code:</label>
+            <input type="text" id="code" name="code" value="{{old('code')}}"/>
+            <span class="text-danger"style="color:red">
+            @error('code')
+               {{$message}}
+               @enderror
+               </span>
 
-        <div class="bottom-data">
-          <div class="orders">
-            <div class="header">
-              <i class="bx bx-receipt"></i>
-              <h3>Recent Enrolls</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+            <label for="chr">Credit Hour :</label>
+            <input type="int" id="chr" name="credit_hour" value="{{old('credit_hour')}}" />
+            <span class="text-danger"style="color:red">
+            @error('credit_hour')
+               {{$message}}
+               @enderror
+               </span>
+
+            <label for="email">Professor Email:</label>
+            <input type="email" id="email" name="professor_email" value="{{old('professor_email')}}"  />
+            <span class="text-danger"style="color:red">
+            @error('professor_email')
+               {{$message}}
+               @enderror
+               </span>
+             
+               <label for="department">Choose Department:</label>
+               <select name="department" id="department">
+                @foreach($departments as $department)
+                 <option >{{ $department->name }}</option>
+                 @endforeach
+                 </select>
+
+           
+            <label for="email-list">Student Email:</label>
+            <div class="email-list" id="email-list">
+              <div class="email-item">
+                <input type="email" name="student_emails[]" required />
+              </div>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Semester</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Swornim</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td><span>5</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Rikshal</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td><span>2</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Arpan</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td><span>3</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      
+            @if(session('error'))
+               <span class="alert alert-danger"style="color:red">
+               {{ session('error') }}
+                </span>
+                @endif
 
-          <!-- Reminders -->
-          <div class="reminders">
-            <div class="header">
-              <i class="bx bx-note"></i>
-              <h3>Remiders</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-plus"></i>
+            <div class="buttons">
+              <button class="button1S" type="button" id="add-email">
+                Add Email
+              </button>
+              <button type="submit">Add course</button>
             </div>
-            <ul class="task-list">
-              <li class="completed">
-                <div class="task-title">
-                  <i class="bx bx-check-circle"></i>
-                  <p>Meeting</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-              <li class="completed">
-                <div class="task-title">
-                  <i class="bx bx-check-circle"></i>
-                  <p>Analysis</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-              <li class="not-completed">
-                <div class="task-title">
-                  <i class="bx bx-x-circle"></i>
-                  <p>Checking</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-            </ul>
-          </div>
-
-          <!-- End of Reminders-->
+          </form>
         </div>
       </main>
     </div>
@@ -923,6 +966,24 @@
           document.body.classList.remove("dark");
         }
       });
+      document
+        .getElementById("add-email")
+        .addEventListener("click", function () {
+          var emailList = document.getElementById("email-list");
+          var emailItem = document.createElement("div");
+          emailItem.className = "email-item";
+          emailItem.innerHTML = `
+                <input type="email" name="student_emails[]" required>
+                <span class="remove-button" onclick="removeEmail(this)">&#10006;</span>
+            `;
+          emailList.appendChild(emailItem);
+        });
+
+      function removeEmail(element) {
+        var emailItem = element.parentElement;
+        var emailList = document.getElementById("email-list");
+        emailList.removeChild(emailItem);
+      }
     </script>
   </body>
 </html>

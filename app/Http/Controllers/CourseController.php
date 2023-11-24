@@ -14,14 +14,50 @@ class CourseController extends Controller
     public function showcourse(){
         return view('superadmindashboard.course');
     }
+    // show add course form of superadmin dashboard
+    // public function addcourse(){
+    //     $departments = Departments::all();
+    //     return view('superadmindashboard.addcourse',compact('departments'));
+    // }
+
     //show add course form of superadmin dashboard
     public function addcourse(){
-        $departments = Departments::all();
-        return view('superadmindashboard.addcourse',compact('departments'));
+        return view('superadmindashboard.addcourse');
     }
 
     //To validate and insert course into the system
     public function insertcourse(Request $request){
+        $request->validate(
+            [
+                'name'=>'required',
+                'code'=>'required',
+                'credit_hour'=>'required',
+                'course_description'=>'required',
+                
+                
+            ]
+            );
+            $course = new Courses;
+
+    // Assign course details
+    $course->name = $request['name'];
+    $course->course_code = $request['code'];
+    $course->cr_hour = $request['credit_hour'];
+    $course->course_desc = $request['course_description'];
+    
+        $course->save();
+        
+
+        return redirect('/superadmin/course');
+    
+
+            
+        }
+
+
+    // Refernce code starts from here:
+    // To validate and insert course into the system
+    public function insert_course(Request $request){
         $request->validate(
             [
                 'name'=>'required',
