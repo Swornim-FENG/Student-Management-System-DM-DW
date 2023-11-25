@@ -212,21 +212,26 @@
     .add {
       margin-left: 900px;
     }
+
     .custom-button {
       background-color: #3498db;
       color: #fff;
-      padding: 10px 20px;
+      padding: 20px 20px;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
-      margin-left: 900px;
+      margin-right: 15px;
     }
 
     .custom-button:hover {
       background-color: #2980b9;
     }
-
+    .btn-list {
+      justify-content: space-between;
+      width: 1000px;
+      margin-left: 200px;
+    }
     .content nav {
       height: 56px;
       background: var(--light);
@@ -367,22 +372,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -680,64 +675,6 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .add-form {
-        max-width: 300px;
-      }
-      input {
-        max-width: 270px;
-      }
-      .btn {
-        margin-left: 80px;
-      }
-    }
-    .add-form {
-      max-width: 550px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    input {
-      width: 500px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    button {
-      background-color: rgb(51, 81, 230);
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-left: 200px;
-      margin-top: 20px;
-    }
-
-    button:hover {
-      background-color: #1525a1;
     }
   </style>
 
@@ -752,7 +689,7 @@
         <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li class="active">
+        <li>
           <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
         </li>
         <li>
@@ -765,18 +702,18 @@
             ><i class="bx bx-home-alt"></i>Department</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/program"
             ><i class="bx bx-book-open"></i>Program</a
           >
         </li>
         <li>
-          <a href="/admin/addstudents"
+          <a href="/superadmin/addstudents"
             ><i class="bx bx-group"></i>Students</a
           >
         </li>
         <li>
-          <a href="/admin/addprofessors"
+          <a href="/superadmin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
@@ -822,7 +759,7 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="{{ asset('images/ku logo.png') }}" alt="" />
+          <img src="{{ asset('images/ku logo.png') }}"alt="" />
         </a>
       </nav>
 
@@ -831,37 +768,116 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="suAdmin-schoolpage.html"><h1>Schools</h1></a>
-            <h2>>add school</h2>
+            <h1>Program</h1>
           </div>
         </div>
-        <div>
-          <form class="add-form" action="{{url('/')}}/add/school" method="post">
-             @csrf
-            <label for="name">School Name:</label>
-        <input type="text" id="name" name="name" value="{{old('name')}}"/>
-        <span class="text-danger"style="color:red">
-            @error('name')
-               {{$message}}
-               @enderror
-               </span>
-            
-            <label for="location">Location:</label>
-        <input type="text" id="location" name="location"value="{{old('location')}}" />
-        <span class="text-danger"style="color:red">
-            @error('location')
-               {{$message}}
-               @enderror
-               </span>
-            
-               @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif 
-             <br>
-            <button class="btn" type="submit">Add school</button>
-          </form>
+
+        <!-- Insights -->
+        <ul class="insights">
+          <li>
+            <i class="bx bx-group"></i>
+            <span class="info">
+              <h3>7</h3>
+              <p>Programs</p>
+            </span>
+            <div class="btn-list">
+              <a href="/superadmin/add/admin/program">
+                <button class="custom-button">Enroll Admin</button>
+              </a>
+              <a href="/superadmin/add/professor/program">
+                <button class="custom-button">Enroll professor</button>
+              </a>
+              <a href="/superadmin/add/student/program">
+                <button class="custom-button">Enroll student</button>
+              </a>
+
+              <a href="/add/program"
+                ><button class="custom-button">Add program</button>
+              </a>
+            </div>
+          </li>
+        </ul>
+        <!-- End of Insights -->
+
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-receipt"></i>
+              <h3>Current Programs</h3>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-search"></i>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>school</th>
+                  <th>Department</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>BBIS</p>
+                  </td>
+                  <td>KUSoM</td>
+                  <td><span>MIC</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>Civil Engineering</p>
+                  </td>
+                  <td>KUSoE</td>
+                  <td><span>Civil</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>Architecture</p>
+                  </td>
+                  <td>KUSoE</td>
+                  <td><span>Architecture</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Reminders -->
+          <div class="reminders">
+            <div class="header">
+              <i class="bx bx-note"></i>
+              <h3>Remiders</h3>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-plus"></i>
+            </div>
+            <ul class="task-list">
+              <li class="completed">
+                <div class="task-title">
+                  <i class="bx bx-check-circle"></i>
+                  <p>Meeting</p>
+                </div>
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </li>
+              <li class="completed">
+                <div class="task-title">
+                  <i class="bx bx-check-circle"></i>
+                  <p>Analysis</p>
+                </div>
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </li>
+              <li class="not-completed">
+                <div class="task-title">
+                  <i class="bx bx-x-circle"></i>
+                  <p>Checking</p>
+                </div>
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </li>
+            </ul>
+          </div>
+
+          <!-- End of Reminders-->
         </div>
       </main>
     </div>
@@ -932,98 +948,3 @@
     </script>
   </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add school</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-      }
-
-      div {
-        text-align: center;
-        margin-top: 50px;
-      }
-
-      form {
-        max-width: 400px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-
-      h2 {
-        color: #333;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-      }
-
-      input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-
-      button {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background-color: #45a049;
-      }
-    </style>
-  </head>
-  <body>
-    <div>
-      <h2>Add a school</h2>
-      <form action="{{url('/')}}/add/school" method="post">
-      @csrf
-        <label for="name">School Name:</label>
-        <input type="text" id="name" name="name" value="{{old('name')}}"/>
-        <span class="text-danger"style="color:red">
-            @error('name')
-               {{$message}}
-               @enderror
-               </span>
-
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location"value="{{old('location')}}" />
-        <span class="text-danger"style="color:red">
-            @error('location')
-               {{$message}}
-               @enderror
-               </span>
-            
-               @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif 
-        <br>
-        <button type="submit">Add school</button>
-        
-      </form>
-    </div>
-  </body>
-</html> -->

@@ -802,7 +802,7 @@
           >
         </li>
         <li>
-          <a href="/add/program"
+          <a href="/superadmin/program"
             ><i class="bx bx-book-open"></i>Program</a
           >
         </li>
@@ -914,7 +914,7 @@
                 @endif
 
             <div class="buttons">
-              <button>Add course</button>
+              <button type="submit" >Add course</button>
             </div>
           </form>
         </div>

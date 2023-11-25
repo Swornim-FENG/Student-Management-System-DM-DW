@@ -9,6 +9,6 @@ class Students extends Model
 {
     use HasFactory;
     protected $table="students";
-    protected $primaryKey="stud_id";
+    protected $primaryKey="user_id";
     public $timestamps=false;
 }

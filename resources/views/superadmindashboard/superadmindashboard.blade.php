@@ -675,7 +675,7 @@
           >
         </li>
         <li>
-          <a href="/add/program"
+          <a href="/superadmin/program"
             ><i class="bx bx-book-open"></i>Program</a
           >
         </li>

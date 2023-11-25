@@ -9,6 +9,6 @@ class Professors extends Model
 {
     use HasFactory;
     protected $table="professors";
-    protected $primaryKey="prof_id";
+    protected $primaryKey="user_id";
     public $timestamps=false;
 }

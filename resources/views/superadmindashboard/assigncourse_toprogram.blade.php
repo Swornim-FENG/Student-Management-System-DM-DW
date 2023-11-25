@@ -629,6 +629,9 @@
       .add {
         margin-left: 200px;
       }
+      .button1S {
+        margin-left: 0px;
+      }
     }
 
     @media screen and (max-width: 576px) {
@@ -695,11 +698,12 @@
       .add-form {
         max-width: 300px;
       }
-      input {
+      input,
+      select {
         max-width: 270px;
       }
       .btn {
-        margin-left: 80px;
+        margin-left: 0px;
       }
     }
     .add-form {
@@ -716,7 +720,8 @@
       color: var(--dark);
     }
 
-    input {
+    input,
+    select {
       width: 500px;
       padding: 8px;
       margin-bottom: 15px;
@@ -729,15 +734,59 @@
       background-color: rgb(51, 81, 230);
       color: white;
       padding: 10px 15px;
+      margin-top: 10px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin-left: 200px;
-      margin-top: 20px;
     }
 
     button:hover {
       background-color: #1525a1;
+    }
+    .button1S {
+      background-color: rgb(38, 194, 98);
+      color: white;
+      padding: 10px 15px;
+      margin-top: 10px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button1S:hover {
+      background-color: #15a12a;
+    }
+    .email-list {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .email-item {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+
+      border-radius: 5px;
+      margin: 5px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .email-item input {
+      border: 1px solid #746a6a;
+      outline: none;
+      width: 100%;
+      background: var(--grey);
+      color: var(--dark);
+    }
+
+    .remove-button {
+      margin-left: -20px;
+      margin-bottom: 16px;
+      background: var(--grey);
+      color: var(--dark);
     }
   </style>
 
@@ -749,10 +798,10 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li >
+        <li class="active">
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li class="active">
+        <li>
           <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
         </li>
         <li>
@@ -771,12 +820,12 @@
           >
         </li>
         <li>
-          <a href="/admin/addstudents"
+          <a href="/superadmin/addstudents"
             ><i class="bx bx-group"></i>Students</a
           >
         </li>
         <li>
-          <a href="/admin/addprofessors"
+          <a href="/superadmin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
@@ -827,40 +876,38 @@
       </nav>
 
       <!-- End of Navbar -->
-
       <main>
         <div class="header">
           <div class="left">
-            <a href="suAdmin-schoolpage.html"><h1>Schools</h1></a>
-            <h2>>add school</h2>
+            <a href="suSdmin-coursepage.html"><h1>courses</h1></a>
+            <h2>>Assign Course to Program</h2>
           </div>
         </div>
         <div>
-          <form class="add-form" action="{{url('/')}}/add/school" method="post">
-             @csrf
-            <label for="name">School Name:</label>
-        <input type="text" id="name" name="name" value="{{old('name')}}"/>
-        <span class="text-danger"style="color:red">
-            @error('name')
-               {{$message}}
-               @enderror
-               </span>
-            
-            <label for="location">Location:</label>
-        <input type="text" id="location" name="location"value="{{old('location')}}" />
-        <span class="text-danger"style="color:red">
-            @error('location')
-               {{$message}}
-               @enderror
-               </span>
-            
-               @if(session('error'))
+          <form class="add-form" action="{{url('/')}}/superadmin/assign/course/program" method="post">
+        @csrf
+        <label for="program">choose program:</label>
+            <select name="program" id="program">
+              @foreach($programs as $program)
+              <option>{{$program->name}}</option>
+              @endforeach
+            </select>
+             
+            <label for="course">Choose Course:</label>
+            <select name="course" id="course">
+                @foreach($courses as $course)
+                 <option >{{ $course->course_code }}</option>
+                 @endforeach
+                 </select>
+
+
+            @if(session('error'))
                <span class="alert alert-danger"style="color:red">
                {{ session('error') }}
                 </span>
-                @endif 
-             <br>
-            <button class="btn" type="submit">Add school</button>
+                @endif
+
+            <button class="btn" type="submit">Assign Course</button>
           </form>
         </div>
       </main>
@@ -929,101 +976,24 @@
           document.body.classList.remove("dark");
         }
       });
+      document
+        .getElementById("add-email")
+        .addEventListener("click", function () {
+          var emailList = document.getElementById("email-list");
+          var emailItem = document.createElement("div");
+          emailItem.className = "email-item";
+          emailItem.innerHTML = `
+                <input type="email" name="users_emails[]" required>
+                <span class="remove-button" onclick="removeEmail(this)">&#10006;</span>
+            `;
+          emailList.appendChild(emailItem);
+        });
+
+      function removeEmail(element) {
+        var emailItem = element.parentElement;
+        var emailList = document.getElementById("email-list");
+        emailList.removeChild(emailItem);
+      }
     </script>
   </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add school</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-      }
-
-      div {
-        text-align: center;
-        margin-top: 50px;
-      }
-
-      form {
-        max-width: 400px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-
-      h2 {
-        color: #333;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-      }
-
-      input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-
-      button {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background-color: #45a049;
-      }
-    </style>
-  </head>
-  <body>
-    <div>
-      <h2>Add a school</h2>
-      <form action="{{url('/')}}/add/school" method="post">
-      @csrf
-        <label for="name">School Name:</label>
-        <input type="text" id="name" name="name" value="{{old('name')}}"/>
-        <span class="text-danger"style="color:red">
-            @error('name')
-               {{$message}}
-               @enderror
-               </span>
-
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location"value="{{old('location')}}" />
-        <span class="text-danger"style="color:red">
-            @error('location')
-               {{$message}}
-               @enderror
-               </span>
-            
-               @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif 
-        <br>
-        <button type="submit">Add school</button>
-        
-      </form>
-    </div>
-  </body>
-</html> -->

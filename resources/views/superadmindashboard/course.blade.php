@@ -215,16 +215,21 @@
     .custom-button {
       background-color: #3498db;
       color: #fff;
-      padding: 10px 20px;
+      padding: 20px 20px;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 16px;
-      margin-left: 900px;
+      font-size: 15px;
+      margin-right: 15px;
     }
 
     .custom-button:hover {
       background-color: #2980b9;
+    }
+    .btn-list {
+      display: flex;
+      width: 1900px;
+      margin-left: 300px;
     }
 
     .content nav {
@@ -674,32 +679,63 @@
   </style>
 
   <body>
-    <!-- Sidebar -->
+     <!-- Sidebar -->
     <div class="sidebar">
-    <div class="logo">
-          <img src="images/ku logo.png" alt="">
-          <h4>Super Admin</h4>
-        </div>
-        <ul class="side-menu">
-            <li ><a href="/superadmin"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
-            <li ><a href="/admin/add"><i class='bx bx-group'></i>Admin</a></li>
-            <li ><a href="/add/school"><i class='bx bx-building'></i>School</a></li>
-            <li ><a href="/add/department"><i class='bx bx-home-alt'></i>Department</a></li>
-            <li ><a href="/admin/addstudents"><i class='bx bx-group'></i>Students</a></li>
-            <li ><a href="/admin/addprofessors"><i class='bx bx-group'></i>Professors</a></li>
-            <li class="active"><a href="/superadmin/course"><i class='bx bx-book'></i>Courses</a></li>
-            <li><a href="#"><i class='bx bx-news'></i>Notice</a></li>
-            
-            <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
-        </ul>
-        <ul class="side-menu">
-            <li>
-                <a href="{{url('/')}}/logout" class="logout">
-                    <i class='bx bx-log-out-circle'></i>
-                    Logout
-                </a>
-            </li>
-        </ul>
+      <div class="logo">
+        <img src="{{ asset('images/ku logo.png') }}" alt="" />
+        <h4>Super Admin</h4>
+      </div>
+      <ul class="side-menu">
+        <li class="active">
+          <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li>
+          <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
+        </li>
+        <li>
+          <a href="/add/school"
+            ><i class="bx bx-building"></i>School</a
+          >
+        </li>
+        <li>
+          <a href="/add/department"
+            ><i class="bx bx-home-alt"></i>Department</a
+          >
+        </li>
+        <li>
+          <a href="/superadmin/program"
+            ><i class="bx bx-book-open"></i>Program</a
+          >
+        </li>
+        <li>
+          <a href="/superadmin/addstudents"
+            ><i class="bx bx-group"></i>Students</a
+          >
+        </li>
+        <li>
+          <a href="/superadmin/addprofessors"
+            ><i class="bx bx-group"></i>Professors</a
+          >
+        </li>
+        <li>
+          <a href="/superadmin/course"
+            ><i class="bx bx-book"></i>Courses</a
+          >
+        </li>
+        <li>
+          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
+        </li>
+
+        <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="{{url('/')}}/logout" class="logout">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+        </li>
+      </ul>
     </div>
     <!-- End of Sidebar -->
 
@@ -723,7 +759,7 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="images/ku logo.png" alt="" />
+          <img src="{{ asset('images/ku logo.png') }}" alt="" />
         </a>
       </nav>
 
@@ -744,9 +780,20 @@
               <h3>14</h3>
               <p>courses</p>
             </span>
-            <a href="/superadmin/addcourse"
-              ><button class="custom-button">Add Courses</button>
-            </a>
+            <div class="btn-list">
+              <a href="/superadmin/assign/professor/course"
+                ><button class="custom-button">Assign Professor</button>
+              </a>
+              <a href="/superadmin/assign/student/course"
+                ><button class="custom-button">Assign students</button>
+              </a>
+              <a href="/superadmin/assign/course/program"
+                ><button class="custom-button">Assign to program</button>
+              </a>
+              <a href="/superadmin/addcourse"
+                ><button class="custom-button">Add Courses</button>
+              </a>
+            </div>
           </li>
         </ul>
         <!-- End of Insights -->
@@ -770,7 +817,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
+                    <img src="{{ asset('images/ku logo.png') }}" />
                     <p>MAS 101</p>
                   </td>
                   <td>BBIS</td>
@@ -778,7 +825,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
+                    <img src="{{ asset('images/ku logo.png') }}"/>
                     <p>Civil Engineering</p>
                   </td>
                   <td>KUSoE</td>
@@ -786,7 +833,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
+                    <img src="{{ asset('images/ku logo.png') }}" />
                     <p>Architecture</p>
                   </td>
                   <td>KUSoE</td>

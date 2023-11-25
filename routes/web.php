@@ -75,6 +75,32 @@ Route::get('/superadmin/addstudents',[StudentController::class,'add_students'])-
 
 Route::post('/superadmin/addstudents',[StudentController::class,'insert_students']);
 
+Route::get('/superadmin/add/student/program',[ProgramController::class,'showadd_student_toprogram'])->name('add_student_toprogram');
+
+Route::post('/superadmin/add/student/program',[ProgramController::class,'insert_student_toprogram']);
+
+Route::get('/superadmin/add/professor/program',[ProgramController::class,'showadd_professor_toprogram'])->name('add_professor_toprogram');
+
+Route::post('/superadmin/add/professor/program',[ProgramController::class,'insert_professor_toprogram']);
+
+Route::get('/superadmin/add/admin/program',[ProgramController::class,'showadd_admin_toprogram'])->name('add_admin_toprogram');
+
+Route::post('/superadmin/add/admin/program',[ProgramController::class,'insert_admin_toprogram']);
+
+Route::get('/superadmin/program',[ProgramController::class,'showprogram']);
+
+Route::get('/superadmin/assign/course/program',[CourseController::class,'assign_course'])->name('assign_course');
+
+Route::post('/superadmin/assign/course/program',[CourseController::class,'assign_course_toprogram']);
+
+Route::get('/superadmin/assign/student/course',[CourseController::class,'assign_student'])->name('assign_student');
+
+Route::post('/superadmin/assign/student/course',[CourseController::class,'assign_student_tocourse']);
+
+Route::get('/superadmin/assign/professor/course',[CourseController::class,'assign_professor'])->name('assign_professor');
+
+Route::post('/superadmin/assign/professor/course',[CourseController::class,'assign_professor_tocourse']);
+
 Route::get('/login',[LoginController::class,'loginpage'])->name('login');
 
 Route::post('/login',[LoginController::class,'login']);

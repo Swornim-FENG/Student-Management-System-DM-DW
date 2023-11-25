@@ -695,7 +695,8 @@
       .add-form {
         max-width: 300px;
       }
-      input {
+      input,
+      select {
         max-width: 270px;
       }
       .btn {
@@ -716,7 +717,8 @@
       color: var(--dark);
     }
 
-    input {
+    input,
+    select {
       width: 500px;
       padding: 8px;
       margin-bottom: 15px;
@@ -749,10 +751,10 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li >
+        <li class="active">
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li class="active">
+        <li>
           <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
         </li>
         <li>
@@ -771,12 +773,12 @@
           >
         </li>
         <li>
-          <a href="/admin/addstudents"
+          <a href="/superadmin/addstudents"
             ><i class="bx bx-group"></i>Students</a
           >
         </li>
         <li>
-          <a href="/admin/addprofessors"
+          <a href="/superadmin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
@@ -822,7 +824,7 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="{{ asset('images/ku logo.png') }}" alt="" />
+          <img src="{{ asset('images/ku logo.png') }}"alt="" />
         </a>
       </nav>
 
@@ -831,36 +833,33 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="suAdmin-schoolpage.html"><h1>Schools</h1></a>
-            <h2>>add school</h2>
+            <a href="suAdmin-programpage.html"><h1>programs</h1></a>
+            <h2>>enroll admin</h2>
           </div>
         </div>
         <div>
-          <form class="add-form" action="{{url('/')}}/add/school" method="post">
-             @csrf
-            <label for="name">School Name:</label>
-        <input type="text" id="name" name="name" value="{{old('name')}}"/>
-        <span class="text-danger"style="color:red">
-            @error('name')
+          <form class="add-form" action="{{url('/')}}/superadmin/add/admin/program" method="post">
+            @csrf
+            <label for="program">choose program:</label>
+            <select name="program" id="program">
+              @foreach($programs as $program)
+              <option>{{$program->name}}</option>
+              @endforeach
+            </select>
+
+             <label for="a_email">Admin Email:</label>
+            <input type="email" id="a_email" name="admin_email" value="{{old('admin_email')}}"  />
+            <span class="text-danger"style="color:red">
+            @error('admin_email')
                {{$message}}
                @enderror
                </span>
-            
-            <label for="location">Location:</label>
-        <input type="text" id="location" name="location"value="{{old('location')}}" />
-        <span class="text-danger"style="color:red">
-            @error('location')
-               {{$message}}
-               @enderror
-               </span>
-            
-               @if(session('error'))
+             @if(session('error'))
                <span class="alert alert-danger"style="color:red">
                {{ session('error') }}
                 </span>
-                @endif 
-             <br>
-            <button class="btn" type="submit">Add school</button>
+                @endif
+            <button class="btn" type="submit">enroll Admin</button>
           </form>
         </div>
       </main>
@@ -932,98 +931,3 @@
     </script>
   </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add school</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-      }
-
-      div {
-        text-align: center;
-        margin-top: 50px;
-      }
-
-      form {
-        max-width: 400px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-
-      h2 {
-        color: #333;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-      }
-
-      input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-
-      button {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background-color: #45a049;
-      }
-    </style>
-  </head>
-  <body>
-    <div>
-      <h2>Add a school</h2>
-      <form action="{{url('/')}}/add/school" method="post">
-      @csrf
-        <label for="name">School Name:</label>
-        <input type="text" id="name" name="name" value="{{old('name')}}"/>
-        <span class="text-danger"style="color:red">
-            @error('name')
-               {{$message}}
-               @enderror
-               </span>
-
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location"value="{{old('location')}}" />
-        <span class="text-danger"style="color:red">
-            @error('location')
-               {{$message}}
-               @enderror
-               </span>
-            
-               @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif 
-        <br>
-        <button type="submit">Add school</button>
-        
-      </form>
-    </div>
-  </body>
-</html> -->
