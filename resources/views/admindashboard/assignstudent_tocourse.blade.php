@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Super Admin</title>
+    <title>Admin</title>
   </head>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
@@ -217,14 +217,21 @@
       color: #fff;
       padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
-      margin-left: 900px;
+      margin-left: 0px;
+      height: 60px;
     }
 
     .custom-button:hover {
       background-color: #2980b9;
+    }
+    .btn-list {
+      display: flex;
+      justify-content: space-between;
+      width: 600px;
+      margin-left: 500px;
     }
 
     .content nav {
@@ -367,9 +374,6 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
@@ -384,7 +388,6 @@
       color: var(--dark);
       margin-top: 10px;
     }
-
     .content main .header .left .breadcrumb {
       display: flex;
       align-items: center;
@@ -629,9 +632,6 @@
       .add {
         margin-left: 200px;
       }
-      .button1S {
-        margin-left: 0px;
-      }
     }
 
     @media screen and (max-width: 576px) {
@@ -683,28 +683,9 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .add-form {
-        max-width: 300px;
-      }
-      input,
-      select {
-        max-width: 270px;
-      }
-      .btn {
-        margin-left: 0px;
-      }
+    }
+    .content main .header .left {
+      display: flex;
     }
     .add-form {
       max-width: 550px;
@@ -794,51 +775,27 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="logo">
-        <img src="{{ asset('images/ku logo.png') }}" alt="" />
-        <h4>Super Admin</h4>
+        <img src= "{{ asset('images/ku logo.png') }}"alt="" />
+        <h4>Admin</h4>
       </div>
       <ul class="side-menu">
         <li >
-          <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="/admin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li >
+          <a href="/admin/addstudents"><i class="bx bx-group"></i>Students</a>
         </li>
         <li>
-          <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
-        </li>
-        <li>
-          <a href="/add/school"
-            ><i class="bx bx-building"></i>School</a
-          >
-        </li>
-        <li>
-          <a href="/add/department"
-            ><i class="bx bx-home-alt"></i>Department</a
-          >
-        </li>
-        <li class="active">
-          <a href="/superadmin/program"
-            ><i class="bx bx-book-open"></i>Program</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/addstudents"
-            ><i class="bx bx-group"></i>Students</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/addprofessors"
+          <a href="/admin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
+        </li >
+        <li class="active">
+          <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
         </li>
-        <li>
-          <a href="/superadmin/course"
-            ><i class="bx bx-book"></i>Courses</a
-          >
+        <li >
+          <a href="#"><i class="bx bx-news"></i>Notice</a>
         </li>
-        <li>
-          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
-        </li>
-
-        <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
       </ul>
       <ul class="side-menu">
         <li>
@@ -871,7 +828,7 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="{{ asset('images/ku logo.png') }}"alt="" />
+          <img src="{{ asset('images/ku logo.png') }}" alt="" />
         </a>
       </nav>
 
@@ -880,27 +837,49 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="suAdmin-programpage.html"><h1>programs</h1></a>
-            <h2>>enroll student</h2>
+            <a href="/admin/course"><h1>courses</h1></a>
+            <h2>>Assign Students</h2>
           </div>
         </div>
         <div>
-          <form class="add-form"  action="{{url('/')}}/superadmin/add/student/program" method="post">
+          <form class="add-form" action="{{url('/')}}/admin/assign/student/course" method="post">
             @csrf
-            <label for="program">choose program:</label>
-            <select name="program" id="program">
-            @foreach($programs as $program)
-              <option>{{$program->name}}</option>
-              @endforeach
-              
+            <label for="course">Choose Course:</label>
+            <select name="course" id="course">
+                @foreach($courses as $course)
+                 <option >{{ $course->course_code }}</option>
+                 @endforeach
+                 </select>
+
+            <label for="Batch">Batch:</label>
+            <input type="text" id="Batch" name="batch"  />
+            <span class="text-danger"style="color:red">
+            @error('batch')
+               {{$message}}
+               @enderror
+               </span>
+
+            <label for="year">choose year:</label>
+            <select name="year" id="year">
+              <option>1st</option>
+              <option>2nd</option>
+              <option>3rd</option>
+              <option>4th</option>
+              <option>5th</option>
             </select>
+            <label for="sem">choose semester:</label>
+            <select name="sem" id="sem">
+              <option>1st</option>
+              <option>2nd</option>
+            </select>
+
             <label for="email-list">Student Email:</label>
             <div class="email-list" id="email-list">
               <div class="email-item">
                 <input type="email" name="student_emails[]" required />
               </div>
             </div>
-            @if(session('error'))
+             @if(session('error'))
                <span class="alert alert-danger"style="color:red">
                {{ session('error') }}
                 </span>
@@ -909,7 +888,7 @@
               <button class="button1S" type="button" id="add-email">
                 Add Email
               </button>
-              <button class="btn" type="submit">enroll Student</button>
+              <button class="btn" type="submit">Assign Student</button>
             </div>
           </form>
         </div>

@@ -798,7 +798,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li>
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -829,7 +829,7 @@
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
-        <li>
+        <li  class="active">
           <a href="/superadmin/course"
             ><i class="bx bx-book"></i>Courses</a
           >
@@ -880,7 +880,7 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="suSdmin-coursepage.html"><h1>courses</h1></a>
+            <a href="/superadmin/course"><h1>courses</h1></a>
             <h2>>Assign student</h2>
           </div>
         </div>

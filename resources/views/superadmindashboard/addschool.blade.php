@@ -752,10 +752,10 @@
         <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li class="active">
+        <li >
           <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
         </li>
-        <li>
+        <li class="active">
           <a href="/add/school"
             ><i class="bx bx-building"></i>School</a
           >
@@ -771,12 +771,12 @@
           >
         </li>
         <li>
-          <a href="/admin/addstudents"
+          <a href="/superadmin/addstudents"
             ><i class="bx bx-group"></i>Students</a
           >
         </li>
         <li>
-          <a href="/admin/addprofessors"
+          <a href="/superadmin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>

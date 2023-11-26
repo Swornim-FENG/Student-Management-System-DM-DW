@@ -27,9 +27,15 @@ Route::get('/', function () {
 
 Route::get('/superadmin/course',[CourseController::class,'showcourse']);
 
+Route::get('/admin/course',[CourseController::class,'show_course']);
+
 Route::get('/superadmin/addcourse',[CourseController::class,'addcourse'])->name('addcourse');
 
 Route::post('/superadmin/addcourse',[CourseController::class,'insertcourse']);
+
+Route::get('/admin/addcourse',[CourseController::class,'add_course'])->name('add_course');
+
+Route::post('/admin/addcourse',[CourseController::class,'insert_course']);
 
 Route::get('/superadmin',[SuperadminController::class,'showsuperadmin']);
 
@@ -97,9 +103,17 @@ Route::get('/superadmin/assign/student/course',[CourseController::class,'assign_
 
 Route::post('/superadmin/assign/student/course',[CourseController::class,'assign_student_tocourse']);
 
+Route::get('/admin/assign/student/course',[CourseController::class,'assign_stud_ent'])->name('assign_stud_ent');
+
+Route::post('/admin/assign/student/course',[CourseController::class,'assign_stud_ent_tocourse']);
+
 Route::get('/superadmin/assign/professor/course',[CourseController::class,'assign_professor'])->name('assign_professor');
 
 Route::post('/superadmin/assign/professor/course',[CourseController::class,'assign_professor_tocourse']);
+
+Route::get('/admin/assign/professor/course',[CourseController::class,'assign_prof_essor'])->name('assign_prof_essor');
+
+Route::post('/admin/assign/professor/course',[CourseController::class,'assign_prof_essor_tocourse']);
 
 Route::get('/login',[LoginController::class,'loginpage'])->name('login');
 

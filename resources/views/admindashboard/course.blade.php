@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Super Admin</title>
+    <title>Admin</title>
   </head>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
@@ -217,14 +217,21 @@
       color: #fff;
       padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
-      margin-left: 900px;
+      margin-left: 0px;
+      height: 60px;
     }
 
     .custom-button:hover {
       background-color: #2980b9;
+    }
+    .btn-list {
+      display: flex;
+      justify-content: space-between;
+      width: 600px;
+      margin-left: 500px;
     }
 
     .content nav {
@@ -367,22 +374,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -629,9 +626,6 @@
       .add {
         margin-left: 200px;
       }
-      .button1S {
-        margin-left: 0px;
-      }
     }
 
     @media screen and (max-width: 576px) {
@@ -683,110 +677,6 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .add-form {
-        max-width: 300px;
-      }
-      input,
-      select {
-        max-width: 270px;
-      }
-      .btn {
-        margin-left: 0px;
-      }
-    }
-    .add-form {
-      max-width: 550px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    input,
-    select {
-      width: 500px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    button {
-      background-color: rgb(51, 81, 230);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #1525a1;
-    }
-    .button1S {
-      background-color: rgb(38, 194, 98);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      margin-right: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .button1S:hover {
-      background-color: #15a12a;
-    }
-    .email-list {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .email-item {
-      display: flex;
-      align-items: center;
-      padding: 5px;
-
-      border-radius: 5px;
-      margin: 5px;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .email-item input {
-      border: 1px solid #746a6a;
-      outline: none;
-      width: 100%;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    .remove-button {
-      margin-left: -20px;
-      margin-bottom: 16px;
-      background: var(--grey);
-      color: var(--dark);
     }
   </style>
 
@@ -794,51 +684,27 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="logo">
-        <img src="{{ asset('images/ku logo.png') }}" alt="" />
-        <h4>Super Admin</h4>
+        <img src= "{{ asset('images/ku logo.png') }}"alt="" />
+        <h4>Admin</h4>
       </div>
       <ul class="side-menu">
         <li >
-          <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="/admin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li >
+          <a href="/admin/addstudents"><i class="bx bx-group"></i>Students</a>
         </li>
         <li>
-          <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
-        </li>
-        <li>
-          <a href="/add/school"
-            ><i class="bx bx-building"></i>School</a
-          >
-        </li>
-        <li>
-          <a href="/add/department"
-            ><i class="bx bx-home-alt"></i>Department</a
-          >
-        </li>
-        <li class="active">
-          <a href="/superadmin/program"
-            ><i class="bx bx-book-open"></i>Program</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/addstudents"
-            ><i class="bx bx-group"></i>Students</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/addprofessors"
+          <a href="/admin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
+        </li >
+        <li class="active">
+          <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
         </li>
-        <li>
-          <a href="/superadmin/course"
-            ><i class="bx bx-book"></i>Courses</a
-          >
+        <li >
+          <a href="#"><i class="bx bx-news"></i>Notice</a>
         </li>
-        <li>
-          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
-        </li>
-
-        <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
       </ul>
       <ul class="side-menu">
         <li>
@@ -871,7 +737,7 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="{{ asset('images/ku logo.png') }}"alt="" />
+          <img src="{{ asset('images/ku logo.png') }}" alt="" />
         </a>
       </nav>
 
@@ -880,38 +746,137 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="suAdmin-programpage.html"><h1>programs</h1></a>
-            <h2>>enroll student</h2>
+            <h1>Courses</h1>
           </div>
         </div>
-        <div>
-          <form class="add-form"  action="{{url('/')}}/superadmin/add/student/program" method="post">
-            @csrf
-            <label for="program">choose program:</label>
-            <select name="program" id="program">
-            @foreach($programs as $program)
-              <option>{{$program->name}}</option>
-              @endforeach
-              
-            </select>
-            <label for="email-list">Student Email:</label>
-            <div class="email-list" id="email-list">
-              <div class="email-item">
-                <input type="email" name="student_emails[]" required />
-              </div>
+
+        <!-- Insights -->
+        <ul class="insights">
+          <li>
+            <i class="bx bx-group"></i>
+            <span class="info">
+              <h3>14</h3>
+              <p>courses</p>
+            </span>
+            <div class="btn-list">
+                
+              <a href="/admin/assign/professor/course"
+                ><button class="custom-button">Assign Professor</button>
+              </a>
+              <a href="/admin/assign/student/course"
+                ><button class="custom-button">Assign students</button>
+              </a>
+              <a href="/admin/addcourse"
+                ><button class="custom-button">Add Courses</button>
+              </a>
             </div>
-            @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-            <div class="buttons">
-              <button class="button1S" type="button" id="add-email">
-                Add Email
-              </button>
-              <button class="btn" type="submit">enroll Student</button>
+          </li>
+        </ul>
+        <!-- End of Insights -->
+
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-receipt"></i>
+              <h3>Current Courses</h3>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-search"></i>
             </div>
-          </form>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+
+                  <th>Professor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>MAS 101</p>
+                  </td>
+
+                  <td><span>Durga</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>com 211</p>
+                  </td>
+
+                  <td><span>Rikshal</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>Mkt 202</p>
+                  </td>
+
+                  <td><span>Arpan</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>com 202</p>
+                  </td>
+
+                  <td><span>swornim</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>Mkt 111</p>
+                  </td>
+
+                  <td><span>manish</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>eng 111</p>
+                  </td>
+
+                  <td><span>kundan</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Reminders -->
+          <div class="reminders">
+            <div class="header">
+              <i class="bx bx-note"></i>
+              <h3>Remiders</h3>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-plus"></i>
+            </div>
+            <ul class="task-list">
+              <li class="completed">
+                <div class="task-title">
+                  <i class="bx bx-check-circle"></i>
+                  <p>Meeting</p>
+                </div>
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </li>
+              <li class="completed">
+                <div class="task-title">
+                  <i class="bx bx-check-circle"></i>
+                  <p>Analysis</p>
+                </div>
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </li>
+              <li class="not-completed">
+                <div class="task-title">
+                  <i class="bx bx-x-circle"></i>
+                  <p>Checking</p>
+                </div>
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </li>
+            </ul>
+          </div>
+
+          <!-- End of Reminders-->
         </div>
       </main>
     </div>
@@ -979,24 +944,6 @@
           document.body.classList.remove("dark");
         }
       });
-      document
-        .getElementById("add-email")
-        .addEventListener("click", function () {
-          var emailList = document.getElementById("email-list");
-          var emailItem = document.createElement("div");
-          emailItem.className = "email-item";
-          emailItem.innerHTML = `
-                <input type="email" name="student_emails[]" required>
-                <span class="remove-button" onclick="removeEmail(this)">&#10006;</span>
-            `;
-          emailList.appendChild(emailItem);
-        });
-
-      function removeEmail(element) {
-        var emailItem = element.parentElement;
-        var emailList = document.getElementById("email-list");
-        emailList.removeChild(emailItem);
-      }
     </script>
   </body>
 </html>

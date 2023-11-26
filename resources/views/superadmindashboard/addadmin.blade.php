@@ -878,12 +878,12 @@
           >
         </li>
         <li>
-          <a href="/admin/addstudents"
+          <a href="/superadmin/addstudents"
             ><i class="bx bx-group"></i>Students</a
           >
         </li>
         <li>
-          <a href="/admin/addprofessors"
+          <a href="/superadmin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>

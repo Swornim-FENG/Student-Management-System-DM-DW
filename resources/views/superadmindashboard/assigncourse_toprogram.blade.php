@@ -829,7 +829,7 @@
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/course"
             ><i class="bx bx-book"></i>Courses</a
           >
@@ -879,7 +879,7 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="suSdmin-coursepage.html"><h1>courses</h1></a>
+            <a href="/superadmin/course"><h1>courses</h1></a>
             <h2>>Assign Course to Program</h2>
           </div>
         </div>
