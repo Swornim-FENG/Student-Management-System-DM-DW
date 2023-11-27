@@ -673,7 +673,10 @@
           <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
         </li>
         <li>
-          <a href="#"><i class="bx bx-news"></i>Notice</a>
+          <a href="admin/add/professor/program"><i class="bx bx-news"></i>Enroll prof</a>
+        </li>
+        <li>
+          <a href="admin/add/student/program"><i class="bx bx-news"></i>Enroll stud</a>
         </li>
       </ul>
       <ul class="side-menu">
@@ -716,7 +719,7 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Bachelors in Business Informaton System</h1>
+            <h1>{{$program->name}}</h1>
           </div>
         </div>
 

@@ -5,12 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Admins;
 use App\Models\User;
+use App\Models\Program_admins;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Programs;
 
 class AdminController extends Controller
 {
     //show admin dashboard
-    public function showadmin(){
-        return view('admindashboard.admindashboard');
+    public function showadmin(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $programid=Program_admins::where('admin_id',$userId)->first();
+        $program =Programs::where('program_id',$programid->program_id)->first();
+        return view('admindashboard.admindashboard',compact('program'));
     }
     //show add admin form
     public function showaddadmin(){

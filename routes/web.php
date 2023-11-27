@@ -85,9 +85,17 @@ Route::get('/superadmin/add/student/program',[ProgramController::class,'showadd_
 
 Route::post('/superadmin/add/student/program',[ProgramController::class,'insert_student_toprogram']);
 
+Route::get('/admin/add/student/program',[ProgramController::class,'show_add_student_toprogram'])->name('add_stud_ent_toprogram');
+
+Route::post('/admin/add/student/program',[ProgramController::class,'insert_stud_ent_toprogram']);
+
 Route::get('/superadmin/add/professor/program',[ProgramController::class,'showadd_professor_toprogram'])->name('add_professor_toprogram');
 
 Route::post('/superadmin/add/professor/program',[ProgramController::class,'insert_professor_toprogram']);
+
+Route::get('/admin/add/professor/program',[ProgramController::class,'show_add_professor_toprogram'])->name('add_prof_essor_toprogram');
+
+Route::post('/admin/add/professor/program',[ProgramController::class,'insert_prof_essor_toprogram']);
 
 Route::get('/superadmin/add/admin/program',[ProgramController::class,'showadd_admin_toprogram'])->name('add_admin_toprogram');
 

@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Super Admin</title>
+    <title>Admin</title>
   </head>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
@@ -217,14 +217,21 @@
       color: #fff;
       padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
-      margin-left: 900px;
+      margin-left: 0px;
+      height: 60px;
     }
 
     .custom-button:hover {
       background-color: #2980b9;
+    }
+    .btn-list {
+      display: flex;
+      justify-content: space-between;
+      width: 600px;
+      margin-left: 500px;
     }
 
     .content nav {
@@ -367,9 +374,6 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
@@ -384,7 +388,6 @@
       color: var(--dark);
       margin-top: 10px;
     }
-
     .content main .header .left .breadcrumb {
       display: flex;
       align-items: center;
@@ -680,28 +683,144 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
+      .first {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
       }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
+      .second {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
       }
-      .add-form {
-        max-width: 300px;
+      .top {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
-      input,
-      select {
-        max-width: 270px;
+      .third {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
       }
-      .btn {
-        margin-left: 80px;
+      .fourth {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
       }
+      .mid {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: -30px;
+      }
+      .fifth {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .bot {
+        display: flex;
+        flex-direction: column;
+        margin-top: -30px;
+        justify-content: space-between;
+      }
+    }
+    .content main .header .left {
+      display: flex;
+    }
+    .add-form {
+      max-width: 800px;
+      margin-top: 80px;
+      margin-left: 50px;
+      padding: 20px;
+      border: 2px solid rgb(235, 225, 225);
+      border-radius: 5px;
+      color: var(--dark);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      background: var(--grey);
+      color: var(--dark);
+      margin-left: 5px;
+    }
+
+    input {
+      width: 300px;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      background: var(--grey);
+      color: var(--dark);
+    }
+
+    .s-button {
+      background-color: rgb(51, 81, 230);
+      color: #fff;
+    }
+    .s-button:hover {
+      background-color: #1525a1;
+    }
+    .first {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .second {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+    }
+    .third {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .fourth {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .mid {
+      display: flex;
+      justify-content: space-between;
+      margin-top: -30px;
+    }
+    .fifth {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-top: -30px;
+    }
+    .bot {
+      display: flex;
+      margin-top: -30px;
+      justify-content: space-between;
     }
     .add-form {
       max-width: 550px;
@@ -744,54 +863,30 @@
   </style>
 
   <body>
-   <!-- Sidebar -->
+    <!-- Sidebar -->
     <div class="sidebar">
       <div class="logo">
-        <img src="{{ asset('images/ku logo.png') }}" alt="" />
-        <h4>Super Admin</h4>
+        <img src= "{{ asset('images/ku logo.png') }}"alt="" />
+        <h4>Admin</h4>
       </div>
       <ul class="side-menu">
         <li >
-          <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="/admin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li>
-          <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
-        </li>
-        <li>
-          <a href="/add/school"
-            ><i class="bx bx-building"></i>School</a
-          >
-        </li>
-        <li>
-          <a href="/add/department"
-            ><i class="bx bx-home-alt"></i>Department</a
-          >
+        <li >
+          <a href="/admin/addstudents"><i class="bx bx-group"></i>Students</a>
         </li>
         <li class="active">
-          <a href="/superadmin/program"
-            ><i class="bx bx-book-open"></i>Program</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/addstudents"
-            ><i class="bx bx-group"></i>Students</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/addprofessors"
+          <a href="/admin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
         <li>
-          <a href="/superadmin/course"
-            ><i class="bx bx-book"></i>Courses</a
-          >
+          <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
         </li>
         <li>
-          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
+          <a href="#"><i class="bx bx-news"></i>Notice</a>
         </li>
-
-        <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
       </ul>
       <ul class="side-menu">
         <li>
@@ -824,27 +919,28 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="{{ asset('images/ku logo.png') }}"alt="" />
+          <img src="{{ asset('images/ku logo.png') }}" alt="" />
         </a>
       </nav>
 
       <!-- End of Navbar -->
 
+
       <main>
         <div class="header">
           <div class="left">
-            <a href="/superadmin/program"><h1>programs</h1></a>
-            <h2>>enroll professor</h2>
+            <a href="ad-professorpage.html"><h1>professors</h1></a>
+            <h2>>Enroll Professor</h2>
           </div>
         </div>
         <div>
-          <form class="add-form" action="{{url('/')}}/superadmin/add/professor/program" method="post">
+          <form class="add-form" action="{{url('/')}}/admin/add/professor/program" method="post">
             @csrf
             <label for="program">choose program:</label>
             <select name="program" id="program">
-              @foreach($programs as $program)
+              
               <option>{{$program->name}}</option>
-              @endforeach
+              
             </select>
              <label for="email">Professor Email:</label>
             <input type="email" id="email" name="professor_email" value="{{old('professor_email')}}"  />

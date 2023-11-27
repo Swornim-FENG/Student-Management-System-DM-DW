@@ -880,7 +880,7 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="suAdmin-programpage.html"><h1>programs</h1></a>
+            <a href="/superadmin/program"><h1>programs</h1></a>
             <h2>>enroll student</h2>
           </div>
         </div>
