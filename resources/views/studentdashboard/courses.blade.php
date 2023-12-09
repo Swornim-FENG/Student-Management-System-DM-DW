@@ -546,69 +546,6 @@
         align-items: center;
         gap: 0.6rem;
       }
-      /* Add this to your existing CSS */
-
-      .profile-section {
-        display: flex;
-        align-items: center;
-        margin-top: 1rem;
-      }
-
-      .profile-photo {
-        width: 2.8rem;
-        height: 2.8rem;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-right: 1rem;
-      }
-
-      .profile-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .profile-info {
-        text-align: left;
-      }
-
-      .username {
-        color: var(--color-primary);
-      }
-
-      .widget {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-      }
-
-      .upcoming-deadlines ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .upcoming-deadlines li {
-        margin-bottom: 0.5rem;
-      }
-
-      .notifications {
-        margin-top: 2rem;
-      }
-
-      .notification {
-        background-color: var(--color-white);
-        padding: 1rem;
-        border-radius: var(--border-radius-2);
-        box-shadow: var(--box-shadow);
-        margin-bottom: 1rem;
-      }
-
-      .notification p {
-        margin: 0;
-        color: var(--color-dark);
-      }
 
       @media screen and (max-width: 1200px) {
         .container {
@@ -797,7 +734,7 @@
         </div>
 
         <div class="sidebar">
-          <a href="/student" class="active">
+          <a href="/student">
             <span class="material-icons-sharp"> dashboard </span>
             <h3>Dashboard</h3>
           </a>
@@ -807,7 +744,7 @@
             <h3>Grades</h3>
           </a>
 
-          <a href="/student/courses">
+          <a href="/student/courses"  class="active">
             <span class="material-icons-sharp">menu_book</span>
             <h3>Courses</h3>
           </a>
@@ -836,43 +773,31 @@
 
       <!-- Main Content -->
       <main>
-        <h1>Dashboard</h1>
-        <!-- Inside the <body> tag -->
+        <h1>Courses</h1>
 
-        <div class="profile-section">
-          <div class="profile-photo">
-            <img
-              src="{{ asset('images/ku logo.png') }}"
-              alt="Profile Picture"
-            />
-          </div>
-          <div class="profile-info">
-            <h2>Hey, <span class="username">{{$student->Firstname}}</span></h2>
-            <p>GPA: 3.8</p>
-            <p>Courses Completed: 15</p>
-          </div>
-        </div>
-
-        <!-- Upcoming Deadlines Widget -->
-        <div class="widget upcoming-deadlines">
-          <h3>Upcoming Deadlines</h3>
-          <ul>
-            <li>Math Assignment - Due Nov 5</li>
-            <li>Physics Exam - Nov 10</li>
-            <!-- Add more deadlines as needed -->
-          </ul>
-        </div>
-
-        <!-- Notification Section -->
-        <div class="notifications">
-          <h3>Notifications</h3>
-          <div class="notification">
-            <p>Workshop on Web Development - Tomorrow at 2 PM</p>
-          </div>
-          <div class="notification">
-            <p>Class rescheduled to Friday - Check schedule</p>
-          </div>
-        </div>
+        <!-- New Users Section -->
+        <div class="new-users">
+    
+    <div class="user-list">
+        @forelse ($combinedData as $data)
+            <a href="/student/individual/courses/{{ $data['course']->course_id }}/{{ $data['courseStudentInfo']->year }}/{{ $data['courseStudentInfo']->sem }}/{{ $data['courseStudentInfo']->batch }}">
+                <div class="user">
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <h2>{{ $data['course']->course_code }}</h2>
+                    @if ($data['courseStudentInfo'])
+                        <p>{{ $data['courseStudentInfo']->year }}-year {{ $data['courseStudentInfo']->sem }}-sem</p>
+                    @else
+                        <p>No enrollment information found</p>
+                    @endif
+                </div>
+            </a>
+        @empty
+            <p>No courses found </p>
+        @endforelse
+    </div>
+</div>
+            
+        <!-- End of New Users Section -->
       </main>
       <!-- End of Main Content -->
 
@@ -885,6 +810,15 @@
           <div class="dark-mode">
             <span class="material-icons-sharp active"> light_mode </span>
             <span class="material-icons-sharp"> dark_mode </span>
+          </div>
+
+          <div class="profile">
+            <div class="info">
+              <p>Hey, <b>{{$student->Firstname}}</b></p>
+            </div>
+            <div class="profile-photo">
+              <img src="kathmandu_university_logo_nepal .png" />
+            </div>
           </div>
         </div>
         <!-- End of Nav -->

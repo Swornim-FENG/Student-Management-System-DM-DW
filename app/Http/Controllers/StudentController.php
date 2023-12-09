@@ -5,15 +5,87 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Students;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Course_students;
+use App\Models\Courses;
+use App\Models\Course_professors;
 
 class StudentController extends Controller
 {    
 
     //To show students dashboard 
-    public function showstudent(){
-        return view('studentdashboard.studentdashboard');
+    public function showstudent(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $student=Students::where('user_id',$userId)->first();
+        return view('studentdashboard.studentdashboard',compact('student'));
     }
+
+    //To show grades page of student dashboard 
+    public function students_grades(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $student=Students::where('user_id',$userId)->first();
+        return view('studentdashboard.grades',compact('student'));
+    }
+
+    //To show courses page of student dashboard 
+    public function students_courses(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $student = Students::where('user_id', $userId)->first();
+$courseIds = Course_students::where('stud_id', $userId)->pluck('course_id');
+
+// Fetch courses from the Courses table
+$courses = Courses::whereIn('course_id', $courseIds)->get();
+
+// Fetch course_students information
+$courseStudentInfo = Course_students::whereIn('course_id', $courseIds)->get();
+
+// Combine the information into a single collection
+$combinedData = $courses->map(function ($course) use ($courseStudentInfo) {
+    $info = $courseStudentInfo->where('course_id', $course->course_id)->first();
+    return [
+        'course' => $course,
+        'courseStudentInfo' => $info,
+    ];
+});
+        return view('studentdashboard.courses',compact('student','courses','combinedData'));
+    }
+
+     //To show individual course page of student dashboard 
+     public function students_indcourse(Request $request,$course_id,$year,$sem,$batch){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $student=Students::where('user_id',$userId)->first();
+        $course=Courses::where('course_id',$course_id)->first();
+        $professor = Course_professors::where([
+            'course_id' => $course_id,
+            'year' => $year,
+            'sem' => $sem,
+            'batch' => $batch,
+        ])->first();
+        
+        if ($professor && $professor->prof_id !== null) {
+            $profinfo = User::find($professor->prof_id);
+            
+            // Now $profinfo contains the user information or is null if the user is not found
+        } else {
+            // Handle the case where $professor is null or $professor->prof_id is null
+            // For example, you might set $profinfo to null or some default value
+            $profinfo = null;
+        }
+        return view('studentdashboard.individualcourse',compact('student','course','profinfo'));
+    }
+
+    //To show settings page of student dashboard 
+    public function students_settings(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $student=Students::where('user_id',$userId)->first();
+        return view('studentdashboard.settings',compact('student'));
+    }
+
     //To show add students form of admin dashboard
     public function addstudents(){
         return view('admindashboard.addstudents');

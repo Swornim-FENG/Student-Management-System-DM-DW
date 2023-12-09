@@ -779,6 +779,28 @@
           font-size: 2rem;
         }
       }
+      .setting-list {
+        background-color: var(--color-white);
+        padding: 1rem;
+        border-radius: var(--border-radius-2);
+        box-shadow: var(--box-shadow);
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+      }
+      .setting {
+        background-color: var(--color-white);
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        margin-top: 1rem;
+        box-shadow: var(--box-shadow);
+        width: 50%;
+      }
+      .setting:hover {
+        background-color: rgb(184, 182, 186);
+        /* background-color: red; */
+        display: flex;
+        flex-direction: column;
+      }
     </style>
   </head>
 
@@ -797,7 +819,7 @@
         </div>
 
         <div class="sidebar">
-          <a href="/student" class="active">
+          <a href="/student" >
             <span class="material-icons-sharp"> dashboard </span>
             <h3>Dashboard</h3>
           </a>
@@ -821,7 +843,7 @@
             <h3>To do List</h3>
           </a>
 
-          <a href="/student/settings">
+          <a href="/student/settings"  class="active">
             <span class="material-icons-sharp"> settings </span>
             <h3>Settings</h3>
           </a>
@@ -836,13 +858,12 @@
 
       <!-- Main Content -->
       <main>
-        <h1>Dashboard</h1>
         <!-- Inside the <body> tag -->
 
         <div class="profile-section">
           <div class="profile-photo">
             <img
-              src="{{ asset('images/ku logo.png') }}"
+              src="kathmandu_university_logo_nepal .png"
               alt="Profile Picture"
             />
           </div>
@@ -852,31 +873,17 @@
             <p>Courses Completed: 15</p>
           </div>
         </div>
-
-        <!-- Upcoming Deadlines Widget -->
-        <div class="widget upcoming-deadlines">
-          <h3>Upcoming Deadlines</h3>
-          <ul>
-            <li>Math Assignment - Due Nov 5</li>
-            <li>Physics Exam - Nov 10</li>
-            <!-- Add more deadlines as needed -->
-          </ul>
-        </div>
-
-        <!-- Notification Section -->
-        <div class="notifications">
-          <h3>Notifications</h3>
-          <div class="notification">
-            <p>Workshop on Web Development - Tomorrow at 2 PM</p>
+        <div class="setting-list">
+          <h2>settings</h2>
+          <div class="setting">
+            <a href="#">
+              <span class="material-icons-sharp"> perm_identity </span>
+              <h3>change Profile Photo</h3>
+            </a>
           </div>
-          <div class="notification">
-            <p>Class rescheduled to Friday - Check schedule</p>
-          </div>
+          <div class="setting">change personal details</div>
         </div>
       </main>
-      <!-- End of Main Content -->
-
-      <!-- Right Section -->
       <div class="right-section">
         <div class="nav">
           <button id="menu-btn">
@@ -885,47 +892,6 @@
           <div class="dark-mode">
             <span class="material-icons-sharp active"> light_mode </span>
             <span class="material-icons-sharp"> dark_mode </span>
-          </div>
-        </div>
-        <!-- End of Nav -->
-
-        <div class="reminders">
-          <div class="header">
-            <h2>Reminders</h2>
-            <span class="material-icons-sharp"> notifications_none </span>
-          </div>
-
-          <div class="notification">
-            <div class="icon">
-              <span class="material-icons-sharp"> volume_up </span>
-            </div>
-            <div class="content">
-              <div class="info">
-                <h3>Workshop</h3>
-                <small class="text_muted"> 08:00 AM - 12:00 PM </small>
-              </div>
-              <span class="material-icons-sharp"> more_vert </span>
-            </div>
-          </div>
-
-          <div class="notification deactive">
-            <div class="icon">
-              <span class="material-icons-sharp"> edit </span>
-            </div>
-            <div class="content">
-              <div class="info">
-                <h3>Class</h3>
-                <small class="text_muted"> 1:00 PM - 4:00 PM </small>
-              </div>
-              <span class="material-icons-sharp"> more_vert </span>
-            </div>
-          </div>
-
-          <div class="notification add-reminder">
-            <div>
-              <span class="material-icons-sharp"> add </span>
-              <h3>Add Reminder</h3>
-            </div>
           </div>
         </div>
       </div>

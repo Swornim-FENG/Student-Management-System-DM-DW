@@ -546,69 +546,6 @@
         align-items: center;
         gap: 0.6rem;
       }
-      /* Add this to your existing CSS */
-
-      .profile-section {
-        display: flex;
-        align-items: center;
-        margin-top: 1rem;
-      }
-
-      .profile-photo {
-        width: 2.8rem;
-        height: 2.8rem;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-right: 1rem;
-      }
-
-      .profile-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .profile-info {
-        text-align: left;
-      }
-
-      .username {
-        color: var(--color-primary);
-      }
-
-      .widget {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-      }
-
-      .upcoming-deadlines ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .upcoming-deadlines li {
-        margin-bottom: 0.5rem;
-      }
-
-      .notifications {
-        margin-top: 2rem;
-      }
-
-      .notification {
-        background-color: var(--color-white);
-        padding: 1rem;
-        border-radius: var(--border-radius-2);
-        box-shadow: var(--box-shadow);
-        margin-bottom: 1rem;
-      }
-
-      .notification p {
-        margin: 0;
-        color: var(--color-dark);
-      }
 
       @media screen and (max-width: 1200px) {
         .container {
@@ -779,6 +716,20 @@
           font-size: 2rem;
         }
       }
+      .left {
+        display: flex;
+      }
+      .left h2 {
+        margin-top: 7px;
+      }
+      .new-users .user-list .user h3 {
+        margin-top: 20px;
+        font-size: 16px;
+      }
+      .new-users .user-list .description h3 {
+        margin-top: 20px;
+        font-size: 16px;
+      }
     </style>
   </head>
 
@@ -797,7 +748,7 @@
         </div>
 
         <div class="sidebar">
-          <a href="/student" class="active">
+          <a href="/student">
             <span class="material-icons-sharp"> dashboard </span>
             <h3>Dashboard</h3>
           </a>
@@ -807,7 +758,7 @@
             <h3>Grades</h3>
           </a>
 
-          <a href="/student/courses">
+          <a href="/student/courses"  class="active">
             <span class="material-icons-sharp">menu_book</span>
             <h3>Courses</h3>
           </a>
@@ -836,43 +787,47 @@
 
       <!-- Main Content -->
       <main>
-        <h1>Dashboard</h1>
-        <!-- Inside the <body> tag -->
-
-        <div class="profile-section">
-          <div class="profile-photo">
-            <img
-              src="{{ asset('images/ku logo.png') }}"
-              alt="Profile Picture"
-            />
-          </div>
-          <div class="profile-info">
-            <h2>Hey, <span class="username">{{$student->Firstname}}</span></h2>
-            <p>GPA: 3.8</p>
-            <p>Courses Completed: 15</p>
+        <div class="header">
+          <div class="left">
+            <a href="student-course.html"><h1>Courses</h1></a>
+            <h2>>{{$course->course_code}}</h2>
           </div>
         </div>
-
-        <!-- Upcoming Deadlines Widget -->
-        <div class="widget upcoming-deadlines">
-          <h3>Upcoming Deadlines</h3>
-          <ul>
-            <li>Math Assignment - Due Nov 5</li>
-            <li>Physics Exam - Nov 10</li>
-            <!-- Add more deadlines as needed -->
-          </ul>
-        </div>
-
-        <!-- Notification Section -->
-        <div class="notifications">
-          <h3>Notifications</h3>
-          <div class="notification">
-            <p>Workshop on Web Development - Tomorrow at 2 PM</p>
+        <!-- New Users Section -->
+        <div class="new-users">
+          <div class="user-list">
+            <div class="user">
+              <img src="{{ asset('images/ku logo.png') }}" />
+              @if ($profinfo)
+             <h2>{{ $profinfo->Fullname }}</h2>
+               <p>{{ $profinfo->email }}</p>
+               @else
+             <p>Professor has not been assigned yet.</p>
+               @endif
+            </div>
+            <div class="description">
+              <h3>Course description</h3>
+              <p>
+                {{$course->course_desc}}
+              </p>
+              <h3>Grading Guidelines</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Incidunt dolorem obcaecati sapiente consequatur, laboriosam ea
+                suscipit sequi nulla repellat optio, adipisci quidem voluptas,
+                nam dolores recusandae explicabo rerum dolore fugit.
+              </p>
+              <h3>cource plan</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
+                repudiandae beatae rem velit nisi dolorum veniam officiis,
+                corrupti quod sequi illo dolore facilis nobis error sit, aliquid
+                delectus corporis quibusdam?
+              </p>
+            </div>
           </div>
-          <div class="notification">
-            <p>Class rescheduled to Friday - Check schedule</p>
-          </div>
         </div>
+        <!-- End of New Users Section -->
       </main>
       <!-- End of Main Content -->
 
@@ -885,6 +840,15 @@
           <div class="dark-mode">
             <span class="material-icons-sharp active"> light_mode </span>
             <span class="material-icons-sharp"> dark_mode </span>
+          </div>
+
+          <div class="profile">
+            <div class="info">
+              <p>Hey, <b>{{$student->Firstname}}</b></p>
+            </div>
+            <div class="profile-photo">
+              <img src="kathmandu_university_logo_nepal .png" />
+            </div>
           </div>
         </div>
         <!-- End of Nav -->
@@ -951,45 +915,6 @@
         darkMode.querySelector("span:nth-child(1)").classList.toggle("active");
         darkMode.querySelector("span:nth-child(2)").classList.toggle("active");
       });
-
-      Orders.forEach((order) => {
-        const tr = document.createElement("tr");
-        const trContent = `
-        <td>${order.productName}</td>
-        <td>${order.productNumber}</td>
-        <td>${order.paymentStatus}</td>
-        <td class="${
-          order.status === "Declined"
-            ? "danger"
-            : order.status === "Pending"
-            ? "warning"
-            : "primary"
-        }">${order.status}</td>
-        <td class="primary">Details</td>
-    `;
-        tr.innerHTML = trContent;
-        document.querySelector("table tbody").appendChild(tr);
-      });
-      const Orders = [
-        {
-          productName: "JavaScript Tutorial",
-          productNumber: "85743",
-          paymentStatus: "Due",
-          status: "Pending",
-        },
-        {
-          productName: "CSS Full Course",
-          productNumber: "97245",
-          paymentStatus: "Refunded",
-          status: "Declined",
-        },
-        {
-          productName: "Flex-Box Tutorial",
-          productNumber: "36452",
-          paymentStatus: "Paid",
-          status: "Active",
-        },
-      ];
     </script>
   </body>
 </html>

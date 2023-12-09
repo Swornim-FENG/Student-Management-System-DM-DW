@@ -52,7 +52,7 @@ class CourseController extends Controller
             ]
             );
             $course = new Courses;
-
+            
              // Assign course details
              $course->name = $request['name'];
              $course->course_code = $request['code'];

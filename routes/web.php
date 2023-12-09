@@ -129,6 +129,14 @@ Route::post('/login',[LoginController::class,'login']);
 
 Route::get('/logout',[LoginController::class,'logout']);
 
+Route::get('/student/grades',[StudentController::class,'students_grades']);
+
+Route::get('/student/courses',[StudentController::class,'students_courses']);
+
+Route::get('/student/individual/courses/{course_id}/{year}/{sem}/{batch}',[StudentController::class,'students_indcourse']);
+
+Route::get('/student/settings',[StudentController::class,'students_settings']);
+
 Route::get('/test', function () {
     return view('test');
 });
