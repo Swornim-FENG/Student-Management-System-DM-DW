@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Professors;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Course_students;
+use App\Models\Courses;
+use App\Models\Course_professors;
+
 class ProfessorController extends Controller
 {   
     //To show add professor form of admin dashboard
@@ -12,8 +17,93 @@ class ProfessorController extends Controller
         return view('admindashboard.addprofessors');
     }
     // To show professor dashboard
-    public function showprofessors(){
-        return view('professordashboard.professordashboard');
+    public function showprofessors(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor=Professors::where('user_id',$userId)->first();
+        return view('professordashboard.professordashboard',compact('professor'));
+    }
+
+    // To show grades page of professordashboard
+    public function show_grades(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor=Professors::where('user_id',$userId)->first();
+        return view('professordashboard.grades',compact('professor'));
+    }
+
+    // To show analytics page of professordashboard
+    public function show_analytics(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor=Professors::where('user_id',$userId)->first();
+        return view('professordashboard.analytics',compact('professor'));
+    }
+
+    // To show student page of professordashboard
+    public function showstudents_of_professor(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor = Professors::where('user_id', $userId)->first();
+$courseIds = Course_professors::where('prof_id', $userId)->pluck('course_id');
+
+// Fetch courses from the Courses table
+$courses = Courses::whereIn('course_id', $courseIds)->get();
+
+// Fetch course_students information
+$courseprofInfo = Course_professors::whereIn('course_id', $courseIds)->get();
+
+// Combine the information into a single collection
+$combinedData = $courses->map(function ($course) use ($courseprofInfo) {
+    $info = $courseprofInfo->where('course_id', $course->course_id)->first();
+    return [
+        'course' => $course,
+        'courseprofInfo' => $info,
+    ];
+});
+        return view('professordashboard.students',compact('professor','courses','combinedData'));
+    }
+
+    //To show students of each course of professor dashboard 
+    public function students_in_course(Request $request,$course_id,$year,$sem,$batch){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor=Professors::where('user_id',$userId)->first();
+        $course=Courses::where('course_id',$course_id)->first();
+        $studentIds = Course_students::where([
+            'course_id' => $course_id,
+            'year' => $year,
+            'sem' => $sem,
+            'batch' => $batch,
+        ])->pluck('stud_id');
+        
+        $studentInfos = User::whereIn('user_id', $studentIds)->get();
+        
+        return view('professordashboard.course_students',compact('professor','course','studentInfos'));
+    }
+
+    // To show course page of professordashboard
+    public function showcourses_of_professor(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor = Professors::where('user_id', $userId)->first();
+$courseIds = Course_professors::where('prof_id', $userId)->pluck('course_id');
+
+// Fetch courses from the Courses table
+$courses = Courses::whereIn('course_id', $courseIds)->get();
+
+// Fetch course_students information
+$courseprofInfo = Course_professors::whereIn('course_id', $courseIds)->get();
+
+// Combine the information into a single collection
+$combinedData = $courses->map(function ($course) use ($courseprofInfo) {
+    $info = $courseprofInfo->where('course_id', $course->course_id)->first();
+    return [
+        'course' => $course,
+        'courseprofInfo' => $info,
+    ];
+});
+        return view('professordashboard.courses',compact('professor','courses','combinedData'));
     }
 
     //To validate and insert students into the system

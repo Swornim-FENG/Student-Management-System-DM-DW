@@ -55,7 +55,7 @@ Route::get('/add/school',[SchoolController::class,'showaddschool'])->name('addsc
 
 Route::post('/add/school',[SchoolController::class,'insertschool']);
 
-Route::get('professor',[ProfessorController::class,'showprofessors']);
+Route::get('/professor',[ProfessorController::class,'showprofessors']);
 
 Route::get('/admin',[AdminController::class,'showadmin']);
 
@@ -136,6 +136,16 @@ Route::get('/student/courses',[StudentController::class,'students_courses']);
 Route::get('/student/individual/courses/{course_id}/{year}/{sem}/{batch}',[StudentController::class,'students_indcourse']);
 
 Route::get('/student/settings',[StudentController::class,'students_settings']);
+
+Route::get('/professor/students',[ProfessorController::class,'showstudents_of_professor']);
+
+Route::get('/professor/course/students/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'students_in_course']);
+
+Route::get('/professor/courses',[ProfessorController::class,'showcourses_of_professor']);
+
+Route::get('/professor/grades',[ProfessorController::class,'show_grades']);
+
+Route::get('/professor/analytics',[ProfessorController::class,'show_analytics']);
 
 Route::get('/test', function () {
     return view('test');

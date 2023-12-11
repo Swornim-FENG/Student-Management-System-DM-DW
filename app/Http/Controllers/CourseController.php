@@ -39,7 +39,7 @@ class CourseController extends Controller
         return view('admindashboard.addcourse');
     }
 
-    //To validate and insert course into the system
+    //To validate and insert course into the system(superadmin dashboard)
     public function insertcourse(Request $request){
         $request->validate(
             [
@@ -51,23 +51,29 @@ class CourseController extends Controller
                 
             ]
             );
-            $course = new Courses;
-            
-             // Assign course details
-             $course->name = $request['name'];
-             $course->course_code = $request['code'];
-             $course->cr_hour = $request['credit_hour'];
-             $course->course_desc = $request['course_description'];
-    
-               $course->save();
         
-
+        // Check if the course code already exists
+        if (Courses::where('course_code', $request['code'])->exists()) {
+            return redirect()->route('addcourse')->withError('Course code already exists. Please choose a different code.');
+        }
+        
+        // If not, create and save the new course
+        $course = new Courses;
+        
+        // Assign course details
+        $course->name = $request['name'];
+        $course->course_code = $request['code'];
+        $course->cr_hour = $request['credit_hour'];
+        $course->course_desc = $request['course_description'];
+        
+        $course->save();
+        
         return redirect('/superadmin/course');
     
             
         }
 
-        //To validate and insert course into the system
+        //To validate and insert course into the system(Admin dashboard)
     public function insert_course(Request $request){
         $request->validate(
             [
@@ -79,18 +85,24 @@ class CourseController extends Controller
                 
             ]
             );
-            $course = new Courses;
-
-             // Assign course details
-             $course->name = $request['name'];
-             $course->course_code = $request['code'];
-             $course->cr_hour = $request['credit_hour'];
-             $course->course_desc = $request['course_description'];
-    
-               $course->save();
+            // Check if the course code already exists
+        if (Courses::where('course_code', $request['code'])->exists()) {
+            return redirect()->route('add_course')->withError('Course code already exists. Please choose a different code.');
+        }
         
-
+        // If not, create and save the new course
+        $course = new Courses;
+        
+        // Assign course details
+        $course->name = $request['name'];
+        $course->course_code = $request['code'];
+        $course->cr_hour = $request['credit_hour'];
+        $course->course_desc = $request['course_description'];
+        
+        $course->save();
+        
         return redirect('/admin/course');
+    
     
             
         }

@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Student</title>
+    <title>Professor-main</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
@@ -716,20 +716,6 @@
           font-size: 2rem;
         }
       }
-      .left {
-        display: flex;
-      }
-      .left h2 {
-        margin-top: 7px;
-      }
-      .new-users .user-list .user h3 {
-        margin-top: 20px;
-        font-size: 16px;
-      }
-      .new-users .user-list .description h3 {
-        margin-top: 20px;
-        font-size: 16px;
-      }
     </style>
   </head>
 
@@ -740,7 +726,7 @@
         <div class="toggle">
           <div class="logo">
             <img src="{{ asset('images/ku logo.png') }}" />
-            <h2><span class="danger">Student</span></h2>
+            <h2><span class="danger">Professor</span></h2>
           </div>
           <div class="close" id="close-btn">
             <span class="material-icons-sharp"> close </span>
@@ -748,85 +734,98 @@
         </div>
 
         <div class="sidebar">
-          <a href="/student">
-            <span class="material-icons-sharp"> dashboard </span>
-            <h3>Dashboard</h3>
-          </a>
-
-          <a href="/student/grades">
-            <span class="material-icons-sharp"> receipt_long </span>
-            <h3>Grades</h3>
-          </a>
-
-          <a href="/student/courses"  class="active">
-            <span class="material-icons-sharp">menu_book</span>
-            <h3>Courses</h3>
-          </a>
-          <a href="#">
-            <span class="material-icons-sharp"> mail_outline </span>
-            <h3>Messages</h3>
-            <span class="message-count">18</span>
-          </a>
-          <a href="#">
-            <span class="material-icons-sharp"> inventory </span>
-            <h3>To do List</h3>
-          </a>
-
-          <a href="/student/settings">
-            <span class="material-icons-sharp"> settings </span>
-            <h3>Settings</h3>
-          </a>
-
-          <a href="{{url('/')}}/logout">
-            <span class="material-icons-sharp"> logout </span>
-            <h3>Logout</h3>
-          </a>
-        </div>
-      </aside>
+                <a href="/professor" >
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="/professor/students" class="active" >
+                    <span class="material-icons-sharp">
+                        person_outline
+                    </span>
+                    <h3>Students</h3>
+                </a>
+                <a href="/professor/grades">
+                    <span class="material-icons-sharp">
+                        receipt_long
+                    </span>
+                    <h3>Grades</h3>
+                </a>
+                <a href="/professor/analytics" >
+                    <span class="material-icons-sharp">
+                        insights
+                    </span>
+                    <h3>Analytics</h3>
+                </a>
+                <a href="/professor/courses">
+                <span class='material-icons-sharp'>menu_book</span>
+                    <h3>Courses</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        mail_outline
+                    </span>
+                    <h3>Messages</h3>
+                    <span class="message-count">18</span>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        inventory
+                    </span>
+                    <h3>To do List</h3>
+                </a>
+                
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        settings
+                    </span>
+                    <h3>Settings</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        add
+                    </span>
+                    <h3>New Login</h3>
+                </a>
+                <a href="{{url('/')}}/logout">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
       <!-- End of Sidebar Section -->
 
       <!-- Main Content -->
       <main>
-        <div class="header">
-          <div class="left">
-            <a href="/student/courses"><h1>Courses</h1></a>
-            <h2>>{{$course->course_code}}</h2>
-          </div>
-        </div>
+        <!-- New Users Section -->
+        <h1>Students</h1>
+
         <!-- New Users Section -->
         <div class="new-users">
-          <div class="user-list">
-            <div class="user">
-              <img src="{{ asset('images/ku logo.png') }}" />
-              @if ($profinfo)
-             <h2>{{ $profinfo->Fullname }}</h2>
-               <p>{{ $profinfo->email }}</p>
-               @else
-             <p>Professor has not been assigned yet.</p>
-               @endif
-            </div>
-            <div class="description">
-              <h3>Course description</h3>
-              <p>
-                {{$course->course_desc}}
-              </p>
-              <h3>Grading Guidelines</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Incidunt dolorem obcaecati sapiente consequatur, laboriosam ea
-                suscipit sequi nulla repellat optio, adipisci quidem voluptas,
-                nam dolores recusandae explicabo rerum dolore fugit.
-              </p>
-              <h3>cource plan</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-                repudiandae beatae rem velit nisi dolorum veniam officiis,
-                corrupti quod sequi illo dolore facilis nobis error sit, aliquid
-                delectus corporis quibusdam?
-              </p>
-            </div>
-          </div>
-        </div>
+    
+    <div class="user-list">
+        @forelse ($combinedData as $data)
+            <a href="/professor/course/students/{{ $data['course']->course_id }}/{{ $data['courseprofInfo']->year }}/{{ $data['courseprofInfo']->sem }}/{{ $data['courseprofInfo']->batch }}">
+                <div class="user">
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <h2>{{ $data['course']->course_code }}</h2>
+                    @if ($data['courseprofInfo'])
+                        <p>{{ $data['courseprofInfo']->year }}-year {{ $data['courseprofInfo']->sem }}-sem</p>
+                        
+                        <p>{{ $data['courseprofInfo']->batch }}</p>
+                    @else
+                        <p>No enrollment information found</p>
+                    @endif
+                </div>
+            </a>
+        @empty
+            <p>No courses found </p>
+        @endforelse
+    </div>
+</div>
         <!-- End of New Users Section -->
       </main>
       <!-- End of Main Content -->
@@ -844,10 +843,10 @@
 
           <div class="profile">
             <div class="info">
-              <p>Hey, <b>{{$student->Firstname}}</b></p>
+              <p>Hey, <b>{{$professor->Firstname}}</b></p>
             </div>
             <div class="profile-photo">
-              <img src="kathmandu_university_logo_nepal .png" />
+              <img src="profile.jpg" />
             </div>
           </div>
         </div>
@@ -915,6 +914,45 @@
         darkMode.querySelector("span:nth-child(1)").classList.toggle("active");
         darkMode.querySelector("span:nth-child(2)").classList.toggle("active");
       });
+
+      Orders.forEach((order) => {
+        const tr = document.createElement("tr");
+        const trContent = `
+        <td>${order.productName}</td>
+        <td>${order.productNumber}</td>
+        <td>${order.paymentStatus}</td>
+        <td class="${
+          order.status === "Declined"
+            ? "danger"
+            : order.status === "Pending"
+            ? "warning"
+            : "primary"
+        }">${order.status}</td>
+        <td class="primary">Details</td>
+    `;
+        tr.innerHTML = trContent;
+        document.querySelector("table tbody").appendChild(tr);
+      });
+      const Orders = [
+        {
+          productName: "JavaScript Tutorial",
+          productNumber: "85743",
+          paymentStatus: "Due",
+          status: "Pending",
+        },
+        {
+          productName: "CSS Full Course",
+          productNumber: "97245",
+          paymentStatus: "Refunded",
+          status: "Declined",
+        },
+        {
+          productName: "Flex-Box Tutorial",
+          productNumber: "36452",
+          paymentStatus: "Paid",
+          status: "Active",
+        },
+      ];
     </script>
   </body>
 </html>

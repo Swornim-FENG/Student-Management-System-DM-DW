@@ -737,31 +737,31 @@ main .recent-orders a{
             </div>
 
             <div class="sidebar">
-                <a href="#">
+                <a href="/professor" class="active">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="#">
+                <a href="/professor/students">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
                     <h3>Students</h3>
                 </a>
-                <a href="#">
+                <a href="/professor/grades">
                     <span class="material-icons-sharp">
                         receipt_long
                     </span>
                     <h3>Grades</h3>
                 </a>
-                <a href="#" class="active">
+                <a href="/professor/analytics" >
                     <span class="material-icons-sharp">
                         insights
                     </span>
                     <h3>Analytics</h3>
                 </a>
-                <a href="#">
+                <a href="/professor/courses">
                 <span class='material-icons-sharp'>menu_book</span>
                     <h3>Courses</h3>
                 </a>
@@ -926,7 +926,7 @@ main .recent-orders a{
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Feng</b></p>
+                        <p>Hey, <b>{{$professor->Firstname}}</b></p>
                         
                     </div>
                     <div class="profile-photo">

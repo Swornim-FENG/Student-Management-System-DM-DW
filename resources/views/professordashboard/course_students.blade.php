@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Student</title>
+    <title>Professor-students</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
@@ -546,6 +546,101 @@
         align-items: center;
         gap: 0.6rem;
       }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 200px));
+        gap: 10px;
+      }
+
+      .card {
+        background-color: var(--color-light);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.2s ease-in-out;
+        border: 1px solid rgba(26, 177, 188, 0.952);
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+      }
+
+      .card img {
+        width: 100%;
+        height: auto;
+        max-height: 150px; /* Set a maximum height for the image */
+        object-fit: cover; /* Maintain aspect ratio while covering the container */
+        border-bottom: 1px solid rgba(26, 177, 188, 0.952);
+      }
+
+      .card-content {
+        padding: 20px;
+      }
+
+      h2,
+      p {
+        margin: 0;
+        color: var(--color-dark);
+      }
+
+      h2 {
+        margin-bottom: 10px;
+      }
+      .popup {
+        display: none;
+        position: fixed;
+        top: 30%;
+        left: 85%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1000;
+        border: 2px solid rgba(26, 177, 188, 0.952);
+      }
+
+      /* Add more styling as needed */
+      #popupTitle {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      #popupContent {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      #popupRemarks,
+      #popupReports {
+        font-size: 14px;
+        color: #666;
+      }
+      .container main .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        grid-gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .container main .header .left {
+        display: flex;
+      }
+
+      .container main .header .left h1 {
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--dark);
+      }
+      .container main .header .left h2 {
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--dark);
+        margin-top: 10px;
+      }
 
       @media screen and (max-width: 1200px) {
         .container {
@@ -619,6 +714,35 @@
           left: -100%;
           display: none;
           animation: showMenu 0.4s ease forwards;
+        }
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(150px, 200px));
+          gap: 10px;
+        }
+        .popup {
+          width: 80%;
+          height: 200px;
+          margin: 80% -130px;
+          padding: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          background-color: var(--color-light);
+        }
+        #popupTitle {
+          font-size: 28px;
+          margin-bottom: 10px;
+          background-color: var(--color-light);
+        }
+
+        #popupContent {
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+
+        #popupRemarks,
+        #popupReports {
+          font-size: 18px;
+          color: var(--color-dark);
         }
 
         @keyframes showMenu {
@@ -716,20 +840,6 @@
           font-size: 2rem;
         }
       }
-      .left {
-        display: flex;
-      }
-      .left h2 {
-        margin-top: 7px;
-      }
-      .new-users .user-list .user h3 {
-        margin-top: 20px;
-        font-size: 16px;
-      }
-      .new-users .user-list .description h3 {
-        margin-top: 20px;
-        font-size: 16px;
-      }
     </style>
   </head>
 
@@ -740,7 +850,7 @@
         <div class="toggle">
           <div class="logo">
             <img src="{{ asset('images/ku logo.png') }}" />
-            <h2><span class="danger">Student</span></h2>
+            <h2><span class="danger">Professor</span></h2>
           </div>
           <div class="close" id="close-btn">
             <span class="material-icons-sharp"> close </span>
@@ -748,89 +858,117 @@
         </div>
 
         <div class="sidebar">
-          <a href="/student">
-            <span class="material-icons-sharp"> dashboard </span>
-            <h3>Dashboard</h3>
-          </a>
-
-          <a href="/student/grades">
-            <span class="material-icons-sharp"> receipt_long </span>
-            <h3>Grades</h3>
-          </a>
-
-          <a href="/student/courses"  class="active">
-            <span class="material-icons-sharp">menu_book</span>
-            <h3>Courses</h3>
-          </a>
-          <a href="#">
-            <span class="material-icons-sharp"> mail_outline </span>
-            <h3>Messages</h3>
-            <span class="message-count">18</span>
-          </a>
-          <a href="#">
-            <span class="material-icons-sharp"> inventory </span>
-            <h3>To do List</h3>
-          </a>
-
-          <a href="/student/settings">
-            <span class="material-icons-sharp"> settings </span>
-            <h3>Settings</h3>
-          </a>
-
-          <a href="{{url('/')}}/logout">
-            <span class="material-icons-sharp"> logout </span>
-            <h3>Logout</h3>
-          </a>
-        </div>
-      </aside>
+                <a href="/professor" >
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="/professor/students" class="active" >
+                    <span class="material-icons-sharp">
+                        person_outline
+                    </span>
+                    <h3>Students</h3>
+                </a>
+                <a href="/professor/grades">
+                    <span class="material-icons-sharp">
+                        receipt_long
+                    </span>
+                    <h3>Grades</h3>
+                </a>
+                <a href="/professor/analytics" >
+                    <span class="material-icons-sharp">
+                        insights
+                    </span>
+                    <h3>Analytics</h3>
+                </a>
+                <a href="/professor/courses">
+                <span class='material-icons-sharp'>menu_book</span>
+                    <h3>Courses</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        mail_outline
+                    </span>
+                    <h3>Messages</h3>
+                    <span class="message-count">18</span>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        inventory
+                    </span>
+                    <h3>To do List</h3>
+                </a>
+                
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        settings
+                    </span>
+                    <h3>Settings</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        add
+                    </span>
+                    <h3>New Login</h3>
+                </a>
+                <a href="{{url('/')}}/logout">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
       <!-- End of Sidebar Section -->
 
       <!-- Main Content -->
       <main>
         <div class="header">
           <div class="left">
-            <a href="/student/courses"><h1>Courses</h1></a>
-            <h2>>{{$course->course_code}}</h2>
+            <a href="/professor/students"><h1>Students</h1></a>
+            <h2>->{{$course->course_code}}</h2>
           </div>
         </div>
-        <!-- New Users Section -->
-        <div class="new-users">
-          <div class="user-list">
-            <div class="user">
-              <img src="{{ asset('images/ku logo.png') }}" />
-              @if ($profinfo)
-             <h2>{{ $profinfo->Fullname }}</h2>
-               <p>{{ $profinfo->email }}</p>
-               @else
-             <p>Professor has not been assigned yet.</p>
-               @endif
+        <div class="grid">
+          <!-- Student 1 -->
+          @if(count($studentInfos) > 0)
+    @foreach($studentInfos as $studentInfo)
+        <div class="card" onclick="openStudentPopup('{{ $studentInfo->Fullname }}', '{{ $studentInfo->email }}','{{ $studentInfo->phone_number }}')">
+            <img src="{{ asset('images/ku logo.png') }}" alt="{{ $studentInfo->name }}" />
+            <div class="card-content">
+                <h2>{{ $studentInfo->Fullname }}</h2>
             </div>
-            <div class="description">
-              <h3>Course description</h3>
-              <p>
-                {{$course->course_desc}}
-              </p>
-              <h3>Grading Guidelines</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Incidunt dolorem obcaecati sapiente consequatur, laboriosam ea
-                suscipit sequi nulla repellat optio, adipisci quidem voluptas,
-                nam dolores recusandae explicabo rerum dolore fugit.
-              </p>
-              <h3>cource plan</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-                repudiandae beatae rem velit nisi dolorum veniam officiis,
-                corrupti quod sequi illo dolore facilis nobis error sit, aliquid
-                delectus corporis quibusdam?
-              </p>
-            </div>
-          </div>
         </div>
-        <!-- End of New Users Section -->
+    @endforeach
+@else
+    
+    <h1>No students</h1>
+@endif
+
+          
+          <!-- Add more students as needed -->
+        </div>
       </main>
       <!-- End of Main Content -->
-
+      <!-- student info section-->
+      <div
+        class="popup"
+        style="background-color: var(--color-light)"
+        id="studentPopup"
+      >
+        <span
+          class="close-btn"
+          style="cursor: pointer"
+          onclick="closeStudentPopup()"
+          >&times;</span
+        >
+        <h2 style="color: var(--color-dark)" id="popupTitle"></h2>
+        <p id="popupContent"></p>
+        <p><strong>Remarks:</strong> <span id="popupRemarks"></span></p>
+        <p><strong>Past Reports:</strong> <span id="popupReports"></span></p>
+      </div>
+      <!-- student info section close-->
       <!-- Right Section -->
       <div class="right-section">
         <div class="nav">
@@ -844,7 +982,7 @@
 
           <div class="profile">
             <div class="info">
-              <p>Hey, <b>{{$student->Firstname}}</b></p>
+              <p>Hey, <b>{{$professor->Firstname}}</b></p>
             </div>
             <div class="profile-photo">
               <img src="kathmandu_university_logo_nepal .png" />
@@ -852,46 +990,6 @@
           </div>
         </div>
         <!-- End of Nav -->
-
-        <div class="reminders">
-          <div class="header">
-            <h2>Reminders</h2>
-            <span class="material-icons-sharp"> notifications_none </span>
-          </div>
-
-          <div class="notification">
-            <div class="icon">
-              <span class="material-icons-sharp"> volume_up </span>
-            </div>
-            <div class="content">
-              <div class="info">
-                <h3>Workshop</h3>
-                <small class="text_muted"> 08:00 AM - 12:00 PM </small>
-              </div>
-              <span class="material-icons-sharp"> more_vert </span>
-            </div>
-          </div>
-
-          <div class="notification deactive">
-            <div class="icon">
-              <span class="material-icons-sharp"> edit </span>
-            </div>
-            <div class="content">
-              <div class="info">
-                <h3>Class</h3>
-                <small class="text_muted"> 1:00 PM - 4:00 PM </small>
-              </div>
-              <span class="material-icons-sharp"> more_vert </span>
-            </div>
-          </div>
-
-          <div class="notification add-reminder">
-            <div>
-              <span class="material-icons-sharp"> add </span>
-              <h3>Add Reminder</h3>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -915,6 +1013,66 @@
         darkMode.querySelector("span:nth-child(1)").classList.toggle("active");
         darkMode.querySelector("span:nth-child(2)").classList.toggle("active");
       });
+
+      Orders.forEach((order) => {
+        const tr = document.createElement("tr");
+        const trContent = `
+        <td>${order.productName}</td>
+        <td>${order.productNumber}</td>
+        <td>${order.paymentStatus}</td>
+        <td class="${
+          order.status === "Declined"
+            ? "danger"
+            : order.status === "Pending"
+            ? "warning"
+            : "primary"
+        }">${order.status}</td>
+        <td class="primary">Details</td>
+    `;
+        tr.innerHTML = trContent;
+        document.querySelector("table tbody").appendChild(tr);
+      });
+      const Orders = [
+        {
+          productName: "JavaScript Tutorial",
+          productNumber: "85743",
+          paymentStatus: "Due",
+          status: "Pending",
+        },
+        {
+          productName: "CSS Full Course",
+          productNumber: "97245",
+          paymentStatus: "Refunded",
+          status: "Declined",
+        },
+        {
+          productName: "Flex-Box Tutorial",
+          productNumber: "36452",
+          paymentStatus: "Paid",
+          status: "Active",
+        },
+      ];
+      function openStudentPopup(name, email, phone, pastReports) {
+        const popupTitle = document.getElementById("popupTitle");
+        const popupContent = document.getElementById("popupContent");
+        const popupRemarks = document.getElementById("popupRemarks");
+        const popupReports = document.getElementById("popupReports");
+
+        // Set popup title and content
+        popupTitle.textContent = name;
+        popupContent.textContent = `Email: ${email}`;
+
+        // Set remarks and past reports
+        popupRemarks.textContent = `Contact: ${phone}`;
+        popupReports.textContent = pastReports || "N/A";
+
+        // Display the popup
+        document.getElementById("studentPopup").style.display = "block";
+      }
+
+      function closeStudentPopup() {
+        document.getElementById("studentPopup").style.display = "none";
+      }
     </script>
   </body>
 </html>

@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Student</title>
+    <title>Professor-main</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
@@ -235,6 +235,11 @@
       main {
         margin-top: 1.4rem;
       }
+      .sub-heading {
+        font-size: 19px;
+        font-weight: bold;
+        margin-top: 15px;
+      }
 
       main .analyse {
         display: grid;
@@ -313,81 +318,6 @@
         justify-content: center;
         height: 100%;
         width: 100%;
-      }
-
-      main .new-users {
-        margin-top: 1.3rem;
-      }
-
-      main .new-users .user-list {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        gap: 1.4rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      main .new-users .user-list:hover {
-        box-shadow: none;
-      }
-
-      main .new-users .user-list .user {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-
-      main .new-users .user-list .user img {
-        width: 5rem;
-        height: 5rem;
-        margin-bottom: 0.4rem;
-        border-radius: 50%;
-      }
-
-      main .recent-orders {
-        margin-top: 1.3rem;
-      }
-
-      main .recent-orders h2 {
-        margin-bottom: 0.8rem;
-      }
-
-      main .recent-orders table {
-        background-color: var(--color-white);
-        width: 100%;
-        padding: var(--card-padding);
-        text-align: center;
-        box-shadow: var(--box-shadow);
-        border-radius: var(--card-border-radius);
-        transition: all 0.3s ease;
-      }
-
-      main .recent-orders table:hover {
-        box-shadow: none;
-      }
-
-      main table tbody td {
-        height: 2.8rem;
-        border-bottom: 1px solid var(--color-light);
-        color: var(--color-dark-variant);
-      }
-
-      main table tbody tr:last-child td {
-        border: none;
-      }
-
-      main .recent-orders a {
-        text-align: center;
-        display: block;
-        margin: 1rem auto;
-        color: var(--color-primary);
       }
 
       .right-section {
@@ -716,20 +646,6 @@
           font-size: 2rem;
         }
       }
-      .left {
-        display: flex;
-      }
-      .left h2 {
-        margin-top: 7px;
-      }
-      .new-users .user-list .user h3 {
-        margin-top: 20px;
-        font-size: 16px;
-      }
-      .new-users .user-list .description h3 {
-        margin-top: 20px;
-        font-size: 16px;
-      }
     </style>
   </head>
 
@@ -740,7 +656,7 @@
         <div class="toggle">
           <div class="logo">
             <img src="{{ asset('images/ku logo.png') }}" />
-            <h2><span class="danger">Student</span></h2>
+            <h2><span class="danger">Professor</span></h2>
           </div>
           <div class="close" id="close-btn">
             <span class="material-icons-sharp"> close </span>
@@ -748,86 +664,126 @@
         </div>
 
         <div class="sidebar">
-          <a href="/student">
-            <span class="material-icons-sharp"> dashboard </span>
-            <h3>Dashboard</h3>
-          </a>
-
-          <a href="/student/grades">
-            <span class="material-icons-sharp"> receipt_long </span>
-            <h3>Grades</h3>
-          </a>
-
-          <a href="/student/courses"  class="active">
-            <span class="material-icons-sharp">menu_book</span>
-            <h3>Courses</h3>
-          </a>
-          <a href="#">
-            <span class="material-icons-sharp"> mail_outline </span>
-            <h3>Messages</h3>
-            <span class="message-count">18</span>
-          </a>
-          <a href="#">
-            <span class="material-icons-sharp"> inventory </span>
-            <h3>To do List</h3>
-          </a>
-
-          <a href="/student/settings">
-            <span class="material-icons-sharp"> settings </span>
-            <h3>Settings</h3>
-          </a>
-
-          <a href="{{url('/')}}/logout">
-            <span class="material-icons-sharp"> logout </span>
-            <h3>Logout</h3>
-          </a>
-        </div>
-      </aside>
+                <a href="/professor" >
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="/professor/students">
+                    <span class="material-icons-sharp">
+                        person_outline
+                    </span>
+                    <h3>Students</h3>
+                </a>
+                <a href="/professor/grades">
+                    <span class="material-icons-sharp">
+                        receipt_long
+                    </span>
+                    <h3>Grades</h3>
+                </a>
+                <a href="/professor/analytics" class="active" >
+                    <span class="material-icons-sharp">
+                        insights
+                    </span>
+                    <h3>Analytics</h3>
+                </a>
+                <a href="/professor/courses">
+                <span class='material-icons-sharp'>menu_book</span>
+                    <h3>Courses</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        mail_outline
+                    </span>
+                    <h3>Messages</h3>
+                    <span class="message-count">18</span>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        inventory
+                    </span>
+                    <h3>To do List</h3>
+                </a>
+                
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        settings
+                    </span>
+                    <h3>Settings</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        add
+                    </span>
+                    <h3>New Login</h3>
+                </a>
+                <a href="{{url('/')}}/logout">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
       <!-- End of Sidebar Section -->
 
       <!-- Main Content -->
       <main>
-        <div class="header">
-          <div class="left">
-            <a href="/student/courses"><h1>Courses</h1></a>
-            <h2>>{{$course->course_code}}</h2>
-          </div>
-        </div>
-        <!-- New Users Section -->
-        <div class="new-users">
-          <div class="user-list">
-            <div class="user">
-              <img src="{{ asset('images/ku logo.png') }}" />
-              @if ($profinfo)
-             <h2>{{ $profinfo->Fullname }}</h2>
-               <p>{{ $profinfo->email }}</p>
-               @else
-             <p>Professor has not been assigned yet.</p>
-               @endif
-            </div>
-            <div class="description">
-              <h3>Course description</h3>
-              <p>
-                {{$course->course_desc}}
-              </p>
-              <h3>Grading Guidelines</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Incidunt dolorem obcaecati sapiente consequatur, laboriosam ea
-                suscipit sequi nulla repellat optio, adipisci quidem voluptas,
-                nam dolores recusandae explicabo rerum dolore fugit.
-              </p>
-              <h3>cource plan</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-                repudiandae beatae rem velit nisi dolorum veniam officiis,
-                corrupti quod sequi illo dolore facilis nobis error sit, aliquid
-                delectus corporis quibusdam?
-              </p>
+        <h1>Analytics</h1>
+        <!-- Analyses -->
+        <h2 class="sub-heading">Class progress</h2>
+        <div class="analyse">
+          <div class="sales">
+            <div class="status">
+              <div class="info">
+                <h3>BBIS I-I</h3>
+                <h1>MAS 101</h1>
+              </div>
+              <div class="progresss">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="percentage">
+                  <p>81%</p>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="visits">
+            <div class="status">
+              <div class="info">
+                <h3>CS I-I</h3>
+                <h1>MAS 111</h1>
+              </div>
+              <div class="progresss">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="percentage">
+                  <p>48%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="searches">
+            <div class="status">
+              <div class="info">
+                <h3>CIVIL II-I</h3>
+                <h1>MAS 202</h1>
+              </div>
+              <div class="progresss">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="percentage">
+                  <p>21%</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- End of New Users Section -->
+        <!-- End of Analyses -->
       </main>
       <!-- End of Main Content -->
 
@@ -844,10 +800,10 @@
 
           <div class="profile">
             <div class="info">
-              <p>Hey, <b>{{$student->Firstname}}</b></p>
+              <p>Hey, <b>{{$professor->Firstname}}</b></p>
             </div>
             <div class="profile-photo">
-              <img src="kathmandu_university_logo_nepal .png" />
+              <img src="kathmandu_university_logo_nepal.png" />
             </div>
           </div>
         </div>
@@ -915,6 +871,45 @@
         darkMode.querySelector("span:nth-child(1)").classList.toggle("active");
         darkMode.querySelector("span:nth-child(2)").classList.toggle("active");
       });
+
+      Orders.forEach((order) => {
+        const tr = document.createElement("tr");
+        const trContent = `
+        <td>${order.productName}</td>
+        <td>${order.productNumber}</td>
+        <td>${order.paymentStatus}</td>
+        <td class="${
+          order.status === "Declined"
+            ? "danger"
+            : order.status === "Pending"
+            ? "warning"
+            : "primary"
+        }">${order.status}</td>
+        <td class="primary">Details</td>
+    `;
+        tr.innerHTML = trContent;
+        document.querySelector("table tbody").appendChild(tr);
+      });
+      const Orders = [
+        {
+          productName: "JavaScript Tutorial",
+          productNumber: "85743",
+          paymentStatus: "Due",
+          status: "Pending",
+        },
+        {
+          productName: "CSS Full Course",
+          productNumber: "97245",
+          paymentStatus: "Refunded",
+          status: "Declined",
+        },
+        {
+          productName: "Flex-Box Tutorial",
+          productNumber: "36452",
+          paymentStatus: "Paid",
+          status: "Active",
+        },
+      ];
     </script>
   </body>
 </html>
