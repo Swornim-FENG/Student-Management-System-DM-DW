@@ -367,22 +367,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -616,7 +606,71 @@
     .content main .bottom-data .reminders .task-list li:last-child {
       margin-bottom: 0;
     }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(50px, 150px));
+      gap: 10px;
 
+      width: 800px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 40%;
+      left: 85%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background: var(--light);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 1000;
+      border: 2px solid rgba(26, 177, 188, 0.952);
+    }
+
+    /* Add more styling as needed */
+    #popupTitle {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #popupContent {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    #popupRemarks,
+    #popupReports {
+      font-size: 14px;
+    }
+    .content main .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      grid-gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .content main .header .left {
+      display: flex;
+    }
+
+    .content main .header .left h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    .content main .header .left h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+      margin-top: 10px;
+    }
     @media screen and (max-width: 768px) {
       .sidebar {
         width: 200px;
@@ -629,8 +683,43 @@
       .add {
         margin-left: 200px;
       }
-      .button1S {
-        margin-left: 0px;
+      .popup {
+        width: 80%;
+        margin: 10% -120px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+      }
+
+      /* Close button style */
+      .close-btn {
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      /* Title style */
+      #popupTitle {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      /* Content style */
+      #popupContent {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      /* Remarks style */
+      #popupRemarks {
+        font-weight: bold;
+      }
+
+      /* Reports style */
+      #popupReports {
+        font-style: italic;
       }
     }
 
@@ -683,110 +772,70 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(50px, 150px));
+        gap: 10px;
       }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .add-form {
-        max-width: 300px;
-      }
-      input,
-      select {
-        max-width: 270px;
-      }
-      .btn {
-        margin-left: 0px;
-      }
-    }
-    .add-form {
-      max-width: 550px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
     }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    input,
-    select {
-      width: 500px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    button {
-      background-color: rgb(51, 81, 230);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
+    .btn1 {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
-
-    button:hover {
-      background-color: #1525a1;
+    .btn1:hover {
+      background-color: #2980b9;
     }
-    .button1S {
-      background-color: rgb(38, 194, 98);
-      color: white;
-      padding: 10px 15px;
+    /* Additional styles for Professor Page */
+    .content main .header .left h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
       margin-top: 10px;
-      margin-right: 10px;
-      border: none;
-      border-radius: 5px;
+    }
+
+    .professor-display-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(50px, 150px));
+      gap: 10px;
+    }
+
+    .professor-card {
+      background: var(--light);
+      border: 1px solid rgba(26, 177, 188, 0.952);
+      border-radius: 8px;
+      overflow: hidden;
       cursor: pointer;
-    }
-    .button1S:hover {
-      background-color: #15a12a;
-    }
-    .email-list {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 560px;
-      margin: 0 auto;
+      transition: transform 0.3s ease-in-out;
     }
 
-    .email-item {
-      display: flex;
-      align-items: center;
-      padding: 5px;
+    .professor-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-      border-radius: 5px;
-      margin: 5px;
+    .professor-card img {
       width: 100%;
-      cursor: pointer;
+      height: auto;
+      border-bottom: 1px solid rgba(26, 177, 188, 0.952);
     }
 
-    .email-item input {
-      border: 1px solid #746a6a;
-      outline: none;
-      width: 100%;
-      background: var(--grey);
-      color: var(--dark);
+    .professor-card-content {
+      padding: 10px;
     }
-
-    .remove-button {
-      margin-left: -20px;
-      margin-bottom: 16px;
-      background: var(--grey);
+    .professor-card-content h2 {
       color: var(--dark);
+      font-size: 15px;
+    }
+    .professor-card-content p {
+      color: var(--dark);
+      font-size: 12px;
     }
   </style>
 
@@ -880,59 +929,151 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/superadmin/course"><h1>courses</h1></a>
-            <h2>>Assign Professor</h2>
+            <a href="suAdmin-professorpage.html"><h1>Professors</h1></a>
+            <h2>>Civil</h2>
           </div>
         </div>
-        <div>
-          <form class="add-form" action="{{url('/')}}/superadmin/assign/professor/course" method="post">
-            @csrf
-            <label for="course">Choose Course:</label>
-            <select name="course" id="course">
-                @foreach($courses as $course)
-                 <option >{{ $course->course_code }}</option>
-                 @endforeach
-                 </select>
-            <label for="Batch">Batch:</label>
-            <input type="text" id="Batch" name="batch" required />
-            <span class="text-danger"style="color:red">
-            @error('batch')
-               {{$message}}
-               @enderror
-               </span>
+        <div class="professor-display-grid">
+          <div class="grid">
+            <!-- Professor Card 1 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. Alice Smith', 'Physics', 'Ph.D. in Quantum Physics', 'Specializes in Quantum Mechanics')"
+            >
+              <img src="{{ asset('images/ku logo.png') }}" alt="Dr. Alice Smith" />
+              <div class="professor-card-content">
+                <h2>Dr. Alice Smith</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
 
-            <label for="year">choose year:</label>
-            <select name="year" id="year">
-              <option>1st</option>
-              <option>2nd</option>
-              <option>3rd</option>
-              <option>4th</option>
-              <option>5th</option>
-            </select>
-            <label for="sem">choose semester:</label>
-            <select name="sem" id="sem">
-              <option>1st</option>
-              <option>2nd</option>
-            </select>
+            <!-- Professor Card 2 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. David Miller', 'Biology', 'Ph.D. in Molecular Biology', 'Expert in Genetics')"
+            >
+              <img src="profile.jpg" alt="Dr. David Miller" />
+              <div class="professor-card-content">
+                <h2>Dr. David Miller</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
 
-            <label for="email">Professor Email:</label>
-            <input type="email" id="email" name="professor_email" value="{{old('professor_email')}}"  />
-            <span class="text-danger"style="color:red">
-            @error('professor_email')
-               {{$message}}
-               @enderror
-               </span>
+            <!-- Professor Card 3 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. Emily Davis', 'Computer Science', 'Ph.D. in Artificial Intelligence', 'Research in Machine Learning')"
+            >
+              <img src="profile.jpg" alt="Dr. Emily Davis" />
+              <div class="professor-card-content">
+                <h2>Dr. Emily Davis</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
 
-                @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-                <br>
-            <button class="btn" type="submit">Assign Professor</button>
-          </form>
+            <!-- Professor Card 4 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. Michael Johnson', 'Chemistry', 'Ph.D. in Organic Chemistry', 'Expert in Chemical Synthesis')"
+            >
+              <img src="profile.jpg" alt="Dr. Michael Johnson" />
+              <div class="professor-card-content">
+                <h2>Dr. Michael Johnson</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- Professor Card 5 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. Sarah White', 'Mathematics', 'Ph.D. in Applied Mathematics', 'Specializes in Number Theory')"
+            >
+              <img src="profile.jpg" alt="Dr. Sarah White" />
+              <div class="professor-card-content">
+                <h2>Dr. Sarah White</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- Professor Card 6 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. Kevin Brown', 'Environmental Science', 'Ph.D. in Environmental Chemistry', 'Research in Sustainable Practices')"
+            >
+              <img src="profile.jpg" alt="Dr. Kevin Brown" />
+              <div class="professor-card-content">
+                <h2>Dr. Kevin Brown</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- Professor Card 7 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. Linda Adams', 'Psychology', 'Ph.D. in Cognitive Psychology', 'Expert in Memory and Cognition')"
+            >
+              <img src="profile.jpg" alt="Dr. Linda Adams" />
+              <div class="professor-card-content">
+                <h2>Dr. Linda Adams</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- Professor Card 8 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. Richard Carter', 'History', 'Ph.D. in Ancient History', 'Specializes in Greek and Roman Civilizations')"
+            >
+              <img src="profile.jpg" alt="Dr. Richard Carter" />
+              <div class="professor-card-content">
+                <h2>Dr. Richard Carter</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- Professor Card 9 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. Jessica Green', 'Economics', 'Ph.D. in Macroeconomics', 'Research in Economic Growth')"
+            >
+              <img src="profile.jpg" alt="Dr. Jessica Green" />
+              <div class="professor-card-content">
+                <h2>Dr. Jessica Green</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- Professor Card 10 -->
+            <div
+              class="professor-card"
+              onclick="openProfessorPopup('Dr. Brian Wilson', 'Political Science', 'Ph.D. in International Relations', 'Expert in Diplomacy')"
+            >
+              <img src="profile.jpg" alt="Dr. Brian Wilson" />
+              <div class="professor-card-content">
+                <h2>Dr. Brian Wilson</h2>
+                <p>email@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- Add more professors as needed -->
+          </div>
         </div>
       </main>
+      <div class="right-section">
+        <!-- Professor Popup -->
+        <div class="popup" id="professorPopup">
+          <div class="popup-content">
+            <span class="popup-close-btn" onclick="closeProfessorPopup()"
+              >&times;</span
+            >
+            <h2 id="professorName">Dr. John Doe</h2>
+            <p id="professorDept">Computer Science</p>
+            <p id="professorQualification">Ph.D. in CS</p>
+            <p id="professorDescription">Teaching Computer Networks</p>
+          </div>
+        </div>
+        <!-- End of Professor Popup -->
+      </div>
     </div>
 
     <script>
@@ -998,6 +1139,23 @@
           document.body.classList.remove("dark");
         }
       });
+      function openProfessorPopup(
+        name,
+        department,
+        qualification,
+        description
+      ) {
+        document.getElementById("professorName").innerText = name;
+        document.getElementById("professorDept").innerText = department;
+        document.getElementById("professorQualification").innerText =
+          qualification;
+        document.getElementById("professorDescription").innerText = description;
+        document.getElementById("professorPopup").style.display = "block";
+      }
+
+      function closeProfessorPopup() {
+        document.getElementById("professorPopup").style.display = "none";
+      }
     </script>
   </body>
 </html>

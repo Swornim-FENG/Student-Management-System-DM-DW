@@ -856,19 +856,19 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li >
+        <li class="active">
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li >
-          <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
+        <li>
+          <a href="/superadmin/admin"><i class="bx bx-group"></i>Admin</a>
         </li>
         <li>
-          <a href="/add/school"
+          <a href="/superadmin/school"
             ><i class="bx bx-building"></i>School</a
           >
         </li>
         <li>
-          <a href="/add/department"
+          <a href="/superadmin/department"
             ><i class="bx bx-home-alt"></i>Department</a
           >
         </li>
@@ -877,13 +877,13 @@
             ><i class="bx bx-book-open"></i>Program</a
           >
         </li>
-        <li class="active">
-          <a href="/superadmin/addstudents"
+        <li>
+          <a href="/superadmin/student"
             ><i class="bx bx-group"></i>Students</a
           >
         </li>
         <li>
-          <a href="/superadmin/addprofessors"
+          <a href="/superadmin/professor"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>

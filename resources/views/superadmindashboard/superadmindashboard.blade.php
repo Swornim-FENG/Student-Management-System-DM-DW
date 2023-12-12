@@ -7,7 +7,14 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css"
+    />
     <title>Super Admin</title>
   </head>
   <style>
@@ -648,6 +655,30 @@
         min-width: 340px;
       }
     }
+    #calendar {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    #event-modal {
+      display: none;
+      position: fixed;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    #close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #333;
+    }
   </style>
 
   <body>
@@ -662,15 +693,15 @@
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
-          <a href="/admin/add"><i class="bx bx-group"></i>Admin</a>
+          <a href="/superadmin/admin"><i class="bx bx-group"></i>Admin</a>
         </li>
         <li>
-          <a href="/add/school"
+          <a href="/superadmin/school"
             ><i class="bx bx-building"></i>School</a
           >
         </li>
         <li>
-          <a href="/add/department"
+          <a href="/superadmin/department"
             ><i class="bx bx-home-alt"></i>Department</a
           >
         </li>
@@ -680,12 +711,12 @@
           >
         </li>
         <li>
-          <a href="/superadmin/addstudents"
+          <a href="/superadmin/student"
             ><i class="bx bx-group"></i>Students</a
           >
         </li>
         <li>
-          <a href="/superadmin/addprofessors"
+          <a href="/superadmin/professor"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
@@ -734,6 +765,8 @@
           <img src="images/ku logo.png" alt="" />
         </a>
       </nav>
+
+      <!-- End of Navbar -->
 
       <!-- End of Navbar -->
 
@@ -822,40 +855,16 @@
             </table>
           </div>
 
-          <!-- Reminders -->
-          <div class="reminders">
-            <div class="header">
-              <i class="bx bx-note"></i>
-              <h3>Remiders</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-plus"></i>
+          <!-- calander -->
+          <div id="calendar">
+            <div id="event-modal">
+              <span id="close-modal" onclick="closeModal()">X</span>
+              <h2 id="event-title"></h2>
+              <p id="event-date"></p>
+              <div id="event-modal-content"></div>
             </div>
-            <ul class="task-list">
-              <li class="completed">
-                <div class="task-title">
-                  <i class="bx bx-check-circle"></i>
-                  <p>Meeting</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-              <li class="completed">
-                <div class="task-title">
-                  <i class="bx bx-check-circle"></i>
-                  <p>Analysis</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-              <li class="not-completed">
-                <div class="task-title">
-                  <i class="bx bx-x-circle"></i>
-                  <p>Checking</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-            </ul>
           </div>
-
-          <!-- End of Reminders-->
+          <!-- End of calander-->
         </div>
       </main>
     </div>
@@ -923,6 +932,100 @@
           document.body.classList.remove("dark");
         }
       });
+      //calander script start
+      var selectedDate; // Declare a global variable to store the selected date
+
+      $(document).ready(function () {
+        $("#calendar").fullCalendar({
+          header: {
+            left: "prev,next ",
+            center: "title",
+            right: "",
+          },
+          eventMouseover: function (event, jsEvent, view) {
+            openModal(event.start, false, jsEvent);
+          },
+          dayClick: function (date, jsEvent, view) {
+            openModal(date, true, jsEvent);
+          },
+        });
+
+        // Handle mouseenter and mouseleave events for the modal
+        $("#event-modal")
+          .mouseenter(function () {
+            // No need to close the modal when the mouse enters the modal
+          })
+          .mouseleave(function () {
+            closeModal();
+          });
+
+        // Handle click event for the close button
+        $("#close-modal").click(function () {
+          closeModal();
+        });
+      });
+
+      function openModal(date, isAddingEvent, jsEvent) {
+        // Get events for the clicked date
+        var events = $("#calendar").fullCalendar(
+          "clientEvents",
+          function (event) {
+            return event.start.isSame(date, "day");
+          }
+        );
+
+        // Populate modal with event details
+        var modalContent = "";
+
+        if (events.length > 0) {
+          events.forEach(function (event) {
+            modalContent += `<p><strong>${event.title}</strong>: ${event.description}</p>`;
+          });
+        }
+
+        if (isAddingEvent) {
+          modalContent +=
+            '<button id="add-event-btn" onclick="addEvent()">Add Event</button>';
+        }
+
+        modalContent +=
+          '<span id="close-modal" onclick="closeModal()">X</span>';
+
+        $("#event-modal-content").html(modalContent);
+
+        // Position the modal based on mouse coordinates
+        var modalLeft = jsEvent.pageX;
+        var modalTop = jsEvent.pageY;
+
+        $("#event-modal").css({
+          left: modalLeft,
+          top: modalTop,
+        });
+
+        $("#event-modal").fadeIn();
+
+        selectedDate = date; // Store the selected date
+      }
+
+      function closeModal() {
+        $("#event-modal").fadeOut();
+      }
+
+      function addEvent() {
+        var title = prompt("Enter event title:");
+        var description = prompt("Enter event description:");
+
+        if (title && description) {
+          var newEvent = {
+            title: title,
+            start: selectedDate.format(),
+            description: description,
+          };
+
+          $("#calendar").fullCalendar("renderEvent", newEvent, true);
+          closeModal();
+        }
+      }
     </script>
   </body>
 </html>

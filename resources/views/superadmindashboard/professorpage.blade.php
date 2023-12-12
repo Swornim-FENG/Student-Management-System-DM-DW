@@ -367,22 +367,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -616,6 +606,55 @@
     .content main .bottom-data .reminders .task-list li:last-child {
       margin-bottom: 0;
     }
+    main .new-users {
+      margin-top: 1.3rem;
+    }
+
+    main .new-users .user-list {
+      background-color: var(--color-white);
+      padding: var(--card-padding);
+      border-radius: var(--card-border-radius);
+      margin-top: 1rem;
+      box-shadow: var(--box-shadow);
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      max-width: 900px;
+    }
+
+    main .new-users .user-list:hover {
+      box-shadow: none;
+    }
+
+    main .new-users .user-list .user {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      width: 200px;
+    }
+    .new-users h2 {
+      font-size: 1.5em;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .user h2 {
+      margin-top: 5px;
+      font-size: 1.2em;
+
+      color: #1976d2;
+    }
+
+    main .new-users .user-list .user img {
+      width: 5rem;
+      height: 5rem;
+      margin-bottom: 0.4rem;
+      border-radius: 50%;
+    }
 
     @media screen and (max-width: 768px) {
       .sidebar {
@@ -628,9 +667,6 @@
       }
       .add {
         margin-left: 200px;
-      }
-      .button1S {
-        margin-left: 0px;
       }
     }
 
@@ -683,110 +719,6 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .add-form {
-        max-width: 300px;
-      }
-      input,
-      select {
-        max-width: 270px;
-      }
-      .btn {
-        margin-left: 0px;
-      }
-    }
-    .add-form {
-      max-width: 550px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    input,
-    select {
-      width: 500px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    button {
-      background-color: rgb(51, 81, 230);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #1525a1;
-    }
-    .button1S {
-      background-color: rgb(38, 194, 98);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      margin-right: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .button1S:hover {
-      background-color: #15a12a;
-    }
-    .email-list {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .email-item {
-      display: flex;
-      align-items: center;
-      padding: 5px;
-
-      border-radius: 5px;
-      margin: 5px;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .email-item input {
-      border: 1px solid #746a6a;
-      outline: none;
-      width: 100%;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    .remove-button {
-      margin-left: -20px;
-      margin-bottom: 16px;
-      background: var(--grey);
-      color: var(--dark);
     }
   </style>
 
@@ -880,58 +812,54 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/superadmin/course"><h1>courses</h1></a>
-            <h2>>Assign Professor</h2>
+            <h1>Professors</h1>
           </div>
         </div>
-        <div>
-          <form class="add-form" action="{{url('/')}}/superadmin/assign/professor/course" method="post">
-            @csrf
-            <label for="course">Choose Course:</label>
-            <select name="course" id="course">
-                @foreach($courses as $course)
-                 <option >{{ $course->course_code }}</option>
-                 @endforeach
-                 </select>
-            <label for="Batch">Batch:</label>
-            <input type="text" id="Batch" name="batch" required />
-            <span class="text-danger"style="color:red">
-            @error('batch')
-               {{$message}}
-               @enderror
-               </span>
-
-            <label for="year">choose year:</label>
-            <select name="year" id="year">
-              <option>1st</option>
-              <option>2nd</option>
-              <option>3rd</option>
-              <option>4th</option>
-              <option>5th</option>
-            </select>
-            <label for="sem">choose semester:</label>
-            <select name="sem" id="sem">
-              <option>1st</option>
-              <option>2nd</option>
-            </select>
-
-            <label for="email">Professor Email:</label>
-            <input type="email" id="email" name="professor_email" value="{{old('professor_email')}}"  />
-            <span class="text-danger"style="color:red">
-            @error('professor_email')
-               {{$message}}
-               @enderror
-               </span>
-
-                @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-                <br>
-            <button class="btn" type="submit">Assign Professor</button>
-          </form>
+        <!-- Insights -->
+        <ul class="insights">
+          <li>
+            <i class="bx bx-group"></i>
+            <span class="info">
+              <h3>7</h3>
+              <p>Total Professors</p>
+            </span>
+            <a href="/superadmin/addprofessors"
+              ><button class="custom-button">Add professor</button>
+            </a>
+          </li>
+        </ul>
+        <!-- End of Insights -->
+        <!-- New Users Section -->
+        <div class="new-users">
+          <h2>Programs</h2>
+          <div class="user-list">
+            <a href="/superadmin/professor/program"
+              ><div class="user">
+                <img src="{{ asset('images/ku logo.png') }}" />
+                <h2>BBIS</h2>
+              </div>
+            </a>
+            <a href="/superadmin/professor/program"
+              ><div class="user">
+                <img src="{{ asset('images/ku logo.png') }}" />
+                <h2>Architecture</h2>
+              </div>
+            </a>
+            <a href="/superadmin/professor/program"
+              ><div class="user">
+                <img src="{{ asset('images/ku logo.png') }}" />
+                <h2>Civil Engineering</h2>
+              </div>
+            </a>
+            <a href="/superadmin/professor/program"
+              ><div class="user">
+                <img src="{{ asset('images/ku logo.png') }}" />
+                <h2>Computer Science</h2>
+              </div>
+            </a>
+          </div>
         </div>
+        <!-- End of New Users Section -->
       </main>
     </div>
 

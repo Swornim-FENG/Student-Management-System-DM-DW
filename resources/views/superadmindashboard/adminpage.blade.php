@@ -7,6 +7,14 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
+
     <link rel="stylesheet" href="style.css" />
     <title>Super Admin</title>
   </head>
@@ -367,22 +375,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -629,9 +627,6 @@
       .add {
         margin-left: 200px;
       }
-      .button1S {
-        margin-left: 0px;
-      }
     }
 
     @media screen and (max-width: 576px) {
@@ -683,110 +678,33 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .add-form {
-        max-width: 300px;
-      }
-      input,
-      select {
-        max-width: 270px;
-      }
-      .btn {
-        margin-left: 0px;
-      }
     }
-    .add-form {
-      max-width: 550px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    input,
-    select {
-      width: 500px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    button {
-      background-color: rgb(51, 81, 230);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #1525a1;
-    }
-    .button1S {
-      background-color: rgb(38, 194, 98);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      margin-right: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .button1S:hover {
-      background-color: #15a12a;
-    }
-    .email-list {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 560px;
+    #calendar {
+      max-width: 400px;
       margin: 0 auto;
     }
 
-    .email-item {
-      display: flex;
-      align-items: center;
-      padding: 5px;
+    #event-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transition: opacity 0.3s ease-in-out;
+    }
 
-      border-radius: 5px;
-      margin: 5px;
-      width: 100%;
+    #close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
       cursor: pointer;
-    }
-
-    .email-item input {
-      border: 1px solid #746a6a;
-      outline: none;
-      width: 100%;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    .remove-button {
-      margin-left: -20px;
-      margin-bottom: 16px;
-      background: var(--grey);
-      color: var(--dark);
+      font-size: 16px;
+      color: #333;
     }
   </style>
 
@@ -880,57 +798,80 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/superadmin/course"><h1>courses</h1></a>
-            <h2>>Assign Professor</h2>
+            <h1>Admins</h1>
           </div>
         </div>
-        <div>
-          <form class="add-form" action="{{url('/')}}/superadmin/assign/professor/course" method="post">
-            @csrf
-            <label for="course">Choose Course:</label>
-            <select name="course" id="course">
-                @foreach($courses as $course)
-                 <option >{{ $course->course_code }}</option>
-                 @endforeach
-                 </select>
-            <label for="Batch">Batch:</label>
-            <input type="text" id="Batch" name="batch" required />
-            <span class="text-danger"style="color:red">
-            @error('batch')
-               {{$message}}
-               @enderror
-               </span>
 
-            <label for="year">choose year:</label>
-            <select name="year" id="year">
-              <option>1st</option>
-              <option>2nd</option>
-              <option>3rd</option>
-              <option>4th</option>
-              <option>5th</option>
-            </select>
-            <label for="sem">choose semester:</label>
-            <select name="sem" id="sem">
-              <option>1st</option>
-              <option>2nd</option>
-            </select>
+        <!-- Insights -->
+        <ul class="insights">
+          <li>
+            <i class="bx bx-group"></i>
+            <span class="info">
+              <h3>7</h3>
+              <p>Admins</p>
+            </span>
+            <a href="/admin/add"
+              ><button class="custom-button">Add Admin</button>
+            </a>
+          </li>
+        </ul>
+        <!-- End of Insights -->
 
-            <label for="email">Professor Email:</label>
-            <input type="email" id="email" name="professor_email" value="{{old('professor_email')}}"  />
-            <span class="text-danger"style="color:red">
-            @error('professor_email')
-               {{$message}}
-               @enderror
-               </span>
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-receipt"></i>
+              <h3>Current Admins</h3>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-search"></i>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Department</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="kathmandu_university_logo_nepal .png" />
+                    <p>Swornim</p>
+                  </td>
+                  <td>BBIS</td>
+                  <td><span>swornim@gmail.com</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="kathmandu_university_logo_nepal .png" />
+                    <p>Rikshal</p>
+                  </td>
+                  <td>Civil Engineering</td>
+                  <td><span>rikshal@gmail.com</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="kathmandu_university_logo_nepal .png" />
+                    <p>Arpan</p>
+                  </td>
+                  <td>Architecture</td>
+                  <td><span>Arpan@gmail.com</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-                @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-                <br>
-            <button class="btn" type="submit">Assign Professor</button>
-          </form>
+          <!-- Reminders -->
+          <div id="calendar">
+            <div id="event-modal">
+              <span id="close-modal" onclick="closeModal()">X</span>
+              <h2 id="event-title"></h2>
+              <p id="event-date"></p>
+            </div>
+          </div>
+
+          <!-- End of Reminders-->
         </div>
       </main>
     </div>
@@ -998,6 +939,70 @@
           document.body.classList.remove("dark");
         }
       });
+      $(document).ready(function () {
+        $("#calendar").fullCalendar({
+          header: {
+            left: "prev,next ",
+            center: "title",
+            right: "",
+          },
+          events: [
+            {
+              title: "first class",
+              start: "2023-11-01",
+              description: "Professor will take a class from 7am-8:30am.",
+            },
+            {
+              title: "second class",
+              start: "2023-11-01",
+              description: "Professor will take a class from 9am-11:30am.",
+            },
+            {
+              title: "Event 2",
+              start: "2023-12-05",
+              description: "This is Event 2",
+            },
+            {
+              title: "Event 3",
+              start: "2023-12-15",
+              description: "This is Event 3",
+            },
+            // Add more events as needed
+          ],
+          dayClick: function (date, jsEvent, view) {
+            openModal(date);
+          },
+        });
+      });
+
+      function openModal(date) {
+        // Get events for the clicked date
+        var events = $("#calendar").fullCalendar(
+          "clientEvents",
+          function (event) {
+            return event.start.isSame(date, "day");
+          }
+        );
+
+        // Populate modal with event details
+        if (events.length > 0) {
+          var modalContent = "";
+
+          events.forEach(function (event) {
+            modalContent += `<p><strong>${event.title}</strong>: ${event.description}</p>`;
+          });
+
+          modalContent +=
+            '<span id="close-modal" onclick="closeModal()">X</span>';
+
+          $("#event-modal").html(modalContent);
+          $("#event-modal").fadeIn();
+        }
+      }
+
+      function closeModal() {
+        $("#event-modal").fadeOut();
+      }
     </script>
   </body>
 </html>

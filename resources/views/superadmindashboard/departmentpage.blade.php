@@ -9,6 +9,39 @@
     />
     <link rel="stylesheet" href="style.css" />
     <title>Super Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css"
+    />
+    <style>
+      #calendar {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      #event-modal {
+        display: none;
+        position: fixed;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      #close-modal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
   </head>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
@@ -212,18 +245,57 @@
     .add {
       margin-left: 900px;
     }
-    .custom-button {
+    .custom-button1 {
       background-color: #3498db;
       color: #fff;
-      padding: 10px 20px;
+      padding: 20px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
-      margin-left: 900px;
+      margin-left: 510px;
+    }
+    .custom-button1:hover {
+      background-color: #2980b9;
+    }
+    .custom-button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 20px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 800px;
     }
 
     .custom-button:hover {
+      background-color: #2980b9;
+    }
+    .custom-button4 {
+      background-color: #3498db;
+      color: #fff;
+      padding: 20px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .custom-button4:hover {
+      background-color: #2980b9;
+    }
+    .custom-button3 {
+      background-color: #3498db;
+      color: #fff;
+      padding: 20px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .custom-button3:hover {
       background-color: #2980b9;
     }
 
@@ -367,22 +439,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -617,6 +679,10 @@
       margin-bottom: 0;
     }
 
+    .custom-button3,
+    .custom-button4 {
+      display: none;
+    }
     @media screen and (max-width: 768px) {
       .sidebar {
         width: 200px;
@@ -628,9 +694,6 @@
       }
       .add {
         margin-left: 200px;
-      }
-      .button1S {
-        margin-left: 0px;
       }
     }
 
@@ -666,9 +729,12 @@
       }
 
       .content main .insights {
-        grid-template-columns: 1fr;
+        max-width: 340px;
       }
 
+      /* .custom-button1 {
+        margin-left: -100px;
+      } */
       .content main .bottom-data .header {
         min-width: 340px;
       }
@@ -680,113 +746,16 @@
       .content main .bottom-data .reminders .task-list {
         min-width: 340px;
       }
-      .custom-button {
-        margin-left: 10px;
+      .custom-button,
+      .custom-button1 {
+        display: none;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
+
+      .custom-button3,
+      .custom-button4 {
+        display: block;
+        margin: 5px;
       }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .add-form {
-        max-width: 300px;
-      }
-      input,
-      select {
-        max-width: 270px;
-      }
-      .btn {
-        margin-left: 0px;
-      }
-    }
-    .add-form {
-      max-width: 550px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    input,
-    select {
-      width: 500px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    button {
-      background-color: rgb(51, 81, 230);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #1525a1;
-    }
-    .button1S {
-      background-color: rgb(38, 194, 98);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      margin-right: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .button1S:hover {
-      background-color: #15a12a;
-    }
-    .email-list {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .email-item {
-      display: flex;
-      align-items: center;
-      padding: 5px;
-
-      border-radius: 5px;
-      margin: 5px;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .email-item input {
-      border: 1px solid #746a6a;
-      outline: none;
-      width: 100%;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    .remove-button {
-      margin-left: -20px;
-      margin-bottom: 16px;
-      background: var(--grey);
-      color: var(--dark);
     }
   </style>
 
@@ -880,57 +849,87 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/superadmin/course"><h1>courses</h1></a>
-            <h2>>Assign Professor</h2>
+            <h1>Departments</h1>
           </div>
         </div>
-        <div>
-          <form class="add-form" action="{{url('/')}}/superadmin/assign/professor/course" method="post">
-            @csrf
-            <label for="course">Choose Course:</label>
-            <select name="course" id="course">
-                @foreach($courses as $course)
-                 <option >{{ $course->course_code }}</option>
-                 @endforeach
-                 </select>
-            <label for="Batch">Batch:</label>
-            <input type="text" id="Batch" name="batch" required />
-            <span class="text-danger"style="color:red">
-            @error('batch')
-               {{$message}}
-               @enderror
-               </span>
 
-            <label for="year">choose year:</label>
-            <select name="year" id="year">
-              <option>1st</option>
-              <option>2nd</option>
-              <option>3rd</option>
-              <option>4th</option>
-              <option>5th</option>
-            </select>
-            <label for="sem">choose semester:</label>
-            <select name="sem" id="sem">
-              <option>1st</option>
-              <option>2nd</option>
-            </select>
+        <!-- Insights -->
+        <ul class="insights">
+          <li>
+            <i class="bx bx-group"></i>
+            <span class="info">
+              <h3>7</h3>
+              <p>Departments</p>
+            </span>
 
-            <label for="email">Professor Email:</label>
-            <input type="email" id="email" name="professor_email" value="{{old('professor_email')}}"  />
-            <span class="text-danger"style="color:red">
-            @error('professor_email')
-               {{$message}}
-               @enderror
-               </span>
+            <a href="/add/department"
+              ><button class="custom-button">Add department</button>
+            </a>
+          </li>
+        </ul>
 
-                @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-                <br>
-            <button class="btn" type="submit">Assign Professor</button>
-          </form>
+        <a href="adddept.html"
+          ><button class="custom-button4">Add department</button>
+        </a>
+
+        <!-- End of Insights -->
+
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-receipt"></i>
+              <h3>Current Departments</h3>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-search"></i>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>school</th>
+                  <th>Admin</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="kathmandu_university_logo_nepal .png" />
+                    <p>BBIS</p>
+                  </td>
+                  <td>KUSoM</td>
+                  <td><span>Swornim</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="kathmandu_university_logo_nepal .png" />
+                    <p>Civil Engineering</p>
+                  </td>
+                  <td>KUSoE</td>
+                  <td><span>Rikshal</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="kathmandu_university_logo_nepal .png" />
+                    <p>Architecture</p>
+                  </td>
+                  <td>KUSoE</td>
+                  <td><span>Arpan</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Reminders -->
+          <div id="calendar">
+            <div id="event-modal">
+              <span id="close-modal" onclick="closeModal()">X</span>
+              <h2 id="event-title"></h2>
+              <p id="event-date"></p>
+              <div id="event-modal-content"></div>
+            </div>
+          </div>
+
+          <!-- End of Reminders-->
         </div>
       </main>
     </div>
@@ -998,6 +997,99 @@
           document.body.classList.remove("dark");
         }
       });
+      var selectedDate; // Declare a global variable to store the selected date
+
+      $(document).ready(function () {
+        $("#calendar").fullCalendar({
+          header: {
+            left: "prev,next ",
+            center: "title",
+            right: "",
+          },
+          eventMouseover: function (event, jsEvent, view) {
+            openModal(event.start, false, jsEvent);
+          },
+          dayClick: function (date, jsEvent, view) {
+            openModal(date, true, jsEvent);
+          },
+        });
+
+        // Handle mouseenter and mouseleave events for the modal
+        $("#event-modal")
+          .mouseenter(function () {
+            // No need to close the modal when the mouse enters the modal
+          })
+          .mouseleave(function () {
+            closeModal();
+          });
+
+        // Handle click event for the close button
+        $("#close-modal").click(function () {
+          closeModal();
+        });
+      });
+
+      function openModal(date, isAddingEvent, jsEvent) {
+        // Get events for the clicked date
+        var events = $("#calendar").fullCalendar(
+          "clientEvents",
+          function (event) {
+            return event.start.isSame(date, "day");
+          }
+        );
+
+        // Populate modal with event details
+        var modalContent = "";
+
+        if (events.length > 0) {
+          events.forEach(function (event) {
+            modalContent += `<p><strong>${event.title}</strong>: ${event.description}</p>`;
+          });
+        }
+
+        if (isAddingEvent) {
+          modalContent +=
+            '<button id="add-event-btn" onclick="addEvent()">Add Event</button>';
+        }
+
+        modalContent +=
+          '<span id="close-modal" onclick="closeModal()">X</span>';
+
+        $("#event-modal-content").html(modalContent);
+
+        // Position the modal based on mouse coordinates
+        var modalLeft = jsEvent.pageX;
+        var modalTop = jsEvent.pageY;
+
+        $("#event-modal").css({
+          left: modalLeft,
+          top: modalTop,
+        });
+
+        $("#event-modal").fadeIn();
+
+        selectedDate = date; // Store the selected date
+      }
+
+      function closeModal() {
+        $("#event-modal").fadeOut();
+      }
+
+      function addEvent() {
+        var title = prompt("Enter event title:");
+        var description = prompt("Enter event description:");
+
+        if (title && description) {
+          var newEvent = {
+            title: title,
+            start: selectedDate.format(),
+            description: description,
+          };
+
+          $("#calendar").fullCalendar("renderEvent", newEvent, true);
+          closeModal();
+        }
+      }
     </script>
   </body>
 </html>

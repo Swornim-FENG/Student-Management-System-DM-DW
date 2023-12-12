@@ -147,6 +147,20 @@ Route::get('/professor/grades',[ProfessorController::class,'show_grades']);
 
 Route::get('/professor/analytics',[ProfessorController::class,'show_analytics']);
 
+Route::get('/superadmin/admin',[SuperadminController::class,'showadmin']);
+
+Route::get('/superadmin/school',[SuperadminController::class,'showschool']);
+
+Route::get('/superadmin/department',[SuperadminController::class,'showdepartment']);
+
+Route::get('/superadmin/student',[SuperadminController::class,'showstudent']);
+
+Route::get('/superadmin/professor',[SuperadminController::class,'showprofessor']);
+
+Route::get('/superadmin/student/program',[SuperadminController::class,'showstudent_in_program']);
+
+Route::get('/superadmin/professor/program',[SuperadminController::class,'showprofessor_in_program']);
+
 Route::get('/test', function () {
     return view('test');
 });

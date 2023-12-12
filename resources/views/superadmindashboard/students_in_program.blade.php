@@ -367,22 +367,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -616,7 +606,101 @@
     .content main .bottom-data .reminders .task-list li:last-child {
       margin-bottom: 0;
     }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(50px, 150px));
+      gap: 10px;
+    }
 
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s ease-in-out;
+      border: 1px solid rgba(26, 177, 188, 0.952);
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      max-height: 100px; /* Set a maximum height for the image */
+      object-fit: cover; /* Maintain aspect ratio while covering the container */
+      border-bottom: 1px solid rgba(26, 177, 188, 0.952);
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    h2,
+    p {
+      margin: 0;
+      color: #333;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 40%;
+      left: 85%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 1000;
+      border: 1px solid rgba(26, 177, 188, 0.952);
+    }
+
+    /* Add more styling as needed */
+    #popupTitle {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #popupContent {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    #popupRemarks,
+    #popupReports {
+      font-size: 14px;
+      color: #666;
+    }
+    .content main .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      grid-gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .content main .header .left {
+      display: flex;
+    }
+
+    .content main .header .left h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    .content main .header .left h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+      margin-top: 10px;
+    }
     @media screen and (max-width: 768px) {
       .sidebar {
         width: 200px;
@@ -629,8 +713,43 @@
       .add {
         margin-left: 200px;
       }
-      .button1S {
-        margin-left: 0px;
+      .popup {
+        width: 80%;
+        margin: 10% -100px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+      }
+
+      /* Close button style */
+      .close-btn {
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      /* Title style */
+      #popupTitle {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      /* Content style */
+      #popupContent {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      /* Remarks style */
+      #popupRemarks {
+        font-weight: bold;
+      }
+
+      /* Reports style */
+      #popupReports {
+        font-style: italic;
       }
     }
 
@@ -683,110 +802,33 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(50px, 150px));
+        gap: 10px;
+      }
+      h2,
+      p {
+        margin: 0;
+        color: #333;
+        font-size: 16px;
+      }
+      h2 {
         margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .add-form {
-        max-width: 300px;
-      }
-      input,
-      select {
-        max-width: 270px;
-      }
-      .btn {
-        margin-left: 0px;
+        font-size: 16px;
       }
     }
-    .add-form {
-      max-width: 550px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    input,
-    select {
-      width: 500px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    button {
-      background-color: rgb(51, 81, 230);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
+    .btn1 {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
-
-    button:hover {
-      background-color: #1525a1;
-    }
-    .button1S {
-      background-color: rgb(38, 194, 98);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      margin-right: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .button1S:hover {
-      background-color: #15a12a;
-    }
-    .email-list {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .email-item {
-      display: flex;
-      align-items: center;
-      padding: 5px;
-
-      border-radius: 5px;
-      margin: 5px;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .email-item input {
-      border: 1px solid #746a6a;
-      outline: none;
-      width: 100%;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    .remove-button {
-      margin-left: -20px;
-      margin-bottom: 16px;
-      background: var(--grey);
-      color: var(--dark);
+    .btn1:hover {
+      background-color: #2980b9;
     }
   </style>
 
@@ -880,59 +922,172 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/superadmin/course"><h1>courses</h1></a>
-            <h2>>Assign Professor</h2>
+            <a href="suAdmin-studentspage.html"><h1>Students</h1></a>
+            <h2>>Civil Engineering</h2>
+          </div>
+          
+        </div>
+        <div class="student-display-grid">
+          <div class="grid">
+            <!-- Student 1 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('John Doe', 'Computer Science', 'Excellent student', 'A+ in all subjects')"
+            >
+              <img src="profile.jpg" alt="John Doe" />
+              <div class="card-content">
+                <h2>John Doe</h2>
+                <p>Computer Science</p>
+              </div>
+            </div>
+
+            <!-- Student 2 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Jane Smith', 'Physics', 'Hardworking student', 'B+ in Physics')"
+            >
+              <img src="profile.jpg" alt="Jane Smith" />
+              <div class="card-content">
+                <h2>Jane Smith</h2>
+                <p>Physics</p>
+              </div>
+            </div>
+
+            <!-- Student 1 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('John Doe', 'Computer Science', 'Excellent student', 'A+ in all subjects')"
+            >
+              <img src="profile.jpg" alt="John Doe" />
+              <div class="card-content">
+                <h2>John Doe</h2>
+                <p>Computer Science</p>
+              </div>
+            </div>
+
+            <!-- Student 2 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Jane Smith', 'Mathematics', 'Top-notch performance', 'Straight A grades')"
+            >
+              <img src="profile.jpg" alt="Jane Smith" />
+              <div class="card-content">
+                <h2>Jane Smith</h2>
+                <p>Mathematics</p>
+              </div>
+            </div>
+
+            <!-- Student 3 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Bob Johnson', 'Physics', 'Research Enthusiast', 'Published in top journals')"
+            >
+              <img src="profile.jpg" alt="Bob Johnson" />
+              <div class="card-content">
+                <h2>Bob Johnson</h2>
+                <p>Physics</p>
+              </div>
+            </div>
+
+            <!-- Student 4 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Alice Williams', 'Biology', 'Passionate Biologist', 'Award-winning research')"
+            >
+              <img src="profile.jpg" alt="Alice Williams" />
+              <div class="card-content">
+                <h2>Alice Williams</h2>
+                <p>Biology</p>
+              </div>
+            </div>
+
+            <!-- Student 5 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Charlie Brown', 'Chemistry', 'Lab Guru', 'Innovative experiments')"
+            >
+              <img src="profile.jpg" alt="Charlie Brown" />
+              <div class="card-content">
+                <h2>Charlie Brown</h2>
+                <p>Chemistry</p>
+              </div>
+            </div>
+
+            <!-- Student 6 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Eva Davis', 'History', 'Historical Scholar', 'Published author')"
+            >
+              <img src="profile.jpg" alt="Eva Davis" />
+              <div class="card-content">
+                <h2>Eva Davis</h2>
+                <p>History</p>
+              </div>
+            </div>
+
+            <!-- Student 7 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Frank Miller', 'Economics', 'Economic Analyst', 'Internationally recognized')"
+            >
+              <img src="profile.jpg" alt="Frank Miller" />
+              <div class="card-content">
+                <h2>Frank Miller</h2>
+                <p>Economics</p>
+              </div>
+            </div>
+
+            <!-- Student 8 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Grace Turner', 'Psychology', 'Mind Explorer', 'Award-winning research')"
+            >
+              <img src="profile.jpg" alt="Grace Turner" />
+              <div class="card-content">
+                <h2>Grace Turner</h2>
+                <p>Psychology</p>
+              </div>
+            </div>
+
+            <!-- Student 9 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Henry White', 'Engineering', 'Innovative Engineer', 'Patent holder')"
+            >
+              <img src="profile.jpg" alt="Henry White" />
+              <div class="card-content">
+                <h2>Henry White</h2>
+                <p>Engineering</p>
+              </div>
+            </div>
+
+            <!-- Student 10 -->
+            <div
+              class="card"
+              onclick="openStudentPopup('Isabel Garcia', 'Art', 'Creative Artist', 'Exhibited globally')"
+            >
+              <img src="profile.jpg" alt="Isabel Garcia" />
+              <div class="card-content">
+                <h2>Isabel Garcia</h2>
+                <p>Art</p>
+              </div>
+            </div>
+
+            <!-- Add more students as needed -->
           </div>
         </div>
-        <div>
-          <form class="add-form" action="{{url('/')}}/superadmin/assign/professor/course" method="post">
-            @csrf
-            <label for="course">Choose Course:</label>
-            <select name="course" id="course">
-                @foreach($courses as $course)
-                 <option >{{ $course->course_code }}</option>
-                 @endforeach
-                 </select>
-            <label for="Batch">Batch:</label>
-            <input type="text" id="Batch" name="batch" required />
-            <span class="text-danger"style="color:red">
-            @error('batch')
-               {{$message}}
-               @enderror
-               </span>
-
-            <label for="year">choose year:</label>
-            <select name="year" id="year">
-              <option>1st</option>
-              <option>2nd</option>
-              <option>3rd</option>
-              <option>4th</option>
-              <option>5th</option>
-            </select>
-            <label for="sem">choose semester:</label>
-            <select name="sem" id="sem">
-              <option>1st</option>
-              <option>2nd</option>
-            </select>
-
-            <label for="email">Professor Email:</label>
-            <input type="email" id="email" name="professor_email" value="{{old('professor_email')}}"  />
-            <span class="text-danger"style="color:red">
-            @error('professor_email')
-               {{$message}}
-               @enderror
-               </span>
-
-                @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-                <br>
-            <button class="btn" type="submit">Assign Professor</button>
-          </form>
-        </div>
       </main>
+      <div class="right-section">
+        <!-- student info section-->
+        <div class="popup" id="studentPopup">
+          <span class="close-btn" onclick="closeStudentPopup()">&times;</span>
+          <h2 id="popupTitle"></h2>
+          <p id="popupContent"></p>
+          <p><strong>Remarks:</strong> <span id="popupRemarks"></span></p>
+          <p><strong>Past Reports:</strong> <span id="popupReports"></span></p>
+        </div>
+        <!-- student info section close-->
+      </div>
     </div>
 
     <script>
@@ -998,6 +1153,27 @@
           document.body.classList.remove("dark");
         }
       });
+      function openStudentPopup(name, department, remarks, pastReports) {
+        const popupTitle = document.getElementById("popupTitle");
+        const popupContent = document.getElementById("popupContent");
+        const popupRemarks = document.getElementById("popupRemarks");
+        const popupReports = document.getElementById("popupReports");
+
+        // Set popup title and content
+        popupTitle.textContent = name;
+        popupContent.textContent = `Department: ${department}`;
+
+        // Set remarks and past reports
+        popupRemarks.textContent = remarks || "N/A";
+        popupReports.textContent = pastReports || "N/A";
+
+        // Display the popup
+        document.getElementById("studentPopup").style.display = "block";
+      }
+
+      function closeStudentPopup() {
+        document.getElementById("studentPopup").style.display = "none";
+      }
     </script>
   </body>
 </html>
