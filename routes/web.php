@@ -157,9 +157,9 @@ Route::get('/superadmin/student',[SuperadminController::class,'showstudent']);
 
 Route::get('/superadmin/professor',[SuperadminController::class,'showprofessor']);
 
-Route::get('/superadmin/student/program',[SuperadminController::class,'showstudent_in_program']);
+Route::get('/superadmin/student/program/{program_id}',[SuperadminController::class,'showstudent_in_program']);
 
-Route::get('/superadmin/professor/program',[SuperadminController::class,'showprofessor_in_program']);
+Route::get('/superadmin/professor/program/{program_id}',[SuperadminController::class,'showprofessor_in_program']);
 
 Route::get('/test', function () {
     return view('test');

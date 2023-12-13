@@ -714,13 +714,13 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
           <a href="/superadmin/admin"><i class="bx bx-group"></i>Admin</a>
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/school"
             ><i class="bx bx-building"></i>School</a
           >
@@ -805,7 +805,7 @@
           <li>
             <i class="bx bx-group"></i>
             <span class="info">
-              <h3>7</h3>
+              <h3>{{$schoolsCount}}</h3>
               <p>Schools</p>
             </span>
             <a href="/add/school"
@@ -820,44 +820,33 @@
             <div class="header">
               <i class="bx bx-receipt"></i>
               <h3>Current Schools</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+              
             </div>
             <table>
-              <thead>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(count($schools) > 0)
+            @foreach ($schools as $school)
                 <tr>
-                  <th>Name</th>
-                  <th>Departments</th>
-                  <th>Location</th>
+                    <td>
+                        <img src="{{ asset('images/ku logo.png') }}" />
+                        <p>{{ $school->name }}</p>
+                    </td>
+                    <td>{{ $school->location }}</td>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>KUSoM</p>
-                  </td>
-                  <td>2</td>
-                  <td><span>Balkumari</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>KUSoE</p>
-                  </td>
-                  <td>5</td>
-                  <td><span>28-Kilo</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>KUSoL</p>
-                  </td>
-                  <td>2</td>
-                  <td><span>Dhulikhel</span></td>
-                </tr>
-              </tbody>
-            </table>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="2">Currently, there are no schools.</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
           </div>
 
           <!-- Reminders -->

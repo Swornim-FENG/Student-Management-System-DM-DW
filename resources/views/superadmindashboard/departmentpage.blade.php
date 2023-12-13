@@ -767,7 +767,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -778,7 +778,7 @@
             ><i class="bx bx-building"></i>School</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/department"
             ><i class="bx bx-home-alt"></i>Department</a
           >
@@ -858,7 +858,7 @@
           <li>
             <i class="bx bx-group"></i>
             <span class="info">
-              <h3>7</h3>
+              <h3>{{$departmentCount}}</h3>
               <p>Departments</p>
             </span>
 
@@ -883,40 +883,38 @@
               <i class="bx bx-search"></i>
             </div>
             <table>
-              <thead>
+    <thead>
+        <tr>
+            <th>Department Name</th>
+            <th>School Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(count($departments) > 0)
+            @php
+                $schoolsBySchoolId = $schools->keyBy('school_id');
+            @endphp
+
+            @foreach ($departments as $department)
                 <tr>
-                  <th>Name</th>
-                  <th>school</th>
-                  <th>Admin</th>
+                    
+                    <td>{{ $department->name }}</td>
+                    <td>
+                        @if(isset($schoolsBySchoolId[$department->school_id]))
+                            {{ $schoolsBySchoolId[$department->school_id]->name }}
+                        @else
+                            Department not found
+                        @endif
+                    </td>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>BBIS</p>
-                  </td>
-                  <td>KUSoM</td>
-                  <td><span>Swornim</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Civil Engineering</p>
-                  </td>
-                  <td>KUSoE</td>
-                  <td><span>Rikshal</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Architecture</p>
-                  </td>
-                  <td>KUSoE</td>
-                  <td><span>Arpan</span></td>
-                </tr>
-              </tbody>
-            </table>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="2">Currently, there are no programs.</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
           </div>
 
           <!-- Reminders -->

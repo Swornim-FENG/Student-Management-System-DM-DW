@@ -929,132 +929,26 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="suAdmin-professorpage.html"><h1>Professors</h1></a>
-            <h2>>Civil</h2>
+            <a href="/superadmin/professor"><h1>Professors</h1></a>
+            <h2>>{{$program->name}}</h2>
           </div>
         </div>
         <div class="professor-display-grid">
           <div class="grid">
             <!-- Professor Card 1 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. Alice Smith', 'Physics', 'Ph.D. in Quantum Physics', 'Specializes in Quantum Mechanics')"
-            >
-              <img src="{{ asset('images/ku logo.png') }}" alt="Dr. Alice Smith" />
-              <div class="professor-card-content">
-                <h2>Dr. Alice Smith</h2>
-                <p>email@gmail.com</p>
-              </div>
+            @forelse ($professors as $professor)
+            <div class="professor-card" onclick="openProfessorPopup('{{ $professor->Fullname }}', '{{ $professor->email }}', '{{ $professor->phone_number }}')">
+                <img src="{{ asset('images/ku logo.png') }}" alt="{{ $professor->fullname }}" />
+                <div class="professor-card-content">
+                    <h2>{{ $professor->Fullname }}</h2>
+                    <!-- Additional content if needed -->
+                </div>
             </div>
-
-            <!-- Professor Card 2 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. David Miller', 'Biology', 'Ph.D. in Molecular Biology', 'Expert in Genetics')"
-            >
-              <img src="profile.jpg" alt="Dr. David Miller" />
-              <div class="professor-card-content">
-                <h2>Dr. David Miller</h2>
-                <p>email@gmail.com</p>
-              </div>
-            </div>
-
-            <!-- Professor Card 3 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. Emily Davis', 'Computer Science', 'Ph.D. in Artificial Intelligence', 'Research in Machine Learning')"
-            >
-              <img src="profile.jpg" alt="Dr. Emily Davis" />
-              <div class="professor-card-content">
-                <h2>Dr. Emily Davis</h2>
-                <p>email@gmail.com</p>
-              </div>
-            </div>
-
-            <!-- Professor Card 4 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. Michael Johnson', 'Chemistry', 'Ph.D. in Organic Chemistry', 'Expert in Chemical Synthesis')"
-            >
-              <img src="profile.jpg" alt="Dr. Michael Johnson" />
-              <div class="professor-card-content">
-                <h2>Dr. Michael Johnson</h2>
-                <p>email@gmail.com</p>
-              </div>
-            </div>
-
-            <!-- Professor Card 5 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. Sarah White', 'Mathematics', 'Ph.D. in Applied Mathematics', 'Specializes in Number Theory')"
-            >
-              <img src="profile.jpg" alt="Dr. Sarah White" />
-              <div class="professor-card-content">
-                <h2>Dr. Sarah White</h2>
-                <p>email@gmail.com</p>
-              </div>
-            </div>
-
-            <!-- Professor Card 6 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. Kevin Brown', 'Environmental Science', 'Ph.D. in Environmental Chemistry', 'Research in Sustainable Practices')"
-            >
-              <img src="profile.jpg" alt="Dr. Kevin Brown" />
-              <div class="professor-card-content">
-                <h2>Dr. Kevin Brown</h2>
-                <p>email@gmail.com</p>
-              </div>
-            </div>
-
-            <!-- Professor Card 7 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. Linda Adams', 'Psychology', 'Ph.D. in Cognitive Psychology', 'Expert in Memory and Cognition')"
-            >
-              <img src="profile.jpg" alt="Dr. Linda Adams" />
-              <div class="professor-card-content">
-                <h2>Dr. Linda Adams</h2>
-                <p>email@gmail.com</p>
-              </div>
-            </div>
-
-            <!-- Professor Card 8 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. Richard Carter', 'History', 'Ph.D. in Ancient History', 'Specializes in Greek and Roman Civilizations')"
-            >
-              <img src="profile.jpg" alt="Dr. Richard Carter" />
-              <div class="professor-card-content">
-                <h2>Dr. Richard Carter</h2>
-                <p>email@gmail.com</p>
-              </div>
-            </div>
-
-            <!-- Professor Card 9 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. Jessica Green', 'Economics', 'Ph.D. in Macroeconomics', 'Research in Economic Growth')"
-            >
-              <img src="profile.jpg" alt="Dr. Jessica Green" />
-              <div class="professor-card-content">
-                <h2>Dr. Jessica Green</h2>
-                <p>email@gmail.com</p>
-              </div>
-            </div>
-
-            <!-- Professor Card 10 -->
-            <div
-              class="professor-card"
-              onclick="openProfessorPopup('Dr. Brian Wilson', 'Political Science', 'Ph.D. in International Relations', 'Expert in Diplomacy')"
-            >
-              <img src="profile.jpg" alt="Dr. Brian Wilson" />
-              <div class="professor-card-content">
-                <h2>Dr. Brian Wilson</h2>
-                <p>email@gmail.com</p>
-              </div>
-            </div>
-
+        @empty
+            <p>No Professors</p>
+        @endforelse
+    </div>
+</div>
             <!-- Add more professors as needed -->
           </div>
         </div>

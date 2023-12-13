@@ -38,7 +38,7 @@ class SchoolController extends Controller
             $school->name=$requestedname;
             $school->location=$request['location'];
             $school->save();
-            return redirect('/superadmin');
+            return redirect('/superadmin/school');
        
         }}
 }

@@ -840,7 +840,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -861,7 +861,7 @@
             ><i class="bx bx-book-open"></i>Program</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/student"
             ><i class="bx bx-group"></i>Students</a
           >
@@ -922,156 +922,27 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="suAdmin-studentspage.html"><h1>Students</h1></a>
-            <h2>>Civil Engineering</h2>
+            <a href="/superadmin/student"><h1>Students</h1></a>
+            <h2>>{{$program->name}}</h2>
           </div>
           
         </div>
         <div class="student-display-grid">
-          <div class="grid">
-            <!-- Student 1 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('John Doe', 'Computer Science', 'Excellent student', 'A+ in all subjects')"
-            >
-              <img src="profile.jpg" alt="John Doe" />
-              <div class="card-content">
-                <h2>John Doe</h2>
-                <p>Computer Science</p>
-              </div>
+    <div class="grid">
+        @forelse ($students as $student)
+            <div class="card" onclick="openStudentPopup('{{ $student->Fullname }}', '{{ $student->email }}', '{{ $student->phone_number }}')">
+                <img src="{{ asset('images/ku logo.png') }}" alt="{{ $student->fullname }}" />
+                <div class="card-content">
+                    <h2>{{ $student->Fullname }}</h2>
+                    <!-- Additional content if needed -->
+                </div>
             </div>
-
-            <!-- Student 2 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Jane Smith', 'Physics', 'Hardworking student', 'B+ in Physics')"
-            >
-              <img src="profile.jpg" alt="Jane Smith" />
-              <div class="card-content">
-                <h2>Jane Smith</h2>
-                <p>Physics</p>
-              </div>
-            </div>
-
-            <!-- Student 1 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('John Doe', 'Computer Science', 'Excellent student', 'A+ in all subjects')"
-            >
-              <img src="profile.jpg" alt="John Doe" />
-              <div class="card-content">
-                <h2>John Doe</h2>
-                <p>Computer Science</p>
-              </div>
-            </div>
-
-            <!-- Student 2 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Jane Smith', 'Mathematics', 'Top-notch performance', 'Straight A grades')"
-            >
-              <img src="profile.jpg" alt="Jane Smith" />
-              <div class="card-content">
-                <h2>Jane Smith</h2>
-                <p>Mathematics</p>
-              </div>
-            </div>
-
-            <!-- Student 3 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Bob Johnson', 'Physics', 'Research Enthusiast', 'Published in top journals')"
-            >
-              <img src="profile.jpg" alt="Bob Johnson" />
-              <div class="card-content">
-                <h2>Bob Johnson</h2>
-                <p>Physics</p>
-              </div>
-            </div>
-
-            <!-- Student 4 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Alice Williams', 'Biology', 'Passionate Biologist', 'Award-winning research')"
-            >
-              <img src="profile.jpg" alt="Alice Williams" />
-              <div class="card-content">
-                <h2>Alice Williams</h2>
-                <p>Biology</p>
-              </div>
-            </div>
-
-            <!-- Student 5 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Charlie Brown', 'Chemistry', 'Lab Guru', 'Innovative experiments')"
-            >
-              <img src="profile.jpg" alt="Charlie Brown" />
-              <div class="card-content">
-                <h2>Charlie Brown</h2>
-                <p>Chemistry</p>
-              </div>
-            </div>
-
-            <!-- Student 6 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Eva Davis', 'History', 'Historical Scholar', 'Published author')"
-            >
-              <img src="profile.jpg" alt="Eva Davis" />
-              <div class="card-content">
-                <h2>Eva Davis</h2>
-                <p>History</p>
-              </div>
-            </div>
-
-            <!-- Student 7 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Frank Miller', 'Economics', 'Economic Analyst', 'Internationally recognized')"
-            >
-              <img src="profile.jpg" alt="Frank Miller" />
-              <div class="card-content">
-                <h2>Frank Miller</h2>
-                <p>Economics</p>
-              </div>
-            </div>
-
-            <!-- Student 8 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Grace Turner', 'Psychology', 'Mind Explorer', 'Award-winning research')"
-            >
-              <img src="profile.jpg" alt="Grace Turner" />
-              <div class="card-content">
-                <h2>Grace Turner</h2>
-                <p>Psychology</p>
-              </div>
-            </div>
-
-            <!-- Student 9 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Henry White', 'Engineering', 'Innovative Engineer', 'Patent holder')"
-            >
-              <img src="profile.jpg" alt="Henry White" />
-              <div class="card-content">
-                <h2>Henry White</h2>
-                <p>Engineering</p>
-              </div>
-            </div>
-
-            <!-- Student 10 -->
-            <div
-              class="card"
-              onclick="openStudentPopup('Isabel Garcia', 'Art', 'Creative Artist', 'Exhibited globally')"
-            >
-              <img src="profile.jpg" alt="Isabel Garcia" />
-              <div class="card-content">
-                <h2>Isabel Garcia</h2>
-                <p>Art</p>
-              </div>
-            </div>
+        @empty
+            <p>No students</p>
+        @endforelse
+    </div>
+</div>
+            
 
             <!-- Add more students as needed -->
           </div>
@@ -1153,7 +1024,7 @@
           document.body.classList.remove("dark");
         }
       });
-      function openStudentPopup(name, department, remarks, pastReports) {
+      function openStudentPopup(name, email, remarks, pastReports) {
         const popupTitle = document.getElementById("popupTitle");
         const popupContent = document.getElementById("popupContent");
         const popupRemarks = document.getElementById("popupRemarks");
@@ -1161,7 +1032,7 @@
 
         // Set popup title and content
         popupTitle.textContent = name;
-        popupContent.textContent = `Department: ${department}`;
+        popupContent.textContent = `email: ${email}`;
 
         // Set remarks and past reports
         popupRemarks.textContent = remarks || "N/A";

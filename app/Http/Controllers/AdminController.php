@@ -65,7 +65,7 @@ class AdminController extends Controller
             $lastInsertedUserId = $user->getKey();
             $admins->user_id=$lastInsertedUserId;
             $admins->save();
-            return redirect('/superadmin');
+            return redirect('/superadmin/admin');
        
         }}
 }

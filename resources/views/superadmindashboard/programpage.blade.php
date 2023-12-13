@@ -801,7 +801,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -817,7 +817,7 @@
             ><i class="bx bx-home-alt"></i>Department</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/program"
             ><i class="bx bx-book-open"></i>Program</a
           >
@@ -894,7 +894,7 @@
               <div class="details">
                 <i class="bx bx-group"></i>
                 <span class="info">
-                  <h3>7</h3>
+                  <h3>{{$programCount}}</h3>
                   <p>Programs</p>
                 </span>
               </div>
@@ -939,44 +939,51 @@
             <div class="header">
               <i class="bx bx-receipt"></i>
               <h3>Current Programs</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+              
             </div>
             <table>
-              <thead>
+    <thead>
+        <tr>
+            <th>Program Name</th>
+            <th>Department Name</th>
+            <th>School Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(count($programs) > 0)
+            @foreach ($programs as $index => $program)
                 <tr>
-                  <th>Name</th>
-                  <th>school</th>
-                  <th>Department</th>
+                    <td>{{ $program->name }}</td>
+
+                    @php
+                        $department = $departments->where('dep_id', $program->dep_id)->first();
+                        $school = $schools->where('school_id', $department->school_id)->first();
+                    @endphp
+
+                    <td>
+                        @if($department)
+                            {{ $department->name }}
+                        @else
+                            Department not found
+                        @endif
+                    </td>
+
+                    <td>
+                        @if($school)
+                            {{ $school->name }}
+                        @else
+                            School not found
+                        @endif
+                    </td>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>BBIS</p>
-                  </td>
-                  <td>KUSoM</td>
-                  <td><span>MIC</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Civil Engineering</p>
-                  </td>
-                  <td>KUSoE</td>
-                  <td><span>Civil</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Architecture</p>
-                  </td>
-                  <td>KUSoE</td>
-                  <td><span>Architecture</span></td>
-                </tr>
-              </tbody>
-            </table>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="3">Currently, there are no programs.</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
           </div>
 
           <!-- calandar -->

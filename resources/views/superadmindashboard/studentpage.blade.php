@@ -729,7 +729,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -750,7 +750,7 @@
             ><i class="bx bx-book-open"></i>Program</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/student"
             ><i class="bx bx-group"></i>Students</a
           >
@@ -819,7 +819,7 @@
           <li>
             <i class="bx bx-group"></i>
             <span class="info">
-              <h3>7</h3>
+              <h3>{{$studentsCount}}</h3>
               <p>Total Students</p>
             </span>
             <a href="/superadmin/addstudents"
@@ -830,34 +830,22 @@
         <!-- End of Insights -->
         <!-- New Users Section -->
         <div class="new-users">
-          <h2>Programs</h2>
-          <div class="user-list">
-            <a href="/superadmin/student/program"
-              ><div class="user">
-                <img src="{{ asset('images/ku logo.png') }}" />
-                <h2>BBIS</h2>
-              </div>
-            </a>
-            <a href="/superadmin/student/program"
-              ><div class="user">
-                <img src="{{ asset('images/ku logo.png') }}" />
-                <h2>Architecture</h2>
-              </div>
-            </a>
-            <a href="/superadmin/student/program"
-              ><div class="user">
-                <img src="{{ asset('images/ku logo.png') }}" />
-                <h2>Civil Engineering</h2>
-              </div>
-            </a>
-            <a href="/superadmin/student/program"
-              ><div class="user">
-                <img src="{{ asset('images/ku logo.png') }}" />
-                <h2>Computer Science</h2>
-              </div>
-            </a>
-          </div>
-        </div>
+    <h2>Programs</h2>
+    <div class="user-list">
+        @if(count($programs) > 0)
+            @foreach ($programs as $program)
+                <a href="/superadmin/student/program/{{ $program->program_id }}">
+                    <div class="user">
+                        <img src="{{ asset('images/ku logo.png') }}" />
+                        <h2>{{ $program->name }}</h2>
+                    </div>
+                </a>
+            @endforeach
+        @else
+            <p>Currently, there are no programs.</p>
+        @endif
+    </div>
+</div>
         <!-- End of New Users Section -->
       </main>
     </div>

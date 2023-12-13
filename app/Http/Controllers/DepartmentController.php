@@ -46,7 +46,7 @@ class DepartmentController extends Controller
             $schoolid = Schools::where('name',$request['school'])->first();
             $Department->school_id=$schoolid->school_id;
             $Department->save();
-            return redirect('/superadmin');
+            return redirect('/superadmin/department');
        
         }}
         //Show add users to department form

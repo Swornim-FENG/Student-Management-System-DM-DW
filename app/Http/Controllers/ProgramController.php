@@ -13,14 +13,32 @@ use App\Models\Program_professors;
 use App\Models\Program_admins;
 use App\Models\Admins;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Schools;
 
 class ProgramController extends Controller
 {
     //show program page of superadmin dashboard
-    public function showprogram(){
-        return view('superadmindashboard.programpage');
-    }
+    public function showProgram()
+{
+    $programCount = Programs::count();
+
+    // Step 1: Retrieve all programs
+    $programs = Programs::all();
+
+    // Step 2: Retrieve corresponding departments based on dep_id
+    $programIds = $programs->pluck('dep_id')->toArray();
+    $departments = Departments::whereIn('dep_id', $programIds)->get();
+
+    // Step 3: Retrieve corresponding schools based on the department's school_id
+    $schoolIds = $departments->pluck('school_id')->toArray();
+    $schools = Schools::whereIn('school_id', $schoolIds)->get();
+
+    return view('superadmindashboard.programpage', compact('programCount'), [
+        'programs' => $programs,
+        'departments' => $departments,
+        'schools' => $schools,
+    ]);
+}
 
     //show add program form
     public function showaddprogram(){
@@ -54,7 +72,7 @@ class ProgramController extends Controller
             $departmentid = Departments::where('name',$request['department'])->first();
             $Program->dep_id=$departmentid->dep_id;
             $Program->save();
-            return redirect('/superadmin');
+            return redirect('/superadmin/program');
        
         }}
 

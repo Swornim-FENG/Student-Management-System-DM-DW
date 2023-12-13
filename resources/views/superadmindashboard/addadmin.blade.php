@@ -856,10 +856,10 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/admin"><i class="bx bx-group"></i>Admin</a>
         </li>
         <li>

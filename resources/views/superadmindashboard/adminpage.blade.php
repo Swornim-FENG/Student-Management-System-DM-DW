@@ -716,10 +716,10 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/admin"><i class="bx bx-group"></i>Admin</a>
         </li>
         <li>
@@ -807,7 +807,7 @@
           <li>
             <i class="bx bx-group"></i>
             <span class="info">
-              <h3>7</h3>
+              <h3>{{$adminsCount}}</h3>
               <p>Admins</p>
             </span>
             <a href="/admin/add"
@@ -822,42 +822,34 @@
             <div class="header">
               <i class="bx bx-receipt"></i>
               <h3>Current Admins</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+              
             </div>
             <table>
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Department</th>
                   <th>Email</th>
+                  <th>Program</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Swornim</p>
-                  </td>
-                  <td>BBIS</td>
-                  <td><span>swornim@gmail.com</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Rikshal</p>
-                  </td>
-                  <td>Civil Engineering</td>
-                  <td><span>rikshal@gmail.com</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Arpan</p>
-                  </td>
-                  <td>Architecture</td>
-                  <td><span>Arpan@gmail.com</span></td>
-                </tr>
+              @foreach ($users as $index => $user)
+    <tr>
+        <td>
+        <img src="{{ asset('images/ku logo.png') }}" />
+            <p>{{ $user->Fullname }}</p>
+        </td>
+        <td><span>{{ $user->email }}</span></td>
+        <td>
+            @if(isset($programNames[$index]))
+                {{ $programNames[$index] }}
+            @else
+                Admin not assigned to a program
+            @endif
+        </td>
+    </tr>
+@endforeach
+                
               </tbody>
             </table>
           </div>

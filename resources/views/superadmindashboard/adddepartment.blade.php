@@ -751,7 +751,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -762,7 +762,7 @@
             ><i class="bx bx-building"></i>School</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/department"
             ><i class="bx bx-home-alt"></i>Department</a
           >

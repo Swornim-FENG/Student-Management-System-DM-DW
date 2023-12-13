@@ -782,29 +782,29 @@
           <li>
             <i class="bx bx-group"></i>
             <span class="info">
-              <h3>174</h3>
+              <h3>{{$studentsCount}}</h3>
               <p>Students</p>
             </span>
           </li>
           <li>
             <i class="bx bx-group"></i>
             <span class="info">
-              <h3>9</h3>
+              <h3>{{$professorsCount}}</h3>
               <p>Professors</p>
             </span>
           </li>
           <li>
             <i class="bx bx-book"></i>
             <span class="info">
-              <h3>14</h3>
-              <p>Courses</p>
+              <h3>{{$schoolsCount}}</h3>
+              <p>Schools</p>
             </span>
           </li>
           <li>
             <i class="bx bx-spreadsheet"></i>
             <span class="info">
-              <h3>4</h3>
-              <p>Documents</p>
+              <h3>{{$coursesCount}}</h3>
+              <p>Courses</p>
             </span>
           </li>
         </ul>
@@ -815,44 +815,35 @@
             <div class="header">
               <i class="bx bx-receipt"></i>
               <h3>Recent Enrolls</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+              
             </div>
             <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Semester</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Swornim</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td><span>5</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Rikshal</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td><span>2</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Arpan</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td><span>3</span></td>
-                </tr>
-              </tbody>
-            </table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if(count($recentUsers) > 0)
+    @foreach ($recentUsers as $user)
+        <tr>
+            <td>
+                <img src="{{ asset('images/ku logo.png') }}" />
+                <p>{{ $user->Fullname }}</p>
+            </td>
+            <td>{{ $user->email }}</td>
+            <td>{{ $user->created_at->format('m-d-Y') }}</td>
+        </tr>
+    @endforeach
+@else
+    <tr>
+        <td colspan="3">There are no recent enrolls.</td>
+    </tr>
+@endif
+    </tbody>
+</table>
           </div>
 
           <!-- calander -->

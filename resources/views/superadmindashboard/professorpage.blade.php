@@ -730,7 +730,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -756,7 +756,7 @@
             ><i class="bx bx-group"></i>Students</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/professor"
             ><i class="bx bx-group"></i>Professors</a
           >
@@ -820,7 +820,7 @@
           <li>
             <i class="bx bx-group"></i>
             <span class="info">
-              <h3>7</h3>
+              <h3>{{$professorsCount}}</h3>
               <p>Total Professors</p>
             </span>
             <a href="/superadmin/addprofessors"
@@ -833,32 +833,20 @@
         <div class="new-users">
           <h2>Programs</h2>
           <div class="user-list">
-            <a href="/superadmin/professor/program"
-              ><div class="user">
-                <img src="{{ asset('images/ku logo.png') }}" />
-                <h2>BBIS</h2>
-              </div>
-            </a>
-            <a href="/superadmin/professor/program"
-              ><div class="user">
-                <img src="{{ asset('images/ku logo.png') }}" />
-                <h2>Architecture</h2>
-              </div>
-            </a>
-            <a href="/superadmin/professor/program"
-              ><div class="user">
-                <img src="{{ asset('images/ku logo.png') }}" />
-                <h2>Civil Engineering</h2>
-              </div>
-            </a>
-            <a href="/superadmin/professor/program"
-              ><div class="user">
-                <img src="{{ asset('images/ku logo.png') }}" />
-                <h2>Computer Science</h2>
-              </div>
-            </a>
-          </div>
-        </div>
+        @if(count($programs) > 0)
+            @foreach ($programs as $program)
+                <a href="/superadmin/professor/program/{{ $program->program_id }}">
+                    <div class="user">
+                        <img src="{{ asset('images/ku logo.png') }}" />
+                        <h2>{{ $program->name }}</h2>
+                    </div>
+                </a>
+            @endforeach
+        @else
+            <p>Currently, there are no programs.</p>
+        @endif
+    </div>
+</div>
         <!-- End of New Users Section -->
       </main>
     </div>
