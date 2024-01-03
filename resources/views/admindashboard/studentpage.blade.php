@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Super Admin</title>
+    <title>Admin</title>
   </head>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
@@ -212,7 +212,7 @@
     .add {
       margin-left: 900px;
     }
-    .custom-button {
+    .custom-button1 {
       background-color: #3498db;
       color: #fff;
       padding: 10px 20px;
@@ -220,10 +220,24 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
-      margin-left: 900px;
+      margin-left: 700px;
     }
 
-    .custom-button:hover {
+    .custom-button1:hover {
+      background-color: #2980b9;
+    }
+    .custom-button2 {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 5px;
+    }
+
+    .custom-button2:hover {
       background-color: #2980b9;
     }
 
@@ -367,22 +381,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -423,6 +427,7 @@
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       grid-gap: 24px;
       margin-top: 36px;
+      margin-bottom: 15px;
     }
 
     .content main .insights li {
@@ -616,7 +621,114 @@
     .content main .bottom-data .reminders .task-list li:last-child {
       margin-bottom: 0;
     }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(50px, 150px));
+      gap: 10px;
+    }
 
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s ease-in-out;
+      border: 1px solid rgba(26, 177, 188, 0.952);
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      max-height: 100px; /* Set a maximum height for the image */
+      object-fit: cover; /* Maintain aspect ratio while covering the container */
+      border-bottom: 1px solid rgba(26, 177, 188, 0.952);
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    h2,
+    p {
+      margin: 0;
+      color: #333;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+    .popup {
+      display: none;
+      width: 500px;
+      position: fixed;
+      top: 40%;
+      left: 40%;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 1000;
+      border: 2px solid rgba(26, 177, 188, 0.952);
+    }
+
+    /* Add more styling as needed */
+    #popupTitle {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #popupContent {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    #popupRemarks,
+    #popupReports {
+      font-size: 14px;
+      color: #666;
+    }
+    #profileImage {
+      width: 100px; /* Adjust the width as needed */
+      height: 100px; /* Adjust the height as needed */
+      border-radius: 10%; /* Optional: Creates a circular shape for the image */
+      object-fit: cover; /* Optional: Ensures the image covers the entire container */
+      margin-right: 10px; /* Optional: Adds some spacing to the right of the image */
+      border: 1px solid #2980b9;
+    }
+    .content main .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      grid-gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .content main .header .left {
+      display: flex;
+    }
+
+    .content main .header .left h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    .content main .header .left h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+      margin-top: 10px;
+    }
+    .btns2 {
+      display: none;
+
+      width: 300px;
+    }
     @media screen and (max-width: 768px) {
       .sidebar {
         width: 200px;
@@ -629,8 +741,45 @@
       .add {
         margin-left: 200px;
       }
-      .button1S {
-        margin-left: 0px;
+      .popup {
+        width: 80%;
+        margin: 10% -100px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+
+        z-index: 1000;
+      }
+
+      /* Close button style */
+      .close-btn {
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      /* Title style */
+      #popupTitle {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      /* Content style */
+      #popupContent {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      /* Remarks style */
+      #popupRemarks {
+        font-weight: bold;
+      }
+
+      /* Reports style */
+      #popupReports {
+        font-style: italic;
       }
     }
 
@@ -683,110 +832,59 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(50px, 150px));
+        gap: 10px;
+      }
+      h2,
+      p {
+        margin: 0;
+        color: #333;
+        font-size: 16px;
+      }
+      h2 {
         margin-bottom: 10px;
-        color: var(--dark);
+        font-size: 16px;
       }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
+      .btns2 {
+        display: block;
+        padding: 10px;
+        display: flex;
       }
-      .add-form {
-        max-width: 300px;
-      }
-      input,
-      select {
-        max-width: 270px;
-      }
-      .btn {
-        margin-left: 0px;
-      }
-    }
-    .add-form {
-      max-width: 550px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--dark);
+      .custom-button3,
+      .custom-button4 {
+        background-color: #3498db;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 5px;
+      }
+      .btns {
+        display: none;
+      }
     }
-
-    input,
-    select {
-      width: 500px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    button {
-      background-color: rgb(51, 81, 230);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
+    .btn1 {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 5px;
     }
-
-    button:hover {
-      background-color: #1525a1;
+    .btn1:hover {
+      background-color: #2980b9;
     }
-    .button1S {
-      background-color: rgb(38, 194, 98);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
-      margin-right: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .button1S:hover {
-      background-color: #15a12a;
-    }
-    .email-list {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .email-item {
-      display: flex;
-      align-items: center;
-      padding: 5px;
-
-      border-radius: 5px;
-      margin: 5px;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .email-item input {
-      border: 1px solid #746a6a;
-      outline: none;
-      width: 100%;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    .remove-button {
+    .btns {
       margin-left: -20px;
-      margin-bottom: 16px;
-      background: var(--grey);
-      color: var(--dark);
+      display: flex;
+      width: 1100px;
     }
   </style>
 
@@ -795,50 +893,29 @@
     <div class="sidebar">
       <div class="logo">
         <img src="{{ asset('images/ku logo.png') }}" alt="" />
-        <h4>Super Admin</h4>
+        <h4>Admin</h4>
       </div>
       <ul class="side-menu">
         <li >
-          <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="/admin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li class="active">
+          <a href="/admin/student"><i class="bx bx-group"></i>Students</a>
         </li>
         <li>
-          <a href="/superadmin/admin"><i class="bx bx-group"></i>Admin</a>
-        </li>
-        <li>
-          <a href="/superadmin/school"
-            ><i class="bx bx-building"></i>School</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/department"
-            ><i class="bx bx-home-alt"></i>Department</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/program"
-            ><i class="bx bx-book-open"></i>Program</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/student"
-            ><i class="bx bx-group"></i>Students</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/professor"
+          <a href="/admin/addprofessors"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
-        <li class="active">
-          <a href="/superadmin/course"
-            ><i class="bx bx-book"></i>Courses</a
-          >
+        <li>
+          <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
         </li>
         <li>
-          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
+          <a href="admin/add/professor/program"><i class="bx bx-news"></i>Enroll prof</a>
         </li>
-
-        <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
+        <li>
+          <a href="admin/add/student/program"><i class="bx bx-news"></i>Enroll stud</a>
+        </li>
       </ul>
       <ul class="side-menu">
         <li>
@@ -880,62 +957,68 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/superadmin/course"><h1>courses</h1></a>
-            <h2>>Assign student</h2>
+            <h1>Students</h1>
+          </div>
+          <ul class="insights">
+            <li>
+              <i class="bx bx-group"></i>
+              <span class="info">
+                <h3>{{$studentscount}}</h3>
+                <p>students</p>
+              </span>
+              <div class="btns">
+                <a href="/admin/addstudents"
+                  ><button class="custom-button1">Add student</button>
+                </a>
+                <a href="/admin/add/student/program"
+                  ><button class="custom-button2">Enroll student</button>
+                </a>
+              </div>
+            </li>
+          </ul>
+          <div class="btns2">
+            <a href="/admin/addstudents"
+              ><button class="custom-button3">Add student</button>
+            </a>
+            <a href="/admin/add/student/program"
+              ><button class="custom-button4">Enroll student</button>
+            </a>
           </div>
         </div>
-        <div>
-          <form class="add-form" action="{{url('/')}}/superadmin/assign/student/course" method="post">
-            @csrf
-            <label for="course">Choose Course:</label>
-            <select name="course" id="course">
-                @foreach($courses as $course)
-                 <option >{{ $course->course_code }}</option>
-                 @endforeach
-                 </select>
-
-            <label for="Batch">Batch:</label>
-            <input type="text" id="Batch" name="batch" required />
-            <span class="text-danger"style="color:red">
-            @error('batch')
-               {{$message}}
-               @enderror
-               </span>
-
-            <label for="year">choose year:</label>
-            <select name="year" id="year">
-              <option>1st</option>
-              <option>2nd</option>
-              <option>3rd</option>
-              <option>4th</option>
-              <option>5th</option>
-            </select>
-            <label for="sem">choose semester:</label>
-            <select name="sem" id="sem">
-              <option>1st</option>
-              <option>2nd</option>
-            </select>
-
-            <label for="email-list">Student Email:</label>
-            <div class="email-list" id="email-list">
-              <div class="email-item">
-                <input type="email" name="student_emails[]" required />
-              </div>
+        <div class="student-display-grid">
+    <div class="grid">
+        @forelse ($students as $student)
+            <div class="card" onclick="openStudentPopup('{{ $student->Fullname }}', '{{ $student->email }}', '{{ $student->phone_number }}')">
+                <img src="{{ asset('images/ku logo.png') }}" alt="{{ $student->fullname }}" />
+                <div class="card-content">
+                    <h2>{{ $student->Fullname }}</h2>
+                    <!-- Additional content if needed -->
+                </div>
             </div>
-             @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-            <div class="buttons">
-              <button class="button1S" type="button" id="add-email">
-                Add Email
-              </button>
-              <button class="btn" type="submit">Assign Student</button>
-            </div>
-          </form>
+        @empty
+            <p>No students</p>
+        @endforelse
+    </div>
+</div>
+
+            
+
+            <!-- Add more students as needed -->
+          </div>
         </div>
       </main>
+      <div class="right-section">
+        <!-- student info section-->
+        <div class="popup" id="studentPopup">
+          <span class="close-btn" onclick="closeStudentPopup()">&times;</span>
+          <img id="profileImage" alt="Profile Image" />
+          <h2 id="popupTitle"></h2>
+          <p id="popupContent"></p>
+          <p><strong>Remarks:</strong> <span id="popupRemarks"></span></p>
+          <p><strong>Past Reports:</strong> <span id="popupReports"></span></p>
+        </div>
+        <!-- student info section close-->
+      </div>
     </div>
 
     <script>
@@ -1001,24 +1084,35 @@
           document.body.classList.remove("dark");
         }
       });
-      document
-        .getElementById("add-email")
-        .addEventListener("click", function () {
-          var emailList = document.getElementById("email-list");
-          var emailItem = document.createElement("div");
-          emailItem.className = "email-item";
-          emailItem.innerHTML = `
-                <input type="email" name="student_emails[]" required>
-                <span class="remove-button" onclick="removeEmail(this)">&#10006;</span>
-            `;
-          emailList.appendChild(emailItem);
-        });
+      function openStudentPopup(name, email, remarks, pastReports) {
+        const popupTitle = document.getElementById("popupTitle");
+        const popupContent = document.getElementById("popupContent");
+        const popupRemarks = document.getElementById("popupRemarks");
+        const popupReports = document.getElementById("popupReports");
 
-      function removeEmail(element) {
-        var emailItem = element.parentElement;
-        var emailList = document.getElementById("email-list");
-        emailList.removeChild(emailItem);
+        // Set popup title and content
+        popupTitle.textContent = name;
+        popupContent.textContent = `email: ${email}`;
+
+        // Set remarks and past reports
+        popupRemarks.textContent = remarks || "N/A";
+        popupReports.textContent = pastReports || "N/A";
+
+        // Display the popup
+        document.getElementById("studentPopup").style.display = "block";
       }
+
+      function closeStudentPopup() {
+        document.getElementById("studentPopup").style.display = "none";
+      }
+      // Assuming 'imageUrl' is the variable holding the path to the profile image
+      var imageUrl = "profile.jpg";
+
+      // Select the image element by its ID
+      var profileImage = document.getElementById("profileImage");
+
+      // Set the source attribute with the dynamic URL
+      profileImage.src = imageUrl;
     </script>
   </body>
 </html>

@@ -736,7 +736,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -767,14 +767,12 @@
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/course"
             ><i class="bx bx-book"></i>Courses</a
           >
         </li>
-        <li>
-          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
-        </li>
+        
 
         <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
       </ul>
@@ -826,7 +824,7 @@
           <li>
             <i class="bx bx-group"></i>
             <span class="info">
-              <h3>14</h3>
+              <h3>{{$coursecount}}</h3>
               <p>courses</p>
             </span>
             <div class="btn-list">
@@ -865,42 +863,28 @@
             <div class="header">
               <i class="bx bx-receipt"></i>
               <h3>Current Courses</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+             
             </div>
             <table>
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Department</th>
-                  <th>Professor</th>
+                  <th>Course Code</th>
+                  <th>Cr hour</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>MAS 101</p>
-                  </td>
-                  <td>BBIS</td>
-                  <td><span>Durga</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Civil Engineering</p>
-                  </td>
-                  <td>KUSoE</td>
-                  <td><span>Rikshal</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="kathmandu_university_logo_nepal .png" />
-                    <p>Architecture</p>
-                  </td>
-                  <td>KUSoE</td>
-                  <td><span>Arpan</span></td>
-                </tr>
+              @foreach($courses as $course)
+            <tr>
+                <td>
+                    <img src="{{ asset('images/ku logo.png') }}" alt="KU Logo" />
+                    <p>{{ $course->name }}</p>
+                </td>
+                <td>{{ $course->course_code }}</td>
+                <td><span>{{ $course->cr_hour }}</span></td>
+            </tr>
+        @endforeach
+              
               </tbody>
             </table>
           </div>

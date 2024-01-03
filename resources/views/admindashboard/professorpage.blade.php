@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Super Admin</title>
+    <title>Admin</title>
   </head>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
@@ -220,10 +220,23 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
-      margin-left: 900px;
+      margin-left: 750px;
     }
 
     .custom-button:hover {
+      background-color: #2980b9;
+    }
+    .custom-button2 {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .custom-button2:hover {
       background-color: #2980b9;
     }
 
@@ -367,22 +380,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -423,6 +426,7 @@
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       grid-gap: 24px;
       margin-top: 36px;
+      margin-bottom: 15px;
     }
 
     .content main .insights li {
@@ -616,7 +620,74 @@
     .content main .bottom-data .reminders .task-list li:last-child {
       margin-bottom: 0;
     }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(50px, 150px));
+      gap: 10px;
 
+      width: 800px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 40%;
+      left: 85%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background: var(--light);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 1000;
+      border: 2px solid rgba(26, 177, 188, 0.952);
+    }
+
+    /* Add more styling as needed */
+    #popupTitle {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #popupContent {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    #popupRemarks,
+    #popupReports {
+      font-size: 14px;
+    }
+    .content main .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      grid-gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .content main .header .left {
+      display: flex;
+    }
+
+    .content main .header .left h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    .content main .header .left h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+      margin-top: 10px;
+    }
+    .btn-list {
+      display: none;
+    }
     @media screen and (max-width: 768px) {
       .sidebar {
         width: 200px;
@@ -629,8 +700,43 @@
       .add {
         margin-left: 200px;
       }
-      .button1S {
-        margin-left: 0px;
+      .popup {
+        width: 80%;
+        margin: 10% -120px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+      }
+
+      /* Close button style */
+      .close-btn {
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      /* Title style */
+      #popupTitle {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      /* Content style */
+      #popupContent {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      /* Remarks style */
+      #popupRemarks {
+        font-weight: bold;
+      }
+
+      /* Reports style */
+      #popupReports {
+        font-style: italic;
       }
     }
 
@@ -683,162 +789,114 @@
       .custom-button {
         margin-left: 10px;
       }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(50px, 150px));
+        gap: 10px;
       }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
+      .btn-list {
+        display: block;
+        display: flex;
+        margin: 10px;
+        padding: 5px;
       }
-      .add-form {
-        max-width: 300px;
+      .btn-list button {
+        margin-left: 5px;
       }
-      input,
-      select {
-        max-width: 270px;
+      .header .insights button {
+        display: none;
       }
-      .btn {
-        margin-left: 0px;
-      }
-    }
-    .add-form {
-      max-width: 550px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
     }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    input,
-    select {
-      width: 500px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    button {
-      background-color: rgb(51, 81, 230);
-      color: white;
-      padding: 10px 15px;
-      margin-top: 10px;
+    .btn1 {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
-
-    button:hover {
-      background-color: #1525a1;
+    .btn1:hover {
+      background-color: #2980b9;
     }
-    .button1S {
-      background-color: rgb(38, 194, 98);
-      color: white;
-      padding: 10px 15px;
+    /* Additional styles for Professor Page */
+    .content main .header .left h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
       margin-top: 10px;
-      margin-right: 10px;
-      border: none;
-      border-radius: 5px;
+    }
+
+    .professor-display-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(50px, 150px));
+      gap: 10px;
+    }
+
+    .professor-card {
+      background: var(--light);
+      border: 1px solid rgba(26, 177, 188, 0.952);
+      border-radius: 8px;
+      overflow: hidden;
       cursor: pointer;
-    }
-    .button1S:hover {
-      background-color: #15a12a;
-    }
-    .email-list {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 560px;
-      margin: 0 auto;
+      transition: transform 0.3s ease-in-out;
     }
 
-    .email-item {
-      display: flex;
-      align-items: center;
-      padding: 5px;
+    .professor-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-      border-radius: 5px;
-      margin: 5px;
+    .professor-card img {
       width: 100%;
-      cursor: pointer;
+      height: auto;
+      border-bottom: 1px solid rgba(26, 177, 188, 0.952);
     }
 
-    .email-item input {
-      border: 1px solid #746a6a;
-      outline: none;
-      width: 100%;
-      background: var(--grey);
-      color: var(--dark);
+    .professor-card-content {
+      padding: 10px;
     }
-
-    .remove-button {
-      margin-left: -20px;
-      margin-bottom: 16px;
-      background: var(--grey);
+    .professor-card-content h2 {
       color: var(--dark);
+      font-size: 15px;
+    }
+    .professor-card-content p {
+      color: var(--dark);
+      font-size: 12px;
     }
   </style>
 
   <body>
     <!-- Sidebar -->
+    <!-- Sidebar -->
     <div class="sidebar">
       <div class="logo">
-        <img src="{{ asset('images/ku logo.png') }}" alt="" />
-        <h4>Super Admin</h4>
+        <img src="images/ku logo.png" alt="" />
+        <h4>Admin</h4>
       </div>
       <ul class="side-menu">
-        <li >
-          <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        <li class="active">
+          <a href="Admin.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
-          <a href="/superadmin/admin"><i class="bx bx-group"></i>Admin</a>
+          <a href="/admin/student"><i class="bx bx-group"></i>Students</a>
         </li>
         <li>
-          <a href="/superadmin/school"
-            ><i class="bx bx-building"></i>School</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/department"
-            ><i class="bx bx-home-alt"></i>Department</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/program"
-            ><i class="bx bx-book-open"></i>Program</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/student"
-            ><i class="bx bx-group"></i>Students</a
-          >
-        </li>
-        <li>
-          <a href="/superadmin/professor"
+          <a href="/admin/professor"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
-        <li class="active">
-          <a href="/superadmin/course"
-            ><i class="bx bx-book"></i>Courses</a
-          >
+        <li>
+          <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
         </li>
         <li>
-          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
+          <a href="admin/add/professor/program"><i class="bx bx-news"></i>Enroll prof</a>
         </li>
-
-        <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
+        <li>
+          <a href="admin/add/student/program"><i class="bx bx-news"></i>Enroll stud</a>
+        </li>
       </ul>
       <ul class="side-menu">
         <li>
@@ -871,7 +929,7 @@
           <span class="count">8</span>
         </a>
         <a href="#" class="profile">
-          <img src="{{ asset('images/ku logo.png') }}" alt="" />
+          <img src="images/ku logo.png" alt="" />
         </a>
       </nav>
 
@@ -880,62 +938,69 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/superadmin/course"><h1>courses</h1></a>
-            <h2>>Assign student</h2>
+            <h1>professors</h1>
+          </div>
+          <ul class="insights">
+            <li>
+              <i class="bx bx-group"></i>
+              <span class="info">
+                <h3>{{$professorscount}}</h3>
+                <p>professors</p>
+              </span>
+              <a href="/admin/addprofessors"
+                ><button class="custom-button">Add professor</button>
+              </a>
+              <a href="/admin/add/professor/program"
+                ><button class="custom-button2">enroll professor</button>
+              </a>
+            </li>
+          </ul>
+          <div class="btn-list">
+            <a href="/admin/addprofessors"
+              ><button class="custom-button">Add professor</button>
+            </a>
+            <a href="/admin/add/professor/program"
+              ><button class="custom-button2">enroll professor</button>
+            </a>
           </div>
         </div>
-        <div>
-          <form class="add-form" action="{{url('/')}}/superadmin/assign/student/course" method="post">
-            @csrf
-            <label for="course">Choose Course:</label>
-            <select name="course" id="course">
-                @foreach($courses as $course)
-                 <option >{{ $course->course_code }}</option>
-                 @endforeach
-                 </select>
-
-            <label for="Batch">Batch:</label>
-            <input type="text" id="Batch" name="batch" required />
-            <span class="text-danger"style="color:red">
-            @error('batch')
-               {{$message}}
-               @enderror
-               </span>
-
-            <label for="year">choose year:</label>
-            <select name="year" id="year">
-              <option>1st</option>
-              <option>2nd</option>
-              <option>3rd</option>
-              <option>4th</option>
-              <option>5th</option>
-            </select>
-            <label for="sem">choose semester:</label>
-            <select name="sem" id="sem">
-              <option>1st</option>
-              <option>2nd</option>
-            </select>
-
-            <label for="email-list">Student Email:</label>
-            <div class="email-list" id="email-list">
-              <div class="email-item">
-                <input type="email" name="student_emails[]" required />
-              </div>
+        <div class="professor-display-grid">
+          <div class="grid">
+            <!-- Professor Card 1 -->
+            @forelse ($professors as $professor)
+            <div class="professor-card" onclick="openProfessorPopup('{{ $professor->Fullname }}', '{{ $professor->email }}', '{{ $professor->phone_number }}')">
+                <img src="{{ asset('images/ku logo.png') }}" alt="{{ $professor->fullname }}" />
+                <div class="professor-card-content">
+                    <h2>{{ $professor->Fullname }}</h2>
+                    <!-- Additional content if needed -->
+                </div>
             </div>
-             @if(session('error'))
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-            <div class="buttons">
-              <button class="button1S" type="button" id="add-email">
-                Add Email
-              </button>
-              <button class="btn" type="submit">Assign Student</button>
-            </div>
-          </form>
+        @empty
+            <p>No Professors</p>
+        @endforelse
+    </div>
+</div>
+
+            
+            <!-- Add more professors as needed -->
+          </div>
         </div>
       </main>
+      <div class="right-section">
+        <!-- Professor Popup -->
+        <div class="popup" id="professorPopup">
+          <div class="popup-content">
+            <span class="popup-close-btn" onclick="closeProfessorPopup()"
+              >&times;</span
+            >
+            <h2 id="professorName">Dr. John Doe</h2>
+            <p id="professorDept">Computer Science</p>
+            <p id="professorQualification">Ph.D. in CS</p>
+            <p id="professorDescription">Teaching Computer Networks</p>
+          </div>
+        </div>
+        <!-- End of Professor Popup -->
+      </div>
     </div>
 
     <script>
@@ -1001,23 +1066,22 @@
           document.body.classList.remove("dark");
         }
       });
-      document
-        .getElementById("add-email")
-        .addEventListener("click", function () {
-          var emailList = document.getElementById("email-list");
-          var emailItem = document.createElement("div");
-          emailItem.className = "email-item";
-          emailItem.innerHTML = `
-                <input type="email" name="student_emails[]" required>
-                <span class="remove-button" onclick="removeEmail(this)">&#10006;</span>
-            `;
-          emailList.appendChild(emailItem);
-        });
+      function openProfessorPopup(
+        name,
+        department,
+        qualification,
+        description
+      ) {
+        document.getElementById("professorName").innerText = name;
+        document.getElementById("professorDept").innerText = department;
+        document.getElementById("professorQualification").innerText =
+          qualification;
+        document.getElementById("professorDescription").innerText = description;
+        document.getElementById("professorPopup").style.display = "block";
+      }
 
-      function removeEmail(element) {
-        var emailItem = element.parentElement;
-        var emailList = document.getElementById("email-list");
-        emailList.removeChild(emailItem);
+      function closeProfessorPopup() {
+        document.getElementById("professorPopup").style.display = "none";
       }
     </script>
   </body>

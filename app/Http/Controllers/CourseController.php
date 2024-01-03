@@ -17,7 +17,9 @@ class CourseController extends Controller
 {
     //show course page of superadmin dashboard
     public function showcourse(){
-        return view('superadmindashboard.course');
+        $coursecount=Courses::count();
+        $courses=Courses::all();
+        return view('superadmindashboard.course',compact('coursecount','courses'));
     }
     //show course page of admin dashboard
     public function show_course(){

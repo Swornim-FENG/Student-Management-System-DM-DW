@@ -59,6 +59,10 @@ Route::get('/professor',[ProfessorController::class,'showprofessors']);
 
 Route::get('/admin',[AdminController::class,'showadmin']);
 
+Route::get('/admin/student',[AdminController::class,'showstudent']);
+
+Route::get('/admin/professor',[AdminController::class,'showprofessor']);
+
 Route::get('/admin/add',[AdminController::class,'showaddadmin'])->name('addadmin');
 
 Route::post('/admin/add',[AdminController::class,'insertadmin']);

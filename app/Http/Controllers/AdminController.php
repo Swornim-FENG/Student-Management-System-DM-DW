@@ -8,6 +8,11 @@ use App\Models\User;
 use App\Models\Program_admins;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Programs;
+use App\Models\Students;
+use App\Models\Program_professors;
+use App\Models\Program_courses;
+use App\Models\Course_students;
+use App\Models\Course_professors;
 
 class AdminController extends Controller
 {
@@ -17,12 +22,52 @@ class AdminController extends Controller
         $userId=$userObj->user_id;
         $programid=Program_admins::where('admin_id',$userId)->first();
         $program =Programs::where('program_id',$programid->program_id)->first();
-        return view('admindashboard.admindashboard',compact('program'));
+        $students=Students::where('program_id',$programid->program_id);
+        $studentscount=$students->count();
+        $professors=Program_professors::where('program_id',$programid->program_id);
+        $professorscount=$professors->count();
+        $courses=Program_courses::where('program_id',$programid->program_id);
+        $coursescount=$courses->count();
+        $recentUsers = User::orderBy('created_at', 'desc')->take(4)->get();
+        return view('admindashboard.admindashboard',compact('program','studentscount','professorscount','coursescount','recentUsers'));
     }
     //show add admin form
     public function showaddadmin(){
         return view('superadmindashboard.addadmin');
     }
+    //show student page of admindashboard
+    public function showstudent(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $programid=Program_admins::where('admin_id',$userId)->first();
+        $students=Students::where('program_id',$programid->program_id);
+        $studentscount=$students->count();
+        $program=Programs::where('program_id',$programid->program_id)->first();
+        // Step 1: Retrieve student IDs with the given program ID
+   $studentIds = Students::where('program_id', $programid->program_id)->pluck('user_id');
+
+   // Step 2: Retrieve student details (name and email) from the user table based on the student IDs
+   $students = User::whereIn('user_id', $studentIds)->get(['Fullname', 'email','phone_number']);
+        return view('admindashboard.studentpage', ['students' => $students],compact('program','studentscount'));
+    }
+
+    //show professor page of admindashboard
+    public function showprofessor(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $programid=Program_admins::where('admin_id',$userId)->first();
+        $professors=Program_professors::where('program_id',$programid->program_id);
+        $professorscount=$professors->count();
+        $program=Programs::where('program_id',$programid->program_id)->first();
+        // Step 1: Retrieve student IDs with the given program ID
+    $professorIds = Program_professors::where('program_id', $programid->program_id)->pluck('prof_id');
+
+    // Step 2: Retrieve student details (name and email) from the user table based on the student IDs
+    $professors = User::whereIn('user_id', $professorIds)->get(['Fullname', 'email','phone_number']);
+        return view('admindashboard.professorpage', ['professors' => $professors],compact('program','professorscount'));
+    }
+
+    
 
     public function insertadmin(Request $request){
         $request->validate(

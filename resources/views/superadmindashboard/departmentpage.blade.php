@@ -879,8 +879,7 @@
             <div class="header">
               <i class="bx bx-receipt"></i>
               <h3>Current Departments</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+              
             </div>
             <table>
     <thead>
