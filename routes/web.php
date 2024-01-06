@@ -107,6 +107,10 @@ Route::post('/superadmin/add/admin/program',[ProgramController::class,'insert_ad
 
 Route::get('/superadmin/program',[ProgramController::class,'showprogram']);
 
+Route::get('/admin/assign/course/program',[CourseController::class,'assign_course_ad'])->name('assign_course_ad');
+
+Route::post('/admin/assign/course/program',[CourseController::class,'assign_course_toprogram_ad']);
+
 Route::get('/superadmin/assign/course/program',[CourseController::class,'assign_course'])->name('assign_course');
 
 Route::post('/superadmin/assign/course/program',[CourseController::class,'assign_course_toprogram']);

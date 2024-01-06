@@ -12,6 +12,7 @@ use App\Models\Program_courses;
 use App\Models\Course_students;
 use App\Models\Course_professors;
 use App\Models\Professors;
+use App\Models\Program_admins;
 
 class CourseController extends Controller
 {
@@ -22,8 +23,15 @@ class CourseController extends Controller
         return view('superadmindashboard.course',compact('coursecount','courses'));
     }
     //show course page of admin dashboard
-    public function show_course(){
-        return view('admindashboard.course');
+    public function show_course(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $programid=Program_admins::where('admin_id',$userId)->first();
+        $courses=Program_courses::where('program_id',$programid->program_id)->get();
+        $courseIds = $courses->pluck('course_id')->all();
+        $courses = Courses::whereIn('course_id', $courseIds)->get();
+        $coursescount=$courses->count();
+        return view('admindashboard.course',compact('coursescount','courses'));
     }
     // show add course form of superadmin dashboard
     // public function addcourse(){
@@ -108,11 +116,39 @@ class CourseController extends Controller
     
             
         }
+
+        //show assign course to program form of admin dashboard
+    public function assign_course_ad(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $programid=Program_admins::where('admin_id',$userId)->first();
+        $program = Programs::where('program_id',$programid->program_id)->first();
+        $courses = Courses::all();
+        return view('admindashboard.assigncourse_toprogram',compact('program','courses'));
+    }
+
         //show assign course to program form of superadmin dashboard
     public function assign_course(){
         $programs = Programs::all();
         $courses = Courses::all();
         return view('superadmindashboard.assigncourse_toprogram',compact('programs','courses'));
+    }
+
+    //To validate and assign course into the program
+    public function assign_course_toprogram_ad(Request $request){
+        
+        $program_course = new Program_courses;
+        $courseid=Courses::where('course_code',$request['course'])->first();
+        $programid=Programs::where('name',$request['program'])->first();
+// Assign course details
+$program_course->program_id = $programid->program_id;
+$program_course->course_id = $courseid->course_id;
+
+    $program_course->save();
+    
+    return redirect('/admin/course');
+
+        
     }
 
     //To validate and assign course into the program
@@ -189,8 +225,12 @@ class CourseController extends Controller
         
     }
     //show assign student to course form of admin dashboard
-    public function assign_stud_ent(){
-        $courses = Courses::all();
+    public function assign_stud_ent(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $programid=Program_admins::where('admin_id',$userId)->first();
+        $courseIds = Program_courses::where('program_id', $programid->program_id)->pluck('course_id')->toArray();
+        $courses = Courses::whereIn('course_id', $courseIds)->get();
         return view('admindashboard.assignstudent_tocourse',compact('courses'));
     }
     //To validate and assign student into the course
@@ -291,8 +331,12 @@ else {
 }
 }
 //show assign professor to course form of admin dashboard
-public function assign_prof_essor(){
-    $courses = Courses::all();
+public function assign_prof_essor(Request $request){
+    $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $programid=Program_admins::where('admin_id',$userId)->first();
+        $courseIds = Program_courses::where('program_id', $programid->program_id)->pluck('course_id')->toArray();
+        $courses = Courses::whereIn('course_id', $courseIds)->get();
     return view('admindashboard.assignprofessor_tocourse',compact('courses'));
 }
 //To validate and assign professor into the course

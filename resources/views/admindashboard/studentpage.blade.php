@@ -896,25 +896,19 @@
         <h4>Admin</h4>
       </div>
       <ul class="side-menu">
-        <li >
+      <li>
           <a href="/admin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li class="active">
           <a href="/admin/student"><i class="bx bx-group"></i>Students</a>
         </li>
-        <li>
-          <a href="/admin/addprofessors"
+        <li  >
+          <a href="/admin/professor"
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
         <li>
           <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
-        </li>
-        <li>
-          <a href="admin/add/professor/program"><i class="bx bx-news"></i>Enroll prof</a>
-        </li>
-        <li>
-          <a href="admin/add/student/program"><i class="bx bx-news"></i>Enroll stud</a>
         </li>
       </ul>
       <ul class="side-menu">

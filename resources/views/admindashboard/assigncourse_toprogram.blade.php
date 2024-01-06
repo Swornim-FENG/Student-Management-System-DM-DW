@@ -289,6 +289,8 @@
       outline: none;
       width: 100%;
       color: var(--dark);
+      margin-top: 25px;
+      min-width: 300px;
     }
 
     .content nav form .form-input button {
@@ -304,6 +306,8 @@
       outline: none;
       border-radius: 0 36px 36px 0;
       cursor: pointer;
+      margin-left: -30px;
+      margin-bottom: 10px;
     }
 
     .content nav .notif {
@@ -683,9 +687,144 @@
       .custom-button {
         margin-left: 10px;
       }
+      .first {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .second {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .top {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .third {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .fourth {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .mid {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: -30px;
+      }
+      .fifth {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .bot {
+        display: flex;
+        flex-direction: column;
+        margin-top: -30px;
+        justify-content: space-between;
+      }
     }
     .content main .header .left {
       display: flex;
+    }
+    .add-form {
+      max-width: 800px;
+      margin-top: 80px;
+      margin-left: 50px;
+      padding: 20px;
+      border: 2px solid rgb(235, 225, 225);
+      border-radius: 5px;
+      color: var(--dark);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      background: var(--grey);
+      color: var(--dark);
+      margin-left: 5px;
+    }
+
+    input {
+      width: 300px;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      background: var(--grey);
+      color: var(--dark);
+    }
+
+    .s-button {
+      background-color: rgb(51, 81, 230);
+      color: #fff;
+    }
+    .s-button:hover {
+      background-color: #1525a1;
+    }
+    .first {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .second {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+    }
+    .third {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .fourth {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .mid {
+      display: flex;
+      justify-content: space-between;
+      margin-top: -30px;
+    }
+    .fifth {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      justify-content: space-between;
+      margin-top: -30px;
+    }
+    .bot {
+      display: flex;
+      margin-top: -30px;
+      justify-content: space-between;
     }
     .add-form {
       max-width: 550px;
@@ -715,27 +854,41 @@
       background-color: rgb(51, 81, 230);
       color: white;
       padding: 10px 15px;
-      margin-top: 10px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-left: 200px;
+      margin-top: 20px;
     }
 
     button:hover {
       background-color: #1525a1;
     }
-    .button1S {
-      background-color: rgb(38, 194, 98);
+    .confirmation-popup {
+      display: none;
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      left: 49.5%; /* Center horizontally */
+      top: 75%;
+      transform: translateX(-50%); /* Adjust to move towards left */
+    }
+    .s-button {
+      background-color: rgb(51, 81, 230);
       color: white;
       padding: 10px 15px;
       margin-top: 10px;
-      margin-right: 10px;
+      margin-left: 0px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
-    .button1S:hover {
-      background-color: #15a12a;
+
+    .s-button:hover {
+      background-color: #1525a1;
     }
   </style>
 
@@ -743,7 +896,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="logo">
-        <img src= "{{ asset('images/ku logo.png') }}"alt="" />
+        <img src="{{ asset('images/ku logo.png') }}" alt="" />
         <h4>Admin</h4>
       </div>
       <ul class="side-menu">
@@ -796,60 +949,53 @@
           <img src="{{ asset('images/ku logo.png') }}" alt="" />
         </a>
       </nav>
-
       <!-- End of Navbar -->
 
       <main>
         <div class="header">
           <div class="left">
-            <a href="/admin/course"><h1>courses</h1></a>
-            <h2>>Add Cource</h2>
+            <a href="/admin/course"><h1>Courses</h1></a>
+            <h2>>Assign Course to Program</h2>
           </div>
         </div>
         <div>
-          <form class="add-form" action="{{url('/')}}/admin/addcourse" method="post">
-             @csrf
-            <label for="name">Course Name:</label>
-            <input type="text" id="name" name="name" value="{{old('name')}}"/>
-            <span class="text-danger"style="color:red">
-            @error('name')
-               {{$message}}
-               @enderror
-               </span>
+          <form class="add-form" action="{{url('/')}}/admin/assign/course/program" method="post">
+          @csrf
+          <label for="program">choose Program:</label>
+            <select name="program" id="program">
+            
+              <option>{{$program->name}}</option>
+              
+            </select>
 
-            <label for="code">Course Code:</label>
-            <input type="text" id="code" name="code" value="{{old('code')}}"/>
-            <span class="text-danger"style="color:red">
-            @error('code')
-               {{$message}}
-               @enderror
-               </span>
-
-            <label for="chr">Credit Hour :</label>
-            <input type="int" id="chr" name="credit_hour" value="{{old('credit_hour')}}" />
-            <span class="text-danger"style="color:red">
-            @error('credit_hour')
-               {{$message}}
-               @enderror
-               </span>
-
-            <label for="desc">Course Description:</label>
-            <input type="text" id="desc" name="course_description" value="{{old('course_description')}}"/>
-            <span class="text-danger"style="color:red">
-            @error('course_description')
-               {{$message}}
-               @enderror
-               </span>
-               
+            <label for="course">choose Course:</label>
+            <select name="course" id="course">
+            @foreach($courses as $course)
+                 <option >{{ $course->course_code }}</option>
+                 @endforeach
+            </select>
             @if(session('error'))
                <span class="alert alert-danger"style="color:red">
                {{ session('error') }}
                 </span>
                 @endif
+            
 
-            <div class="buttons">
-              <button type="submit" >Add course</button>
+            <div id="confirmationPopup" class="confirmation-popup">
+              <p>
+                Are you sure you want to assign this course to this program?
+              </p>
+              <button class="s-button" onclick="confirmAddAdmin()" type="submit">Yes</button>
+              <button class="s-button" onclick="closeConfirmationPopup(event)">
+                No
+              </button>
             </div>
+            <input
+              class="s-button"
+              type="button"
+              value="Assign course"
+              onclick="showConfirmationPopup()"
+            />
           </form>
         </div>
       </main>
@@ -918,6 +1064,30 @@
           document.body.classList.remove("dark");
         }
       });
+      function showConfirmationPopup() {
+        document.getElementById("confirmationPopup").style.display = "block";
+      }
+
+      function closeConfirmationPopup() {
+        document.getElementById("confirmationPopup").style.display = "none";
+      }
+      function closeConfirmationPopup(event) {
+        // Prevent the default behavior of the button (form submission)
+        if (event) {
+            event.preventDefault();
+        }
+
+        // Close the confirmation popup
+        document.getElementById("confirmationPopup").style.display = "none";
+    }
+
+      function confirmAddAdmin() {
+        // Perform the action when the user confirms
+        document.getElementById("addAdminForm").submit();
+
+        // Close the confirmation popup
+        closeConfirmationPopup();
+      }
     </script>
   </body>
 </html>

@@ -9,6 +9,39 @@
     />
     <link rel="stylesheet" href="style.css" />
     <title>Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css"
+    />
+    <style>
+      #calendar {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      #event-modal {
+        display: none;
+        position: fixed;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      #close-modal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
   </head>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
@@ -220,7 +253,7 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
-      margin-left: 0px;
+      margin-left: 5px;
       height: 60px;
     }
 
@@ -229,9 +262,8 @@
     }
     .btn-list {
       display: flex;
-      justify-content: space-between;
       width: 600px;
-      margin-left: 500px;
+      margin-left: 400px;
     }
 
     .content nav {
@@ -614,6 +646,10 @@
       margin-bottom: 0;
     }
 
+    .btn-list2 {
+      display: none;
+    }
+
     @media screen and (max-width: 768px) {
       .sidebar {
         width: 200px;
@@ -677,6 +713,15 @@
       .custom-button {
         margin-left: 10px;
       }
+      .btn-list {
+        display: none;
+      }
+      .btn-list2 {
+        display: block;
+      }
+      .btn-list2 button {
+        margin-top: 5px;
+      }
     }
   </style>
 
@@ -702,9 +747,7 @@
         <li class="active">
           <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
         </li>
-        <li >
-          <a href="#"><i class="bx bx-news"></i>Notice</a>
-        </li>
+        
       </ul>
       <ul class="side-menu">
         <li>
@@ -755,16 +798,18 @@
           <li>
             <i class="bx bx-group"></i>
             <span class="info">
-              <h3>14</h3>
+              <h3>{{$coursescount}}</h3>
               <p>courses</p>
             </span>
             <div class="btn-list">
-                
-              <a href="/admin/assign/professor/course"
+               <a href="/admin/assign/professor/course"
                 ><button class="custom-button">Assign Professor</button>
               </a>
               <a href="/admin/assign/student/course"
                 ><button class="custom-button">Assign students</button>
+              </a>
+              <a href="/admin/assign/course/program"
+                ><button class="custom-button">Assign to program</button>
               </a>
               <a href="/admin/addcourse"
                 ><button class="custom-button">Add Courses</button>
@@ -772,6 +817,20 @@
             </div>
           </li>
         </ul>
+        <div class="btn-list2">
+         <a href="/admin/assign/professor/course"
+            ><button class="custom-button">Assign Professor</button>
+          </a>
+         <a href="/admin/assign/student/course"
+            ><button class="custom-button">Assign students</button>
+          </a>
+          <a href="/admin/assign/course/program"
+            ><button class="custom-button">Assign to program</button>
+          </a>
+          <a href="/admin/addcourse"
+            ><button class="custom-button">Add Courses</button>
+          </a>
+        </div>
         <!-- End of Insights -->
 
         <div class="bottom-data">
@@ -783,99 +842,35 @@
               <i class="bx bx-search"></i>
             </div>
             <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-
-                  <th>Professor</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>MAS 101</p>
-                  </td>
-
-                  <td><span>Durga</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>com 211</p>
-                  </td>
-
-                  <td><span>Rikshal</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Mkt 202</p>
-                  </td>
-
-                  <td><span>Arpan</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>com 202</p>
-                  </td>
-
-                  <td><span>swornim</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Mkt 111</p>
-                  </td>
-
-                  <td><span>manish</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>eng 111</p>
-                  </td>
-
-                  <td><span>kundan</span></td>
-                </tr>
-              </tbody>
-            </table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($courses as $course)
+            <tr>
+                <td>
+                    <img src="{{ asset('images/ku logo.png') }}" alt="KU Logo" />
+                    <p>{{ $course->name }}</p>
+                </td>
+                <td><span>{{ $course->course_code }}</span></td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
           </div>
 
           <!-- Reminders -->
-          <div class="reminders">
-            <div class="header">
-              <i class="bx bx-note"></i>
-              <h3>Remiders</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-plus"></i>
+          <div id="calendar">
+            <div id="event-modal">
+              <span id="close-modal" onclick="closeModal()">X</span>
+              <h2 id="event-title"></h2>
+              <p id="event-date"></p>
+              <div id="event-modal-content"></div>
             </div>
-            <ul class="task-list">
-              <li class="completed">
-                <div class="task-title">
-                  <i class="bx bx-check-circle"></i>
-                  <p>Meeting</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-              <li class="completed">
-                <div class="task-title">
-                  <i class="bx bx-check-circle"></i>
-                  <p>Analysis</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-              <li class="not-completed">
-                <div class="task-title">
-                  <i class="bx bx-x-circle"></i>
-                  <p>Checking</p>
-                </div>
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </li>
-            </ul>
           </div>
-
           <!-- End of Reminders-->
         </div>
       </main>
@@ -944,6 +939,99 @@
           document.body.classList.remove("dark");
         }
       });
+      var selectedDate; // Declare a global variable to store the selected date
+
+      $(document).ready(function () {
+        $("#calendar").fullCalendar({
+          header: {
+            left: "prev,next ",
+            center: "title",
+            right: "",
+          },
+          eventMouseover: function (event, jsEvent, view) {
+            openModal(event.start, false, jsEvent);
+          },
+          dayClick: function (date, jsEvent, view) {
+            openModal(date, true, jsEvent);
+          },
+        });
+
+        // Handle mouseenter and mouseleave events for the modal
+        $("#event-modal")
+          .mouseenter(function () {
+            // No need to close the modal when the mouse enters the modal
+          })
+          .mouseleave(function () {
+            closeModal();
+          });
+
+        // Handle click event for the close button
+        $("#close-modal").click(function () {
+          closeModal();
+        });
+      });
+
+      function openModal(date, isAddingEvent, jsEvent) {
+        // Get events for the clicked date
+        var events = $("#calendar").fullCalendar(
+          "clientEvents",
+          function (event) {
+            return event.start.isSame(date, "day");
+          }
+        );
+
+        // Populate modal with event details
+        var modalContent = "";
+
+        if (events.length > 0) {
+          events.forEach(function (event) {
+            modalContent += `<p><strong>${event.title}</strong>: ${event.description}</p>`;
+          });
+        }
+
+        if (isAddingEvent) {
+          modalContent +=
+            '<button id="add-event-btn" onclick="addEvent()">Add Event</button>';
+        }
+
+        modalContent +=
+          '<span id="close-modal" onclick="closeModal()">X</span>';
+
+        $("#event-modal-content").html(modalContent);
+
+        // Position the modal based on mouse coordinates
+        var modalLeft = jsEvent.pageX;
+        var modalTop = jsEvent.pageY;
+
+        $("#event-modal").css({
+          left: modalLeft,
+          top: modalTop,
+        });
+
+        $("#event-modal").fadeIn();
+
+        selectedDate = date; // Store the selected date
+      }
+
+      function closeModal() {
+        $("#event-modal").fadeOut();
+      }
+
+      function addEvent() {
+        var title = prompt("Enter event title:");
+        var description = prompt("Enter event description:");
+
+        if (title && description) {
+          var newEvent = {
+            title: title,
+            start: selectedDate.format(),
+            description: description,
+          };
+
+          $("#calendar").fullCalendar("renderEvent", newEvent, true);
+          closeModal();
+        }
+      }
     </script>
   </body>
 </html>

@@ -779,22 +779,19 @@
         <h4>Admin</h4>
       </div>
       <ul class="side-menu">
-        <li >
+      <li >
           <a href="/admin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li >
-          <a href="/admin/addstudents"><i class="bx bx-group"></i>Students</a>
+        <li>
+          <a href="/admin/student"><i class="bx bx-group"></i>Students</a>
         </li>
         <li>
-          <a href="/admin/addprofessors"
+          <a href="/admin/professor"
             ><i class="bx bx-group"></i>Professors</a
           >
-        </li >
+        </li>
         <li class="active">
           <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
-        </li>
-        <li >
-          <a href="#"><i class="bx bx-news"></i>Notice</a>
         </li>
       </ul>
       <ul class="side-menu">
