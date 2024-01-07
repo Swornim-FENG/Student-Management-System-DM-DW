@@ -7,6 +7,7 @@ use App\Models\Professors;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Course_students;
+use App\Models\Course_plan;
 use App\Models\Courses;
 use App\Models\Course_professors;
 
@@ -29,7 +30,26 @@ class ProfessorController extends Controller
         $userObj = $request->session()->get("user");
         $userId=$userObj->user_id;
         $professor=Professors::where('user_id',$userId)->first();
-        return view('professordashboard.grades',compact('professor'));
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor = Professors::where('user_id', $userId)->first();
+$courseIds = Course_professors::where('prof_id', $userId)->pluck('course_id');
+
+// Fetch courses from the Courses table
+$courses = Courses::whereIn('course_id', $courseIds)->get();
+
+// Fetch course_students information
+$courseprofInfo = Course_professors::whereIn('course_id', $courseIds)->get();
+
+// Combine the information into a single collection
+$combinedData = $courses->map(function ($course) use ($courseprofInfo) {
+    $info = $courseprofInfo->where('course_id', $course->course_id)->first();
+    return [
+        'course' => $course,
+        'courseprofInfo' => $info,
+    ];
+});
+        return view('professordashboard.grades',compact('professor','courses','combinedData'));
     }
 
     // To show analytics page of professordashboard
@@ -38,6 +58,14 @@ class ProfessorController extends Controller
         $userId=$userObj->user_id;
         $professor=Professors::where('user_id',$userId)->first();
         return view('professordashboard.analytics',compact('professor'));
+    }
+
+    // To show todolist page of professordashboard
+    public function professor_todolist(Request $request){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor=Professors::where('user_id',$userId)->first();
+        return view('professordashboard.todo_list',compact('professor'));
     }
 
     // To show student page of professordashboard
@@ -69,6 +97,7 @@ $combinedData = $courses->map(function ($course) use ($courseprofInfo) {
         $userObj = $request->session()->get("user");
         $userId=$userObj->user_id;
         $professor=Professors::where('user_id',$userId)->first();
+        ;
         $course=Courses::where('course_id',$course_id)->first();
         $studentIds = Course_students::where([
             'course_id' => $course_id,
@@ -81,6 +110,35 @@ $combinedData = $courses->map(function ($course) use ($courseprofInfo) {
         
         return view('professordashboard.course_students',compact('professor','course','studentInfos'));
     }
+    //To course plan each course of professor dashboard 
+    public function course_plan(Request $request, $course_id, $year, $sem, $batch)
+{
+    $userObj = $request->session()->get("user");
+    $userId = $userObj->user_id;
+
+    $professor = Professors::where('user_id', $userId)->first();
+    $profinfo = User::where('user_id', $userId)->first();
+    $course = Courses::where('course_id', $course_id)->first();
+
+    $courseInfo = Course_plan::where([
+        'course_id' => $course_id,
+        'year' => $year,
+        'sem' => $sem,
+        'batch' => $batch,
+        'prof_id' => $userId,
+    ])->select('course_description', 'course_plan', 'grading_guideline')->first();
+
+    if ($courseInfo) {
+        $courseDescription = $courseInfo->course_description ?? null;
+        $coursePlan = $courseInfo->course_plan ?? null;
+        $gradingGuideline = $courseInfo->grading_guideline ?? null;
+    } else {
+        // Handle the case where no record is found
+        $courseDescription = $coursePlan = $gradingGuideline = null;
+    }
+
+    return view('professordashboard.individual_course', compact('professor', 'course', 'profinfo', 'courseDescription', 'coursePlan', 'gradingGuideline'));
+}
 
     // To show course page of professordashboard
     public function showcourses_of_professor(Request $request){

@@ -893,7 +893,7 @@
                     <h3>Messages</h3>
                     <span class="message-count">18</span>
                 </a>
-                <a href="#">
+                <a href="/professor/todolist">
                     <span class="material-icons-sharp">
                         inventory
                     </span>

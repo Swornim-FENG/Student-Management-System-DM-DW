@@ -149,6 +149,8 @@ Route::get('/professor/students',[ProfessorController::class,'showstudents_of_pr
 
 Route::get('/professor/course/students/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'students_in_course']);
 
+Route::get('/professor/course/plan/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'course_plan']);
+
 Route::get('/professor/courses',[ProfessorController::class,'showcourses_of_professor']);
 
 Route::get('/professor/grades',[ProfessorController::class,'show_grades']);
@@ -168,6 +170,8 @@ Route::get('/superadmin/professor',[SuperadminController::class,'showprofessor']
 Route::get('/superadmin/student/program/{program_id}',[SuperadminController::class,'showstudent_in_program']);
 
 Route::get('/superadmin/professor/program/{program_id}',[SuperadminController::class,'showprofessor_in_program']);
+
+Route::get('/professor/todolist',[ProfessorController::class,'professor_todolist']);
 
 Route::get('/test', function () {
     return view('test');

@@ -4,16 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
-    <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Professor-Grades</title>
+    <title>Professor-to-do</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
@@ -238,161 +233,85 @@
       }
 
       main {
-        margin-top: 1.4rem;
-      }
-
-      main .analyse {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.6rem;
-      }
-
-      main .analyse > div {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      main .analyse > div:hover {
-        box-shadow: none;
-      }
-
-      main .analyse > div .status {
         display: flex;
+        justify-content: center;
         align-items: center;
-        justify-content: space-between;
+        height: 100vh;
       }
 
-      main .analyse h3 {
-        margin-left: 0.6rem;
+      .to-do-list {
+        background-color: #f6f6f9;
+        padding: 2rem;
+        border-radius: 1.8rem;
+        box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+        width: 40rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #363949;
+      }
+
+      .task-input {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
+
+      input {
+        padding: 0.8rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 0.4rem;
         font-size: 1rem;
       }
 
-      main .analyse .progresss {
-        position: relative;
-        width: 92px;
-        height: 92px;
-        border-radius: 50%;
-      }
-
-      main .analyse svg {
-        width: 7rem;
-        height: 7rem;
-      }
-
-      main .analyse svg circle {
-        fill: none;
-        stroke-width: 10;
-        stroke-linecap: round;
-        transform: translate(5px, 5px);
-      }
-
-      main .analyse .sales svg circle {
-        stroke: var(--color-success);
-        stroke-dashoffset: -30;
-        stroke-dasharray: 200;
-      }
-
-      main .analyse .visits svg circle {
-        stroke: var(--color-danger);
-        stroke-dashoffset: -30;
-        stroke-dasharray: 200;
-      }
-
-      main .analyse .searches svg circle {
-        stroke: var(--color-primary);
-        stroke-dashoffset: -30;
-        stroke-dasharray: 200;
-      }
-
-      main .analyse .progresss .percentage {
-        position: absolute;
-        top: -3px;
-        left: -1px;
+      .datetime-input {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        width: 100%;
+        gap: 0.5rem;
       }
 
-      main .new-users {
-        margin-top: 1.3rem;
+      label {
+        font-size: 0.9rem;
+        color: #677483;
       }
 
-      main .new-users .user-list {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        gap: 1.4rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      main .new-users .user-list:hover {
-        box-shadow: none;
-      }
-
-      main .new-users .user-list .user {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-
-      main .new-users .user-list .user img {
-        width: 5rem;
-        height: 5rem;
-        margin-bottom: 0.4rem;
-        border-radius: 50%;
-      }
-
-      main .recent-orders {
-        margin-top: 1.3rem;
-      }
-
-      main .recent-orders h2 {
-        margin-bottom: 0.8rem;
-      }
-
-      main .recent-orders table {
-        background-color: var(--color-white);
-        width: 100%;
-        padding: var(--card-padding);
-        text-align: center;
-        box-shadow: var(--box-shadow);
-        border-radius: var(--card-border-radius);
-        transition: all 0.3s ease;
-      }
-
-      main .recent-orders table:hover {
-        box-shadow: none;
-      }
-
-      main table tbody td {
-        height: 2.8rem;
-        border-bottom: 1px solid var(--color-light);
-        color: var(--color-dark-variant);
-      }
-
-      main table tbody tr:last-child td {
+      button {
+        padding: 0.8rem;
+        background-color: #6c9bcf;
+        color: #fff;
         border: none;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
       }
 
-      main .recent-orders a {
-        text-align: center;
-        display: block;
-        margin: 1rem auto;
-        color: var(--color-primary);
+      button:hover {
+        background-color: #1b9c85;
+      }
+
+      #taskList li {
+        list-style: none;
+        padding: 1rem;
+        border-radius: 0.4rem;
+        margin-bottom: 0.5rem;
+        box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+        position: relative;
+      }
+
+      #taskList li::before {
+        content: "\e909"; /* Unicode for the "inventory" icon */
+        font-family: "Material Icons Sharp";
+        color: #1b9c85; /* Change the color as per your preference */
+        font-size: 1.2rem; /* Adjust the size as needed */
+        margin-right: 0.5rem; /* Add some spacing to the right of the marker */
+        position: absolute;
+        left: -1.5rem; /* Adjust the position as needed */
+        top: 50%;
+        transform: translateY(-50%);
       }
 
       .right-section {
@@ -551,22 +470,7 @@
         align-items: center;
         gap: 0.6rem;
       }
-      #modal {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        background-color: var(--color-white);
-        border: 1px solid #ccc;
-        z-index: 1000;
-      }
-      #calendar {
-        margin: 10px;
-        max-width: 400px;
-        background-color: var(--color-white);
-      }
+
       @media screen and (max-width: 1200px) {
         .container {
           width: 95%;
@@ -766,7 +670,7 @@
                     </span>
                     <h3>Students</h3>
                 </a>
-                <a href="/professor/grades" class="active">
+                <a href="/professor/grades">
                     <span class="material-icons-sharp">
                         receipt_long
                     </span>
@@ -778,7 +682,7 @@
                     </span>
                     <h3>Analytics</h3>
                 </a>
-                <a href="/professor/courses">
+                <a href="/professor/courses" >
                 <span class='material-icons-sharp'>menu_book</span>
                     <h3>Courses</h3>
                 </a>
@@ -789,7 +693,7 @@
                     <h3>Messages</h3>
                     <span class="message-count">18</span>
                 </a>
-                <a href="/professor/todolist">
+                <a href="/professor/todolist" class="active">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
@@ -819,33 +723,25 @@
       <!-- End of Sidebar Section -->
 
       <!-- Main Content -->
+
       <main>
-        <!-- New Users Section -->
-        <h1>Grades</h1>
-        <div class="new-users">
-    
-    <div class="user-list">
-        @forelse ($combinedData as $data)
-            <a href="/professor/course/students/{{ $data['course']->course_id }}/{{ $data['courseprofInfo']->year }}/{{ $data['courseprofInfo']->sem }}/{{ $data['courseprofInfo']->batch }}">
-                <div class="user">
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <h2>{{ $data['course']->course_code }}</h2>
-                    @if ($data['courseprofInfo'])
-                        <p>{{ $data['courseprofInfo']->year }}-year {{ $data['courseprofInfo']->sem }}-sem</p>
-                        
-                        <p>{{ $data['courseprofInfo']->batch }}</p>
-                    @else
-                        <p>No enrollment information found</p>
-                    @endif
-                </div>
-            </a>
-        @empty
-            <p>No courses found </p>
-        @endforelse
-    </div>
-</div>
-        <!-- End of New Users Section -->
+        <div class="to-do-list">
+          <h2>To-Do List</h2>
+
+          <div class="task-input">
+            <input type="text" id="taskInput" placeholder="Enter your task" />
+            <div class="datetime-input">
+              <label for="dateInput">Date:</label>
+              <input type="date" id="dateInput" />
+
+              <label for="timeInput">Time:</label>
+              <input type="time" id="timeInput" />
+            </div>
+            <button onclick="addTask()">Add Task</button>
+          </div>
+        </div>
       </main>
+
       <!-- End of Main Content -->
 
       <!-- Right Section -->
@@ -870,10 +766,15 @@
         </div>
         <!-- End of Nav -->
 
-        <div id="calendar"></div>
-
-        <!-- Modal for event details -->
-        <div id="modal"></div>
+        <div class="reminders">
+          <div class="header">
+            <h2>Reminders</h2>
+            <span class="material-icons-sharp"> notifications_none </span>
+          </div>
+          <ul id="taskList">
+            <!-- Tasks will be dynamically added here using JavaScript -->
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -901,18 +802,18 @@
       Orders.forEach((order) => {
         const tr = document.createElement("tr");
         const trContent = `
-        <td>${order.productName}</td>
-        <td>${order.productNumber}</td>
-        <td>${order.paymentStatus}</td>
-        <td class="${
-          order.status === "Declined"
-            ? "danger"
-            : order.status === "Pending"
-            ? "warning"
-            : "primary"
-        }">${order.status}</td>
-        <td class="primary">Details</td>
-    `;
+            <td>${order.productName}</td>
+            <td>${order.productNumber}</td>
+            <td>${order.paymentStatus}</td>
+            <td class="${
+              order.status === "Declined"
+                ? "danger"
+                : order.status === "Pending"
+                ? "warning"
+                : "primary"
+            }">${order.status}</td>
+            <td class="primary">Details</td>
+        `;
         tr.innerHTML = trContent;
         document.querySelector("table tbody").appendChild(tr);
       });
@@ -936,68 +837,57 @@
           status: "Active",
         },
       ];
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var calendarEl = document.getElementById("calendar");
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          timeZone: "local", // Set the time zone to local
-          initialView: "dayGridMonth",
-          events: [], // Initialize with an empty array
-          dateClick: function (info) {
-            // Prompt for title and description
-            var title = prompt("Enter event title:");
-            var description = prompt("Enter event description:");
+      function addTask() {
+        const taskInput = document.getElementById("taskInput");
+        const dateInput = document.getElementById("dateInput");
+        const timeInput = document.getElementById("timeInput");
+        const taskList = document.getElementById("taskList");
 
-            if (title) {
-              // Add the event to the calendar
-              var event = {
-                title: title,
-                description: description,
-                start: info.dateStr,
-                allDay: true,
-              };
-              calendar.addEvent(event);
-            }
-          },
-          eventMouseEnter: function (info) {
-            // Show the modal on hover
-            showModal(
-              info.event.title,
-              info.event.extendedProps.description,
-              info.event.start.toISOString().split("T")[0]
-            );
-          },
-          eventMouseLeave: function () {
-            // Hide the modal on mouse leave
-            hideModal();
-          },
-        });
-
-        calendar.render();
-
-        function showModal(title, description, date) {
-          // Basic implementation of a modal
-          var modal = document.getElementById("modal");
-
-          // Update the modal content with event details
-          modal.innerHTML =
-            "<p>Title: " +
-            title +
-            "</p><p>Description: " +
-            description +
-            "</p><p>Date: ";
-
-          // Show the modal
-          modal.style.display = "block";
+        // Check if the task input is not empty
+        if (taskInput.value.trim() === "") {
+          alert("Please enter a task.");
+          return;
         }
 
-        function hideModal() {
-          // Hide the modal
-          var modal = document.getElementById("modal");
-          modal.style.display = "none";
-        }
-      });
+        // Create a list item element
+        const listItem = document.createElement("li");
+        listItem.style.listStyle = "none";
+        listItem.style.padding = "1rem";
+        listItem.style.borderRadius = "0.4rem";
+        listItem.style.marginBottom = "0.5rem";
+        listItem.style.boxShadow = "0 2rem 3rem rgba(132, 139, 200, 0.18)";
+        listItem.style.position = "relative";
+
+        // Create and style the Material Icons "inventory" icon
+        const marker = document.createElement("span");
+        marker.classList.add("material-icons-sharp");
+        marker.textContent = "inventory";
+        marker.style.color = "#1b9c85"; // Change the color as per your preference
+        marker.style.fontSize = "1.2rem"; // Adjust the size as needed
+        marker.style.marginRight = "0.5rem"; // Add some spacing to the right of the marker
+        marker.style.position = "absolute";
+        marker.style.left = "-1.5rem"; // Adjust the position as needed
+        marker.style.top = "50%";
+        marker.style.transform = "translateY(-50%)";
+
+        // Create and style the task content
+        const taskContent = document.createElement("span");
+        taskContent.textContent = `${taskInput.value} - Date: ${dateInput.value}, Time: ${timeInput.value}`;
+        taskContent.style.fontSize = "1rem";
+
+        // Append the marker and task content to the list item
+        listItem.appendChild(marker);
+        listItem.appendChild(taskContent);
+
+        // Add the list item to the task list
+        taskList.appendChild(listItem);
+
+        // Clear the input fields
+        taskInput.value = "";
+        dateInput.value = "";
+        timeInput.value = "";
+      }
     </script>
   </body>
 </html>
+
