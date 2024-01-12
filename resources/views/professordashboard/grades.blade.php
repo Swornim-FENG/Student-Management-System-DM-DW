@@ -826,7 +826,7 @@
     
     <div class="user-list">
         @forelse ($combinedData as $data)
-            <a href="/professor/course/students/{{ $data['course']->course_id }}/{{ $data['courseprofInfo']->year }}/{{ $data['courseprofInfo']->sem }}/{{ $data['courseprofInfo']->batch }}">
+            <a href="/professor/individual/grades/{{ $data['course']->course_id }}/{{ $data['courseprofInfo']->year }}/{{ $data['courseprofInfo']->sem }}/{{ $data['courseprofInfo']->batch }}">
                 <div class="user">
                     <img src="{{ asset('images/ku logo.png') }}" />
                     <h2>{{ $data['course']->course_code }}</h2>

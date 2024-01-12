@@ -522,33 +522,51 @@
       th {
         background-color: #f2f2f2;
       }
-      .left {
+      #GradeForm {
+        max-width: 350px;
+        margin-top: 80px;
+        margin-left: 500px;
+        padding: 20px;
+        border: 2px solid rgb(235, 225, 225);
+        border-radius: 5px;
+        color: var(--dark);
         display: flex;
+        flex-direction: column;
       }
-      .left h2 {
-        margin-top: 7px;
-        margin-left: 0px;
+      label {
+        display: block;
+        margin-bottom: 8px;
+        background: var(--grey);
+        color: var(--dark);
+        margin-left: 5px;
       }
-      .new-users .user-list .user h2 {
-        margin-top: 20px;
-        font-size: 16px;
+      input {
+        width: 300px;
+        padding: 8px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        color: var(--dark);
       }
-      .new-users .user-list .description h3 {
-        margin-top: 20px;
-        font-size: 16px;
+      select {
+        width: 300px;
+        padding: 8px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        color: var(--dark);
       }
-      .add-button {
+      .s-button {
         background-color: #3498db;
         color: #fff;
-        padding: 9px 9px;
+        padding: 10px 20px;
         border: none;
-        border-radius: 5px;
+        border-radius: 10px;
         cursor: pointer;
-        font-size: 15px;
-        margin: 5px;
+        font-size: 16px;
+        margin-left: 0px;
+        height: 40px;
+        max-width: 300px;
       }
-
-      .add-button:hover {
+      .s-button:hover {
         background-color: #2980b9;
       }
 
@@ -720,23 +738,8 @@
         .right-section .nav button span {
           font-size: 2rem;
         }
-        .new-users .user-list .user h2 {
-          margin-top: 20px;
-          font-size: 14px;
-        }
-        .new-users .user-list .description h3 {
-          margin-top: 20px;
-          font-size: 12px;
-        }
-        .header .left h1 {
-          font-size: 16px;
-        }
-        .header .left h2 {
-          font-size: 9px;
-        }
-        .left h2 {
-          margin-top: 7px;
-          margin-left: -20px;
+        #GradeForm {
+          margin-left: 15px;
         }
       }
     </style>
@@ -769,7 +772,7 @@
                     </span>
                     <h3>Students</h3>
                 </a>
-                <a href="/professor/grades">
+                <a href="/professor/grades" class="active">
                     <span class="material-icons-sharp">
                         receipt_long
                     </span>
@@ -781,7 +784,7 @@
                     </span>
                     <h3>Analytics</h3>
                 </a>
-                <a href="/professor/courses" class="active">
+                <a href="/professor/courses">
                 <span class='material-icons-sharp'>menu_book</span>
                     <h3>Courses</h3>
                 </a>
@@ -825,53 +828,32 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/professor/courses"><h1>Courses</h1></a>
-            <h2>>{{$course->course_code}}</h2>
-          </div>
-        </div>
-        <div class="new-users">
-          <div class="user-list">
-            <div class="user">
-              <img src="{{ asset('images/ku logo.png') }}" />
-              <h2>{{$profinfo->Fullname}}</h2>
-              <p>{{$profinfo->email}}</p>
-            </div>
-            <div class="description">
+            <a href="/professor/grades"><h1>Grades</h1></a>
             
-    <h3>Course Description</h3>
-    @if($courseDescription)
-        <p>{{ $courseDescription }}</p>
-    @else
-        <p>No information available</p>
-    @endif
-    
-
-
-
-    <h3>Grading Guidelines</h3>
-    @if($gradingGuideline)
-        <p>{{ $gradingGuideline }}</p>
-    @else
-        <p>No information available</p>
-    @endif
-    
-
-
-
-    <h3>Course Plan</h3>
-
-@if($coursePlan)
-    <iframe src="{{ asset('storage/images/' . $coursePlan) }}" width="100%" height="300px"></iframe>
-@else
-    <p>No information available</p>
-@endif
-
-    <a href="/professor/course/add/resources/{{$course_id}}/{{$year}}/{{$sem}}/{{$batch}}"
-                ><button class="add-button">Add Resources</button></a
-              >
-            </div>
           </div>
         </div>
+        <form id="GradeForm">
+          <label>Student Name</label>
+          <select>
+            <option>John</option>
+            <option>Felix</option>
+            <option>Anthony</option>
+            <option>Cena</option>
+          </select>
+          <label for="first">First Internal</label>
+          <input type="text" name="FirstInternal" id="first" required />
+          <label for="second">Second Internal</label>
+          <input type="text" name="SecondInternal" id="second" required />
+          <label for="pre">Presentation</label>
+          <input type="text" name="Presentation" id="pre" required />
+          <label for="assign">Assignments</label>
+          <input type="text" name="Assignments" id="assign" required />
+          <label for="mcq">MCQ</label>
+          <input type="text" name="MCQ" id="mcq" required />
+          <label for="extra">Extra Credit</label>
+          <input type="text" name="ExtraCredits" id="extra" required />
+          <button class="s-button">Submit</button>
+        </form>
       </main>
       <!-- End of Main Content -->
 

@@ -522,21 +522,6 @@
       th {
         background-color: #f2f2f2;
       }
-      .left {
-        display: flex;
-      }
-      .left h2 {
-        margin-top: 7px;
-        margin-left: 0px;
-      }
-      .new-users .user-list .user h2 {
-        margin-top: 20px;
-        font-size: 16px;
-      }
-      .new-users .user-list .description h3 {
-        margin-top: 20px;
-        font-size: 16px;
-      }
       .add-button {
         background-color: #3498db;
         color: #fff;
@@ -546,6 +531,7 @@
         cursor: pointer;
         font-size: 15px;
         margin: 5px;
+        margin-left: 65px;
       }
 
       .add-button:hover {
@@ -720,24 +706,6 @@
         .right-section .nav button span {
           font-size: 2rem;
         }
-        .new-users .user-list .user h2 {
-          margin-top: 20px;
-          font-size: 14px;
-        }
-        .new-users .user-list .description h3 {
-          margin-top: 20px;
-          font-size: 12px;
-        }
-        .header .left h1 {
-          font-size: 16px;
-        }
-        .header .left h2 {
-          font-size: 9px;
-        }
-        .left h2 {
-          margin-top: 7px;
-          margin-left: -20px;
-        }
       }
     </style>
   </head>
@@ -769,7 +737,7 @@
                     </span>
                     <h3>Students</h3>
                 </a>
-                <a href="/professor/grades">
+                <a href="/professor/grades" class="active">
                     <span class="material-icons-sharp">
                         receipt_long
                     </span>
@@ -781,7 +749,7 @@
                     </span>
                     <h3>Analytics</h3>
                 </a>
-                <a href="/professor/courses" class="active">
+                <a href="/professor/courses">
                 <span class='material-icons-sharp'>menu_book</span>
                     <h3>Courses</h3>
                 </a>
@@ -825,53 +793,69 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/professor/courses"><h1>Courses</h1></a>
-            <h2>>{{$course->course_code}}</h2>
+            <a href="prof-grade.html"><h1>Grades</h1></a>
+            <h2>>I-II(BBIS)</h2>
           </div>
         </div>
-        <div class="new-users">
-          <div class="user-list">
-            <div class="user">
-              <img src="{{ asset('images/ku logo.png') }}" />
-              <h2>{{$profinfo->Fullname}}</h2>
-              <p>{{$profinfo->email}}</p>
-            </div>
-            <div class="description">
-            
-    <h3>Course Description</h3>
-    @if($courseDescription)
-        <p>{{ $courseDescription }}</p>
-    @else
-        <p>No information available</p>
-    @endif
-    
+        <div class="table-container">
+          <h2>Grades Table</h2>
 
-
-
-    <h3>Grading Guidelines</h3>
-    @if($gradingGuideline)
-        <p>{{ $gradingGuideline }}</p>
-    @else
-        <p>No information available</p>
-    @endif
-    
-
-
-
-    <h3>Course Plan</h3>
-
-@if($coursePlan)
-    <iframe src="{{ asset('storage/images/' . $coursePlan) }}" width="100%" height="300px"></iframe>
-@else
-    <p>No information available</p>
-@endif
-
-    <a href="/professor/course/add/resources/{{$course_id}}/{{$year}}/{{$sem}}/{{$batch}}"
-                ><button class="add-button">Add Resources</button></a
-              >
-            </div>
-          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>First Internal</th>
+                <th>Second Internal</th>
+                <th>Assignments</th>
+                <th>Presentation</th>
+                <th>Extra Credit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>John</td>
+                <td>john@gmail.com</td>
+                <td>16</td>
+                <td>19</td>
+                <td>5</td>
+                <td>19</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>Cena</td>
+                <td>Cena@gmail.com</td>
+                <td>18</td>
+                <td>17</td>
+                <td>2</td>
+                <td>19</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>felix</td>
+                <td>felix@gmail.com</td>
+                <td>19</td>
+                <td>15</td>
+                <td>7</td>
+                <td>19</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>Anthony</td>
+                <td>Anthony@gmail.com</td>
+                <td>16</td>
+                <td>15</td>
+                <td>5</td>
+                <td>19</td>
+                <td>5</td>
+              </tr>
+              <!-- Add more rows as needed -->
+            </tbody>
+          </table>
         </div>
+        
+        <button class="add-button" onclick="location.href='/professor/add/grades/{{ $course_id }}/{{ $year }}/{{ $sem }}/{{ $batch }}'">Add Grades</button>
+
       </main>
       <!-- End of Main Content -->
 
@@ -891,7 +875,7 @@
               <p>Hey, <b>{{$professor->Firstname}}</b></p>
             </div>
             <div class="profile-photo">
-              <img src="{{ asset('images/ku logo.png') }}" />
+               <img src="{{ asset('images/ku logo.png') }}" />
             </div>
           </div>
         </div>

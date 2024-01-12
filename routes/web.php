@@ -151,9 +151,19 @@ Route::get('/professor/course/students/{course_id}/{year}/{sem}/{batch}',[Profes
 
 Route::get('/professor/course/plan/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'course_plan']);
 
+Route::get('/professor/course/add/resources/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'course_add_resources'])->name('course_add_resources');
+
+Route::post('/professor/course/add/resources/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'course_insert_resources']);
+
 Route::get('/professor/courses',[ProfessorController::class,'showcourses_of_professor']);
 
 Route::get('/professor/grades',[ProfessorController::class,'show_grades']);
+
+Route::get('/professor/individual/grades/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'show_individual_grades']);
+
+Route::get('/professor/add/grades/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'add_grades']);
+
+Route::post('/professor/add/grades/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'insert_grades']);
 
 Route::get('/professor/analytics',[ProfessorController::class,'show_analytics']);
 

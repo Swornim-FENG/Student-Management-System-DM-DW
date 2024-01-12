@@ -4,11 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Professor-students</title>
+    <title>Professor-main</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
@@ -471,87 +476,141 @@
         margin-bottom: 0.2rem;
       }
 
-      .container main .header {
+      .right-section .reminders {
+        margin-top: 2rem;
+      }
+
+      .right-section .reminders .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        grid-gap: 16px;
-        flex-wrap: wrap;
+        margin-bottom: 0.8rem;
       }
 
-      .container main .header .left {
+      .right-section .reminders .header span {
+        padding: 10px;
+        box-shadow: var(--box-shadow);
+        background-color: var(--color-white);
+        border-radius: 50%;
+      }
+
+      .right-section .reminders .notification {
+        background-color: var(--color-white);
         display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.7rem;
+        padding: 1.4rem var(--card-padding);
+        border-radius: var(--border-radius-2);
+        box-shadow: var(--box-shadow);
+        cursor: pointer;
+        transition: all 0.3s ease;
       }
 
-      .container main .header .left h1 {
-        font-size: 36px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .container main .header .left h2 {
-        font-size: 26px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-        margin-top: 10px;
-      }
-      .table-container {
-        max-width: 800px;
-        margin: 0 auto;
+      .right-section .reminders .notification:hover {
+        box-shadow: none;
       }
 
-      h2 {
-        text-align: center;
-        color: #333;
-      }
-
-      table {
+      .right-section .reminders .notification .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0;
         width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
       }
 
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-
-      th {
-        background-color: #f2f2f2;
-      }
-      .left {
+      .right-section .reminders .notification .icon {
+        padding: 0.6rem;
+        color: var(--color-white);
+        background-color: var(--color-success);
+        border-radius: 20%;
         display: flex;
       }
-      .left h2 {
-        margin-top: 7px;
-        margin-left: 0px;
+
+      .right-section .reminders .notification.deactive .icon {
+        background-color: var(--color-danger);
       }
-      .new-users .user-list .user h2 {
-        margin-top: 20px;
-        font-size: 16px;
+
+      .right-section .reminders .add-reminder {
+        background-color: var(--color-white);
+        border: 2px dashed var(--color-primary);
+        color: var(--color-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
       }
-      .new-users .user-list .description h3 {
-        margin-top: 20px;
-        font-size: 16px;
+
+      .right-section .reminders .add-reminder:hover {
+        background-color: var(--color-primary);
+        color: white;
       }
-      .add-button {
+
+      .right-section .reminders .add-reminder div {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      #modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: var(--color-white);
+        border: 1px solid #ccc;
+        z-index: 1000;
+      }
+      #calendar {
+        margin: 10px;
+        max-width: 400px;
+        background-color: var(--color-white);
+      }
+      #courseForm {
+        max-width: 800px;
+        margin-top: 80px;
+        margin-left: 50px;
+        padding: 20px;
+        border: 2px solid rgb(235, 225, 225);
+        border-radius: 5px;
+        color: var(--dark);
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        background: var(--grey);
+        color: var(--dark);
+        margin-left: 5px;
+      }
+      input {
+        width: 300px;
+        padding: 8px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        color: var(--dark);
+      }
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        color: var(--dark);
+      }
+      .s-button {
         background-color: #3498db;
         color: #fff;
-        padding: 9px 9px;
+        padding: 10px 20px;
         border: none;
-        border-radius: 5px;
+        border-radius: 10px;
         cursor: pointer;
-        font-size: 15px;
-        margin: 5px;
+        font-size: 16px;
+        margin-left: 0px;
+        height: 40px;
       }
-
-      .add-button:hover {
+      .s-button:hover {
         background-color: #2980b9;
       }
-
       @media screen and (max-width: 1200px) {
         .container {
           width: 95%;
@@ -720,24 +779,6 @@
         .right-section .nav button span {
           font-size: 2rem;
         }
-        .new-users .user-list .user h2 {
-          margin-top: 20px;
-          font-size: 14px;
-        }
-        .new-users .user-list .description h3 {
-          margin-top: 20px;
-          font-size: 12px;
-        }
-        .header .left h1 {
-          font-size: 16px;
-        }
-        .header .left h2 {
-          font-size: 9px;
-        }
-        .left h2 {
-          margin-top: 7px;
-          margin-left: -20px;
-        }
       }
     </style>
   </head>
@@ -823,55 +864,46 @@
 
       <!-- Main Content -->
       <main>
-        <div class="header">
-          <div class="left">
-            <a href="/professor/courses"><h1>Courses</h1></a>
-            <h2>>{{$course->course_code}}</h2>
-          </div>
-        </div>
-        <div class="new-users">
-          <div class="user-list">
-            <div class="user">
-              <img src="{{ asset('images/ku logo.png') }}" />
-              <h2>{{$profinfo->Fullname}}</h2>
-              <p>{{$profinfo->email}}</p>
-            </div>
-            <div class="description">
-            
-    <h3>Course Description</h3>
-    @if($courseDescription)
-        <p>{{ $courseDescription }}</p>
-    @else
-        <p>No information available</p>
+      <form id="courseForm" method="POST" action="/professor/course/add/resources/{{$course_id}}/{{$year}}/{{$sem}}/{{$batch}}" enctype="multipart/form-data">
+    @csrf
+
+    <label for="gradeGuidelines">Grade Guidelines:</label>
+    <textarea id="gradeGuidelines" name="gradeGuidelines" rows="4" required></textarea>
+    <span class="text-danger" style="color:red">
+        @error('gradeGuidelines')
+           {{ $message }}
+        @enderror
+    </span>
+
+    <label for="courseDescription">Course Description:</label>
+    <textarea id="courseDescription" name="courseDescription" rows="4" required></textarea>
+    <span class="text-danger" style="color:red">
+        @error('courseDescription')
+           {{ $message }}
+        @enderror
+    </span>
+
+    <label for="coursePlan">Course Plan (PDF):</label>
+    <input type="file" id="coursePlan" name="courseplan" accept=".pdf" required/>
+    <span class="text-danger" style="color:red">
+        @error('coursePlan')
+           {{ $message }}
+        @enderror
+    </span>
+
+    @if(session('error'))
+        <span class="alert alert-danger" style="color:red">
+            {{ session('error') }}
+        </span>
     @endif
-    
 
+    <br>
+    <button class="s-button" type="submit">
+        Submit
+    </button>
+</form>
 
-
-    <h3>Grading Guidelines</h3>
-    @if($gradingGuideline)
-        <p>{{ $gradingGuideline }}</p>
-    @else
-        <p>No information available</p>
-    @endif
-    
-
-
-
-    <h3>Course Plan</h3>
-
-@if($coursePlan)
-    <iframe src="{{ asset('storage/images/' . $coursePlan) }}" width="100%" height="300px"></iframe>
-@else
-    <p>No information available</p>
-@endif
-
-    <a href="/professor/course/add/resources/{{$course_id}}/{{$year}}/{{$sem}}/{{$batch}}"
-                ><button class="add-button">Add Resources</button></a
-              >
-            </div>
-          </div>
-        </div>
+        </form>
       </main>
       <!-- End of Main Content -->
 
@@ -958,27 +990,68 @@
           status: "Active",
         },
       ];
-      function openStudentPopup(name, department, remarks, pastReports) {
-        const popupTitle = document.getElementById("popupTitle");
-        const popupContent = document.getElementById("popupContent");
-        const popupRemarks = document.getElementById("popupRemarks");
-        const popupReports = document.getElementById("popupReports");
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          timeZone: "local", // Set the time zone to local
+          initialView: "dayGridMonth",
+          events: [], // Initialize with an empty array
+          dateClick: function (info) {
+            // Prompt for title and description
+            var title = prompt("Enter event title:");
+            var description = prompt("Enter event description:");
 
-        // Set popup title and content
-        popupTitle.textContent = name;
-        popupContent.textContent = `Department: ${department}`;
+            if (title) {
+              // Add the event to the calendar
+              var event = {
+                title: title,
+                description: description,
+                start: info.dateStr,
+                allDay: true,
+              };
+              calendar.addEvent(event);
+            }
+          },
+          eventMouseEnter: function (info) {
+            // Show the modal on hover
+            showModal(
+              info.event.title,
+              info.event.extendedProps.description,
+              info.event.start.toISOString().split("T")[0]
+            );
+          },
+          eventMouseLeave: function () {
+            // Hide the modal on mouse leave
+            hideModal();
+          },
+        });
 
-        // Set remarks and past reports
-        popupRemarks.textContent = remarks || "N/A";
-        popupReports.textContent = pastReports || "N/A";
+        calendar.render();
 
-        // Display the popup
-        document.getElementById("studentPopup").style.display = "block";
-      }
+        function showModal(title, description, date) {
+          // Basic implementation of a modal
+          var modal = document.getElementById("modal");
 
-      function closeStudentPopup() {
-        document.getElementById("studentPopup").style.display = "none";
-      }
+          // Update the modal content with event details
+          modal.innerHTML =
+            "<p>Title: " +
+            title +
+            "</p><p>Description: " +
+            description +
+            "</p><p>Date: ";
+
+          // Show the modal
+          modal.style.display = "block";
+        }
+
+        function hideModal() {
+          // Hide the modal
+          var modal = document.getElementById("modal");
+          modal.style.display = "none";
+        }
+      });
     </script>
   </body>
 </html>

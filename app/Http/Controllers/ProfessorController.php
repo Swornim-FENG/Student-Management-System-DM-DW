@@ -52,6 +52,30 @@ $combinedData = $courses->map(function ($course) use ($courseprofInfo) {
         return view('professordashboard.grades',compact('professor','courses','combinedData'));
     }
 
+    //To show the individual grades of each course
+    public function show_individual_grades(Request $request,$course_id,$year,$sem,$batch){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor=Professors::where('user_id',$userId)->first();
+        return view('professordashboard.individual_grade',compact('professor','course_id','year','sem','batch'));
+    }
+
+    //To show the add grades form of each course
+    public function add_grades(Request $request,$course_id,$year,$sem,$batch){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor=Professors::where('user_id',$userId)->first();
+        return view('professordashboard.add_grades',compact('professor'));
+    }
+    //WORK REMAINING
+    //To show the add grades form of each course
+    public function insert_grades(Request $request,$course_id,$year,$sem,$batch){
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $professor=Professors::where('user_id',$userId)->first();
+        
+    }
+
     // To show analytics page of professordashboard
     public function show_analytics(Request $request){
         $userObj = $request->session()->get("user");
@@ -137,7 +161,48 @@ $combinedData = $courses->map(function ($course) use ($courseprofInfo) {
         $courseDescription = $coursePlan = $gradingGuideline = null;
     }
 
-    return view('professordashboard.individual_course', compact('professor', 'course', 'profinfo', 'courseDescription', 'coursePlan', 'gradingGuideline'));
+    return view('professordashboard.individual_course', compact('professor', 'course', 'profinfo', 'courseDescription', 'coursePlan', 'gradingGuideline','course_id','year','sem','batch'));
+}
+
+//To show the add recources of course of each course of professor dashboard 
+public function course_add_resources(Request $request, $course_id, $year, $sem, $batch){
+    $userObj = $request->session()->get("user");
+    $userId = $userObj->user_id;
+    $professor = Professors::where('user_id', $userId)->first();
+    $profinfo = User::where('user_id', $userId)->first();
+    return view('professordashboard.add_resources',compact('profinfo','professor','course_id','year','sem','batch'));
+
+}
+public function course_insert_resources(Request $request, $course_id, $year, $sem, $batch){
+    $request->validate(
+        [
+            'courseDescription'=>'required',
+            'courseplan'=>'required',
+            'gradeGuidelines'=>'required',
+            
+            
+        ]  );
+        $userObj = $request->session()->get("user");
+        $userId = $userObj->user_id;
+        $course_plan=new Course_plan;
+        $course_plan->prof_id= $userId;
+        $course_plan->course_id= $course_id;
+        $course_plan->year= $year;
+        $course_plan->sem= $sem;
+        $course_plan->batch= $batch;
+        $course_plan->course_description = $request['courseDescription'];
+        $course_plan->grading_guideline = $request['gradeGuidelines'];
+        $name =$request->file('courseplan')->getClientOriginalName();
+        $request->file('courseplan')->storeAs('public/images/',$name);
+        $course_plan->course_plan =$name;
+        
+        $course_plan->save();
+        return redirect('/professor/courses');
+
+    
+
+    
+
 }
 
     // To show course page of professordashboard
