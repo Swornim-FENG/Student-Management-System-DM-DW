@@ -10,6 +10,7 @@ use App\Models\Course_students;
 use App\Models\Course_plan;
 use App\Models\Courses;
 use App\Models\Course_professors;
+use App\Models\Grades;
 
 class ProfessorController extends Controller
 {   
@@ -53,26 +54,84 @@ $combinedData = $courses->map(function ($course) use ($courseprofInfo) {
     }
 
     //To show the individual grades of each course
-    public function show_individual_grades(Request $request,$course_id,$year,$sem,$batch){
-        $userObj = $request->session()->get("user");
-        $userId=$userObj->user_id;
-        $professor=Professors::where('user_id',$userId)->first();
-        return view('professordashboard.individual_grade',compact('professor','course_id','year','sem','batch'));
+    public function show_individual_grades(Request $request, $course_id, $year, $sem, $batch)
+{
+    $userObj = $request->session()->get("user");
+    $userId = $userObj->user_id;
+    $professor = Professors::where('user_id', $userId)->first();
+
+    // Retrieve grades
+    $grades = Grades::where([
+        'course_id' => $course_id,
+        'year' => $year,
+        'sem' => $sem,
+        'batch' => $batch,
+        'prof_id' => $userId
+    ])->get();
+
+    // Retrieve student information based on stud_id
+    $studentInfo = [];
+    foreach ($grades as $grade) {
+        $user = User::find($grade->stud_id);
+        $studentInfo[] = [
+            'Fullname' => $user ? $user->Fullname : 'N/A',
+            'email' => $user ? $user->email : 'N/A',
+        ];
     }
+
+    return view('professordashboard.individual_grade', compact('professor', 'course_id', 'year', 'sem', 'batch', 'grades', 'studentInfo'));
+}
 
     //To show the add grades form of each course
     public function add_grades(Request $request,$course_id,$year,$sem,$batch){
         $userObj = $request->session()->get("user");
         $userId=$userObj->user_id;
         $professor=Professors::where('user_id',$userId)->first();
-        return view('professordashboard.add_grades',compact('professor'));
+        $studentIds = Course_students::where([
+            'course_id' => $course_id,
+            'year' => $year,
+            'sem' => $sem,
+            'batch' => $batch,
+        ])->pluck('stud_id');
+        
+        $studentInfos = User::whereIn('user_id', $studentIds)->get();
+        return view('professordashboard.add_grades',compact('professor','studentInfos', 'course_id', 'year', 'sem', 'batch'));
     }
     //WORK REMAINING
     //To show the add grades form of each course
     public function insert_grades(Request $request,$course_id,$year,$sem,$batch){
+        $request->validate(
+            [
+                'Firstinternal'=>'required',
+                'Secondinternal'=>'required',
+                'MCQ'=>'required',
+                'Presentation'=>'required',
+                'Assignments'=>'required',
+                'Extracredits'=>'required',
+                
+                
+            ]  );
         $userObj = $request->session()->get("user");
         $userId=$userObj->user_id;
         $professor=Professors::where('user_id',$userId)->first();
+        $grades=new Grades;
+        $grades->prof_id=$userId;
+        $grades->course_id=$course_id;
+        $grades->year=$year;
+        $grades->sem=$sem;
+        $grades->batch=$batch;
+        $studentname=$request['studentname'];
+        $studentid=User::where('Fullname',$studentname)->first();
+        $grades->stud_id=$studentid->user_id;
+        $grades->first_internal = $request['Firstinternal'];
+        $grades->second_internal = $request['Secondinternal'];
+        $grades->assignments = $request['Assignments'];
+        $grades->presentation = $request['Presentation'];
+        $grades->mcq = $request['MCQ'];
+        $grades->extra_credit = $request['Extracredits'];
+        $grades->first_internal = $request['Firstinternal'];
+        $grades->save();
+        return redirect('/professor/grades');
         
     }
 

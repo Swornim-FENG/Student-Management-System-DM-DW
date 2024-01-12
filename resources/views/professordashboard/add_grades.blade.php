@@ -832,27 +832,68 @@
             
           </div>
         </div>
-        <form id="GradeForm">
-          <label>Student Name</label>
-          <select>
-            <option>John</option>
-            <option>Felix</option>
-            <option>Anthony</option>
-            <option>Cena</option>
+        <form id="GradeForm"method="POST" action="/professor/add/grades/{{$course_id}}/{{$year}}/{{$sem}}/{{$batch}}">
+        @csrf
+        <label for="studentName">Student Name</label>
+        <select id="studentName" name="studentname">
+        @foreach($studentInfos as $studentInfo)
+        <option >{{ $studentInfo->Fullname }}</option>
+        @endforeach
           </select>
           <label for="first">First Internal</label>
-          <input type="text" name="FirstInternal" id="first" required />
+          <input type="text" name="Firstinternal" id="first" required />
+          <span class="text-danger" style="color:red">
+        @error('Firstinternal')
+           {{ $message }}
+        @enderror
+          </span>
+
           <label for="second">Second Internal</label>
-          <input type="text" name="SecondInternal" id="second" required />
+          <input type="text" name="Secondinternal" id="second" required />
+          <span class="text-danger" style="color:red">
+        @error('Secondinternal')
+           {{ $message }}
+        @enderror
+          </span>
+
           <label for="pre">Presentation</label>
           <input type="text" name="Presentation" id="pre" required />
+          <span class="text-danger" style="color:red">
+        @error('Presentaion')
+           {{ $message }}
+        @enderror
+          </span>
+
           <label for="assign">Assignments</label>
           <input type="text" name="Assignments" id="assign" required />
+          <span class="text-danger" style="color:red">
+        @error('Assignments')
+           {{ $message }}
+        @enderror
+          </span>
+
           <label for="mcq">MCQ</label>
           <input type="text" name="MCQ" id="mcq" required />
+          <span class="text-danger" style="color:red">
+        @error('MCQ')
+           {{ $message }}
+        @enderror
+          </span>
+
           <label for="extra">Extra Credit</label>
-          <input type="text" name="ExtraCredits" id="extra" required />
-          <button class="s-button">Submit</button>
+          <input type="text" name="Extracredits" id="extra" required />
+          <span class="text-danger" style="color:red">
+        @error('Extracredits')
+           {{ $message }}
+        @enderror
+          </span>
+          @if(session('error'))
+        <span class="alert alert-danger" style="color:red">
+            {{ session('error') }}
+        </span>
+          @endif
+
+          <button class="s-button" type="submit">Submit</button>
         </form>
       </main>
       <!-- End of Main Content -->

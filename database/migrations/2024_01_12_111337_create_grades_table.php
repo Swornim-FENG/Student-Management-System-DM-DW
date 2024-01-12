@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('mcq', 50);
             $table->string('extra_credit', 50);
             $table->timestamps();
-            $table->primary(['course_id', 'batch']); 
+            
         });
     }
 

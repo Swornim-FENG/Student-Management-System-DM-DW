@@ -794,65 +794,54 @@
         <div class="header">
           <div class="left">
             <a href="prof-grade.html"><h1>Grades</h1></a>
-            <h2>>I-II(BBIS)</h2>
+            
           </div>
         </div>
         <div class="table-container">
           <h2>Grades Table</h2>
-
-          <table>
-            <thead>
-              <tr>
+            <br>
+          @if($grades->isEmpty())
+    <h1>No grades available for this course.</h1>
+@else
+    <table>
+        <thead>
+            <tr>
                 <th>Student Name</th>
                 <th>Email</th>
                 <th>First Internal</th>
                 <th>Second Internal</th>
                 <th>Assignments</th>
                 <th>Presentation</th>
+                <th>MCQ</th>
                 <th>Extra Credit</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>John</td>
-                <td>john@gmail.com</td>
-                <td>16</td>
-                <td>19</td>
-                <td>5</td>
-                <td>19</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td>Cena</td>
-                <td>Cena@gmail.com</td>
-                <td>18</td>
-                <td>17</td>
-                <td>2</td>
-                <td>19</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td>felix</td>
-                <td>felix@gmail.com</td>
-                <td>19</td>
-                <td>15</td>
-                <td>7</td>
-                <td>19</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td>Anthony</td>
-                <td>Anthony@gmail.com</td>
-                <td>16</td>
-                <td>15</td>
-                <td>5</td>
-                <td>19</td>
-                <td>5</td>
-              </tr>
-              <!-- Add more rows as needed -->
-            </tbody>
-          </table>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($grades as $key => $grade)
+                <tr>
+                    {{-- Retrieve student information from the studentInfo array --}}
+                    @php
+                        $studentInfoItem = $studentInfo[$key] ?? null;
+                    @endphp
+
+                    {{-- Display student's full name and email --}}
+                    <td>{{ $studentInfoItem['Fullname'] ?? 'N/A' }}</td>
+                    <td>{{ $studentInfoItem['email'] ?? 'N/A' }}</td>
+
+                    {{-- Display grading details from the Grades table --}}
+                    <td>{{ $grade->first_internal }}</td>
+                    <td>{{ $grade->second_internal }}</td>
+                    <td>{{ $grade->assignments }}</td>
+                    <td>{{ $grade->presentation }}</td>
+                    <td>{{ $grade->mcq }}</td>
+                    <td>{{ $grade->extra_credit }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+@endif
         </div>
+        <br>
         
         <button class="add-button" onclick="location.href='/professor/add/grades/{{ $course_id }}/{{ $year }}/{{ $sem }}/{{ $batch }}'">Add Grades</button>
 
