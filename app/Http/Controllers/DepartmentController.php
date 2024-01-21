@@ -20,35 +20,38 @@ class DepartmentController extends Controller
     }
 
     //To validate and insert department into the system
-    public function insertdepartment(Request $request){
-        $request->validate(
-            [
-                'name'=>'required',
-                'school'=>'required',
-                
-                
-            ]
-            );
-            $Department=new Departments;
-            
-            $requestedname = $request['name'];
-            
-            // Check if the name already exists in the database
-            $existingname = Departments::where('name', $requestedname)->first();
-            
-            if ($existingname) {
-                // Name already taken, show a message or take appropriate action
-                return redirect()->route('adddepartment')->withError('This name has already been taken');
-                
-            } else {
-                // Assign the name
-            $Department->name=$requestedname;
-            $schoolid = Schools::where('name',$request['school'])->first();
-            $Department->school_id=$schoolid->school_id;
+    public function insertdepartment(Request $request)
+{
+    try {
+        $request->validate([
+            'name' => 'required',
+            'school' => 'required',
+        ]);
+
+        $Department = new Departments;
+
+        $requestedname = $request['name'];
+
+        // Check if the name already exists in the database
+        $existingname = Departments::where('name', $requestedname)->first();
+
+        if ($existingname) {
+            // Name already taken, show a message or take appropriate action
+            return redirect()->route('adddepartment')->withError('This name has already been taken');
+        } else {
+            // Assign the name
+            $Department->name = $requestedname;
+            $schoolid = Schools::where('name', $request['school'])->first();
+            $Department->school_id = $schoolid->school_id;
             $Department->save();
             return redirect('/superadmin/department');
-       
-        }}
+        }
+    } catch (\Exception $e) {
+        \Log::error($e);
+        // Handle the exception here, you can redirect with an error message or perform other actions
+        return redirect()->route('adddepartment')->withError('An error occurred. Please try again.');
+    }
+}
         //Show add users to department form
         public function show_addusers_to_department(){
             $departments = Departments::all();

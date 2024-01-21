@@ -13,32 +13,39 @@ class SchoolController extends Controller
     }
 
     //To validate and insert school into the system
-    public function insertschool(Request $request){
-        $request->validate(
-            [
-                'name'=>'required',
-                'location'=>'required',
-                
-                
-            ]
-            );
-            $school=new Schools;
-            
-            $requestedname = $request['name'];
-            
-            // Check if the name already exists in the database
-            $existingname = Schools::where('name', $requestedname)->first();
-            
-            if ($existingname) {
-                // Name already taken, show a message or take appropriate action
-                return redirect()->route('addschool')->withError('This name has already been taken');
-                
-            } else {
-                // Assign the name
-            $school->name=$requestedname;
-            $school->location=$request['location'];
+public function insertschool(Request $request)
+{
+    try {
+        $request->validate([
+            'name' => 'required',
+            'location' => 'required',
+        ]);
+
+        $school = new Schools;
+
+        $requestedname = $request['name'];
+
+        // Check if the name already exists in the database
+        $existingname = Schools::where('name', $requestedname)->first();
+
+        if ($existingname) {
+            // Name already taken, show a message or take appropriate action
+            return redirect()->route('addschool')->withError('This name has already been taken');
+        } else {
+            // Assign the name
+            $school->name = $requestedname;
+            $school->location = $request['location'];
             $school->save();
             return redirect('/superadmin/school');
-       
-        }}
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        // For example, log the exception details:
+        \Log::error($e);
+
+        // Redirect back with an error message
+        return redirect()->route('addschool')->withError('An error occurred. Please try again.');
+    }
+}
+
 }

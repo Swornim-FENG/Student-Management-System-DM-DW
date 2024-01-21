@@ -14,6 +14,7 @@ use App\Models\Program_admins;
 use App\Models\Admins;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Schools;
+use Exception;
 
 class ProgramController extends Controller
 {
@@ -46,35 +47,40 @@ class ProgramController extends Controller
         return view('superadmindashboard.addprogram',compact('departments'));
     }
      //To validate and insert program into the system
-     public function insertprogram(Request $request){
-        $request->validate(
-            [
-                'name'=>'required',
-                'department'=>'required',
-                
-                
-            ]
-            );
-            $Program=new Programs;
-            
-            $requestedname = $request['name'];
-            
-            // Check if the name already exists in the database
-            $existingname = Programs::where('name', $requestedname)->first();
-            
-            if ($existingname) {
-                // Name already taken, show a message or take appropriate action
-                return redirect()->route('addprogram')->withError('This name has already been taken');
-                
-            } else {
-                // Assign the name
-            $Program->name=$requestedname;
-            $departmentid = Departments::where('name',$request['department'])->first();
-            $Program->dep_id=$departmentid->dep_id;
-            $Program->save();
+public function insertprogram(Request $request)
+{
+    try {
+        $request->validate([
+            'name' => 'required',
+            'department' => 'required',
+        ]);
+
+        $program = new Programs;
+        $requestedName = $request['name'];
+
+        // Check if the name already exists in the database
+        $existingName = Programs::where('name', $requestedName)->first();
+
+        if ($existingName) {
+            // Name already taken, show a message or take appropriate action
+            return redirect()->route('addprogram')->withError('This name has already been taken');
+        } else {
+            // Assign the name
+            $program->name = $requestedName;
+            $departmentId = Departments::where('name', $request['department'])->first();
+            $program->dep_id = $departmentId->dep_id;
+            $program->save();
             return redirect('/superadmin/program');
-       
-        }}
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with an error message
+        return redirect()->route('addprogram')->withErrors(['error' => 'An error occurred. Please try again.']);
+    }
+}
+
 
         //show add student to program form of superadmin dashboard
     public function showadd_student_toprogram(){
@@ -91,82 +97,164 @@ class ProgramController extends Controller
         return view('admindashboard.addstudent_toprogram',compact('program'));
     }
 
-
-    //To validate and insert students into program 
-    public function insert_student_toprogram(Request $request){
-               
-            $studentEmails = $request['student_emails'];
-
-            $studentIds = [];
-    $nonExistentStudentEmails = [];
-
-    // Check if each student email exists
-    foreach ($studentEmails as $studentEmail) {
-        $student = User::where('email', $studentEmail)->first();
-
-        if ($student) {
-            $studentIds[] = $student->user_id;
-        } else {
-            $nonExistentStudentEmails[] = $studentEmail;
-            }
-         }     
-         if (empty($nonExistentStudentEmails)) {
-            $programid = Programs::where('name',$request['program'])->first();
-    
-            foreach ($studentIds as $studentId) {
-                $student = Students::find($studentId);
-                $student->program_id = $programid->program_id;
-                $student->save();
-            }
-    
-            return redirect('/superadmin');
-        } else {
-            // Handle the case where some student emails do not exist
-            $errorMessage = 'The following student emails do not exist: ' . implode(', ', $nonExistentStudentEmails);
-            return redirect()->route('add_student_toprogram')->withError($errorMessage);
-        }
-            
-            
-       
-        }
-
-        //To validate and insert students into program 
-    public function insert_stud_ent_toprogram(Request $request){
-               
+    // To validate and insert students into the program
+public function insert_student_toprogram(Request $request)
+{
+    try {
         $studentEmails = $request['student_emails'];
 
         $studentIds = [];
-$nonExistentStudentEmails = [];
+        $nonExistentStudentEmails = [];
+        $alreadyEnrolledStudentEmails = [];
+        $otherRolesStudentEmails = [];
 
-// Check if each student email exists
-foreach ($studentEmails as $studentEmail) {
-    $student = User::where('email', $studentEmail)->first();
+        $errorMessage = ''; // Initialize the error message
 
-    if ($student) {
-        $studentIds[] = $student->user_id;
-    } else {
-        $nonExistentStudentEmails[] = $studentEmail;
+        // Check if each student email exists
+        foreach ($studentEmails as $studentEmail) {
+            $user = User::where('email', $studentEmail)->first();
+
+            if ($user) {
+                // Check if the user has the role appropriate for student enrollment (role_id 4)
+                if ($user->role_id !== 4) {
+                    $otherRolesStudentEmails[] = $studentEmail;
+                    continue; // Skip to the next iteration
+                }
+
+                $studentIds[] = $user->user_id;
+
+                // Check if the student is already enrolled in a program
+                $existingEnrollment = Students::where('user_id', $user->user_id)
+                    ->whereNotNull('program_id')
+                    ->first();
+
+                if ($existingEnrollment) {
+                    $alreadyEnrolledStudentEmails[] = $studentEmail;
+                }
+            } else {
+                $nonExistentStudentEmails[] = $studentEmail;
+            }
         }
-     }     
-     if (empty($nonExistentStudentEmails)) {
-        $programid = Programs::where('name',$request['program'])->first();
 
-        foreach ($studentIds as $studentId) {
-            $student = Students::find($studentId);
-            $student->program_id = $programid->program_id;
-            $student->save();
+        // Check for other roles emails
+        if (!empty($otherRolesStudentEmails)) {
+            $errorMessage .= 'The following emails belong to users with roles other than students: ' . implode(', ', $otherRolesStudentEmails) . ".\n";
         }
 
-        return redirect('/admin');
-    } else {
-        // Handle the case where some student emails do not exist
-        $errorMessage = 'The following student emails do not exist: ' . implode(', ', $nonExistentStudentEmails);
-        return redirect()->route('add_stud_ent_toprogram')->withError($errorMessage);
+        if (empty($nonExistentStudentEmails) && empty($alreadyEnrolledStudentEmails) && empty($otherRolesStudentEmails)) {
+            $program = Programs::where('name', $request['program'])->first();
+
+            foreach ($studentIds as $studentId) {
+                $student = Students::find($studentId);
+                $student->program_id = $program->program_id;
+                $student->save();
+            }
+
+            return redirect('/superadmin');
+        } else {
+            // Handle the case where some student emails do not exist, are already enrolled, or have other roles
+            if (!empty($nonExistentStudentEmails)) {
+                $errorMessage .= 'The following student emails do not exist: ' . implode(', ', $nonExistentStudentEmails) . ".\n";
+            }
+
+            if (!empty($alreadyEnrolledStudentEmails)) {
+                $errorMessage .= 'The following students are already enrolled in a program: ' . implode(', ', $alreadyEnrolledStudentEmails) . ".\n";
+            }
+
+            return redirect()->route('add_student_toprogram')->withError($errorMessage);
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with a generic error message
+        return redirect()->route('add_student_toprogram')->withErrors(['error' => 'An error occurred. Please try again.']);
     }
+}
+
+
         
-        
-   
+
+      // To validate and insert students into the program
+public function insert_stud_ent_toprogram(Request $request)
+{
+    try {
+        $studentEmails = $request['student_emails'];
+
+        $studentIds = [];
+        $nonExistentStudentEmails = [];
+        $alreadyEnrolledStudentEmails = [];
+        $otherRolesStudentEmails = [];
+
+        $errorMessage = ''; // Initialize the error message
+
+        // Check if each student email exists
+        foreach ($studentEmails as $studentEmail) {
+            $user = User::where('email', $studentEmail)->first();
+
+            if ($user) {
+                // Check if the user has the role appropriate for student enrollment (role_id 4)
+                if ($user->role_id !== 4) {
+                    $otherRolesStudentEmails[] = $studentEmail;
+                    continue; // Skip to the next iteration
+                }
+
+                $studentIds[] = $user->user_id;
+
+                // Check if the student is already enrolled in a program
+                $existingEnrollment = Students::where('user_id', $user->user_id)
+                    ->whereNotNull('program_id')
+                    ->first();
+
+                if ($existingEnrollment) {
+                    $alreadyEnrolledStudentEmails[] = $studentEmail;
+                }
+            } else {
+                $nonExistentStudentEmails[] = $studentEmail;
+            }
+        }
+
+        // Check for other roles emails
+        if (!empty($otherRolesStudentEmails)) {
+            $errorMessage .= 'The following emails belong to users with roles other than students: ' . implode(', ', $otherRolesStudentEmails) . ".\n";
+        }
+
+        if (empty($nonExistentStudentEmails) && empty($alreadyEnrolledStudentEmails) && empty($otherRolesStudentEmails)) {
+            $program = Programs::where('name', $request['program'])->first();
+
+            foreach ($studentIds as $studentId) {
+                $student = Students::find($studentId);
+                $student->program_id = $program->program_id;
+                $student->save();
+            }
+
+            return redirect('/admin');
+        } else {
+            // Handle the case where some student emails do not exist, are already enrolled, or have other roles
+            if (!empty($nonExistentStudentEmails)) {
+                $errorMessage .= 'The following student emails do not exist: ' . implode(', ', $nonExistentStudentEmails) . ".\n";
+            }
+
+            if (!empty($alreadyEnrolledStudentEmails)) {
+                $errorMessage .= 'The following students are already enrolled in a program: ' . implode(', ', $alreadyEnrolledStudentEmails) . ".\n";
+            }
+
+            return redirect()->route('add_stud_ent_toprogram')->withError($errorMessage);
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with a generic error message
+        return redirect()->route('add_stud_ent_toprogram')->withErrors(['error' => 'An error occurred. Please try again.']);
     }
+}
+
+
+
+
+
+
 
         //show add professor to program form of superadmin dashboard
     public function showadd_professor_toprogram(){
@@ -183,69 +271,111 @@ foreach ($studentEmails as $studentEmail) {
         return view('admindashboard.addprofessor_toprogram',compact('program'));
     }
 
-    //To validate and insert professor into program 
-    public function insert_professor_toprogram(Request $request){
-        $request->validate(
-            [
-                
-                'professor_email'=>'required|email',
-                
-                
-            ]
-            );
-            $program_professor = new Program_professors;
-      $requestedprofessor = $request['professor_email'];
+   // To validate and insert professor into program 
+public function insert_professor_toprogram(Request $request)
+{
+    try {
+        $request->validate([
+            'professor_email' => 'required|email',
+        ]);
 
-// Check if the professor's email exists in the database
-$existingemail = User::where('email', $requestedprofessor)->first();
-$existingid=Professors::find($existingemail->user_id);
-      if ($existingid) {
-          // Assign  
-          $programid = Programs::where('name',$request['program'])->first();
-           $program_professor->program_id=$programid->program_id;
-           $program_professor->prof_id=$existingid->user_id;
-           $program_professor->save();
-           return redirect('/superadmin');
-            
+        $program_professor = new Program_professors;
+        $requestedProfessor = $request['professor_email'];
+
+        // Check if the professor's email exists in the database
+        $existingUser = User::where('email', $requestedProfessor)->first();
+
+        if ($existingUser) {
+            // Check if the user with the given email is a professor
+            $professor = Professors::where('user_id', $existingUser->user_id)->first();
+
+            if ($professor) {
+                // Check if the professor is already associated with the program
+                $programname = Programs::where('name', $request['program'])->first();
+                $existingAssociation = Program_professors::where('prof_id', $professor->user_id)
+                    ->where('program_id', $programname->program_id)
+                    ->first();
+
+                if ($existingAssociation) {
+                    // Handle the case where the professor is already associated with the program
+                    return redirect()->route('add_professor_toprogram')->withError('The professor is already associated with the program.');
+                }
+
+                // Assign the professor to the program
+                $programId = Programs::where('name', $request['program'])->first();
+                $program_professor->program_id = $programId->program_id;
+                $program_professor->prof_id = $professor->user_id;
+                $program_professor->save();
+
+                return redirect('/superadmin');
+            } else {
+                // Handle the case where the email belongs to a user, but not a professor
+                return redirect()->route('add_professor_toprogram')->withError('The email belongs to a user, but not a professor');
+            }
+        } else {
+            // Handle the case where the professor's email does not exist
+            return redirect()->route('add_professor_toprogram')->withError('The email of the professor does not exist');
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with a generic error message
+        return redirect()->route('add_professor_toprogram')->withErrors(['error' => 'An error occurred. Please try again.']);
+    }
 }
-else {
-    // Handle the case where the professor's email does not exist
-    return redirect()->route('add_professor_toprogram')->withError('The email of the professor does not exist');
 
-       
-        }}
 
-        //To validate and insert professor into program 
-    public function insert_prof_essor_toprogram(Request $request){
-        $request->validate(
-            [
-                
-                'professor_email'=>'required|email',
-                
-                
-            ]
-            );
-            $program_professor = new Program_professors;
-      $requestedprofessor = $request['professor_email'];
+       //To validate and insert professor into program
+public function insert_prof_essor_toprogram(Request $request)
+{
+    $request->validate(
+        [
+            'professor_email' => 'required|email',
+        ]
+    );
 
-// Check if the professor's email exists in the database
-$existingemail = User::where('email', $requestedprofessor)->first();
-$existingid=Professors::find($existingemail->user_id);
-      if ($existingid) {
-          // Assign  
-          $programid = Programs::where('name',$request['program'])->first();
-           $program_professor->program_id=$programid->program_id;
-           $program_professor->prof_id=$existingid->user_id;
-           $program_professor->save();
-           return redirect('/admin');
-            
+    $userObj = $request->session()->get("user");
+    $userId = $userObj->user_id;
+    $programadmin = Program_admins::where('admin_id', $userId)->first();
+    $programId = $programadmin->program_id;
+    $program_professor = new Program_professors;
+    $requestedprofessor = $request['professor_email'];
+
+    // Check if the professor's email exists in the database
+    $existingUser = User::where('email', $requestedprofessor)->first();
+
+    if ($existingUser) {
+        // Check if the user with the given email is a professor
+        $professor = Professors::where('user_id', $existingUser->user_id)->first();
+
+        if ($professor) {
+            // Check if the professor is already associated with the program
+            $existingAssociation = Program_professors::where('prof_id', $professor->user_id)
+                ->where('program_id', $programId)
+                ->first();
+
+            if ($existingAssociation) {
+                // Handle the case where the professor is already associated with the program
+                return redirect()->route('add_prof_essor_toprogram')->withError('The professor is already in the program');
+            }
+
+            // Assign the program and professor
+            $program_professor->program_id = $programId;
+            $program_professor->prof_id = $professor->user_id;
+            $program_professor->save();
+
+            return redirect('/admin');
+        } else {
+            // Handle the case where the email belongs to a user, but not a professor
+            return redirect()->route('add_prof_essor_toprogram')->withError('The email belongs to a user, but not a professor');
+        }
+    } else {
+        // Handle the case where the professor's email does not exist
+        return redirect()->route('add_prof_essor_toprogram')->withError('The email of the professor does not exist');
+    }
 }
-else {
-    // Handle the case where the professor's email does not exist
-    return redirect()->route('add_prof_essor_toprogram')->withError('The email of the professor does not exist');
 
-       
-        }}
 
         //show add admin to program form of superadmin dashboard
     public function showadd_admin_toprogram(){

@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>Professor-Courses</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
@@ -325,7 +325,7 @@
       }
 
       main .new-users .user-list {
-        background-color: var(--color-white);
+        /* background-color: var(--color-white); */
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
         margin-top: 1rem;
@@ -335,18 +335,26 @@
         flex-wrap: wrap;
         gap: 1.4rem;
         cursor: pointer;
-        transition: all 0.3s ease;
       }
 
-      main .new-users .user-list:hover {
+      /* main .new-users .user-list:hover {
         box-shadow: none;
-      }
+      } */
 
       main .new-users .user-list .user {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+        box-shadow: var(--box-shadow);
+        margin-left: -5px;
+        transition: all 0.3s ease;
+      }
+      main .new-users .user-list .user:hover {
+        box-shadow: none;
       }
 
       main .new-users .user-list .user img {
@@ -554,8 +562,8 @@
       #modal {
         display: none;
         position: fixed;
-        top: 50%;
-        left: 50%;
+        top: 65%;
+        left: 90%;
         transform: translate(-50%, -50%);
         padding: 20px;
         background-color: var(--color-white);
@@ -563,10 +571,11 @@
         z-index: 1000;
       }
       #calendar {
-        margin: 10px;
+        margin-top: 50px;
         max-width: 400px;
         background-color: var(--color-white);
       }
+
       @media screen and (max-width: 1200px) {
         .container {
           width: 95%;
@@ -820,7 +829,6 @@
 
       <!-- Main Content -->
       <main>
-        <!-- New Users Section -->
         <h1>Courses</h1>
 
         <!-- New Users Section -->
@@ -1003,4 +1011,3 @@
     </script>
   </body>
 </html>
-

@@ -806,24 +806,34 @@
                @endif
             </div>
             <div class="description">
-              <h3>Course description</h3>
-              <p>
-                {{$course->course_desc}}
-              </p>
-              <h3>Grading Guidelines</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Incidunt dolorem obcaecati sapiente consequatur, laboriosam ea
-                suscipit sequi nulla repellat optio, adipisci quidem voluptas,
-                nam dolores recusandae explicabo rerum dolore fugit.
-              </p>
-              <h3>cource plan</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-                repudiandae beatae rem velit nisi dolorum veniam officiis,
-                corrupti quod sequi illo dolore facilis nobis error sit, aliquid
-                delectus corporis quibusdam?
-              </p>
+              
+              <h3>Course Description</h3>
+    @if($courseDescription)
+        <p>{{ $courseDescription }}</p>
+    @else
+        <p>No information available</p>
+    @endif
+    
+
+
+
+    <h3>Grading Guidelines</h3>
+    @if($gradingGuideline)
+        <p>{{ $gradingGuideline }}</p>
+    @else
+        <p>No information available</p>
+    @endif
+    
+
+
+
+    <h3>Course Plan</h3>
+
+@if($coursePlan)
+    <iframe src="{{ asset('storage/images/' . $coursePlan) }}" width="100%" height="300px"></iframe>
+@else
+    <p>No information available</p>
+@endif
             </div>
           </div>
         </div>

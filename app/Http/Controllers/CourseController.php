@@ -49,43 +49,47 @@ class CourseController extends Controller
         return view('admindashboard.addcourse');
     }
 
-    //To validate and insert course into the system(superadmin dashboard)
-    public function insertcourse(Request $request){
-        $request->validate(
-            [
-                'name'=>'required',
-                'code'=>'required',
-                'credit_hour'=>'required',
-                'course_description'=>'required',
-                
-                
-            ]
-            );
-        
+    //To validate and insert course into the system (superadmin dashboard)
+public function insertcourse(Request $request)
+{
+    try {
+        $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'credit_hour' => 'required',
+            'course_description' => 'required',
+        ]);
+
         // Check if the course code already exists
         if (Courses::where('course_code', $request['code'])->exists()) {
             return redirect()->route('addcourse')->withError('Course code already exists. Please choose a different code.');
         }
-        
+
         // If not, create and save the new course
         $course = new Courses;
-        
+
         // Assign course details
         $course->name = $request['name'];
         $course->course_code = $request['code'];
         $course->cr_hour = $request['credit_hour'];
         $course->course_desc = $request['course_description'];
-        
+
         $course->save();
-        
+
         return redirect('/superadmin/course');
-    
-            
-        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with an error message
+        return redirect()->route('addcourse')->withErrors(['error' => 'An error occurred. Please try again.']);
+    }
+}
+
 
         //To validate and insert course into the system(Admin dashboard)
     public function insert_course(Request $request){
-        $request->validate(
+        try { $request->validate(
             [
                 'name'=>'required',
                 'code'=>'required',
@@ -111,7 +115,14 @@ class CourseController extends Controller
         
         $course->save();
         
-        return redirect('/admin/course');
+        return redirect('/admin/course');}
+        catch (\Exception $e) {
+            // Log the exception or handle it as needed
+            \Log::error($e);
+    
+            // Redirect back with an error message
+            return redirect()->route('add_course')->withErrors(['error' => 'An error occurred. Please try again.']);
+        }
     
     
             
@@ -134,39 +145,93 @@ class CourseController extends Controller
         return view('superadmindashboard.assigncourse_toprogram',compact('programs','courses'));
     }
 
-    //To validate and assign course into the program
-    public function assign_course_toprogram_ad(Request $request){
-        
+    // To validate and assign course into the program
+public function assign_course_toprogram_ad(Request $request)
+{
+    try {
         $program_course = new Program_courses;
-        $courseid=Courses::where('course_code',$request['course'])->first();
-        $programid=Programs::where('name',$request['program'])->first();
-// Assign course details
-$program_course->program_id = $programid->program_id;
-$program_course->course_id = $courseid->course_id;
+        $courseCode = $request['course'];
+        $programName = $request['program'];
 
-    $program_course->save();
-    
-    return redirect('/admin/course');
+        // Check if the course code and program name are valid
+        $course = Courses::where('course_code', $courseCode)->first();
+        $program = Programs::where('name', $programName)->first();
 
-        
-    }
-
-    //To validate and assign course into the program
-    public function assign_course_toprogram(Request $request){
-        
-            $program_course = new Program_courses;
-            $courseid=Courses::where('course_code',$request['course'])->first();
-            $programid=Programs::where('name',$request['program'])->first();
-    // Assign course details
-    $program_course->program_id = $programid->program_id;
-    $program_course->course_id = $courseid->course_id;
-    
-        $program_course->save();
-        
-        return redirect('/superadmin/course');
-    
-            
+        if (!$course || !$program) {
+            // Handle the case where the course or program is not valid
+            return redirect()->route('assign_course_ad')->withError('Invalid course or program.');
         }
+
+        // Check if the course is already assigned to the program
+        $existingAssignment = Program_courses::where('program_id', $program->program_id)
+            ->where('course_id', $course->course_id)
+            ->first();
+
+        if ($existingAssignment) {
+            // Handle the case where the course is already assigned to the program
+            return redirect()->route('assign_course_ad')->withError('The course is already assigned to the program.');
+        }
+
+        // Assign course details
+        $program_course->program_id = $program->program_id;
+        $program_course->course_id = $course->course_id;
+
+        $program_course->save();
+
+        return redirect('/admin/course');
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with a generic error message
+        return redirect()->route('assign_course_ad')->withErrors(['error' => 'An error occurred. Please try again.']);
+    }
+}
+
+
+    // To validate and assign course into the program
+public function assign_course_toprogram(Request $request)
+{
+    try {
+        $program_course = new Program_courses;
+        $courseCode = $request['course'];
+        $programName = $request['program'];
+
+        // Check if the course code and program name are valid
+        $course = Courses::where('course_code', $courseCode)->first();
+        $program = Programs::where('name', $programName)->first();
+
+        if (!$course || !$program) {
+            // Handle the case where the course or program is not valid
+            return redirect()->route('assign_course')->withError('Invalid course or program.');
+        }
+
+        // Check if the course is already assigned to the program
+        $existingAssignment = Program_courses::where('program_id', $program->program_id)
+            ->where('course_id', $course->course_id)
+            ->first();
+
+        if ($existingAssignment) {
+            // Handle the case where the course is already assigned to the program
+            return redirect()->route('assign_course')->withError('The course is already assigned to the program.');
+        }
+
+        // Assign course details
+        $program_course->program_id = $program->program_id;
+        $program_course->course_id = $course->course_id;
+
+        $program_course->save();
+
+        return redirect('/superadmin/course');
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with a generic error message
+        return redirect()->route('assign_course')->withErrors(['error' => 'An error occurred. Please try again.']);
+    }
+}
+
 
         //show assign student to course form of superadmin dashboard
     public function assign_student(){
@@ -174,56 +239,91 @@ $program_course->course_id = $courseid->course_id;
         return view('superadmindashboard.assignstudent_tocourse',compact('courses'));
     }
 
-    //To validate and assign student into the course
-    public function assign_student_tocourse(Request $request){
-        $request->validate(
-            [
-                'batch'=>'required',
-                
-            ]
-            );
-            $studentEmails = $request['student_emails'];
+    // To validate and assign students into the course
+public function assign_student_tocourse(Request $request)
+{
+    try {
+        $request->validate([
+            'batch' => 'required',
+        ]);
 
-            $studentIds = [];
-            $nonExistentStudentEmails = [];
-        
-            // Check if each student email exists
-            foreach ($studentEmails as $studentEmail) {
-                $student = User::where('email', $studentEmail)->first();
-        
-                if ($student) {
-                    $studentIds[] = $student->user_id;
-                } else {
-                    $nonExistentStudentEmails[] = $studentEmail;
+        $studentEmails = $request['student_emails'];
+
+        $studentIds = [];
+        $nonExistentStudentEmails = [];
+        $existingAssignmentStudentEmails = [];
+        $inappropriateRoleStudentEmails = [];
+
+        // Check if each student email exists
+        foreach ($studentEmails as $studentEmail) {
+            $user = User::where('email', $studentEmail)->first();
+
+            if ($user) {
+                // Check if the user has the inappropriate role for student enrollment (not 4)
+                if ($user->role_id !== 4) {
+                    $inappropriateRoleStudentEmails[] = $studentEmail;
+                    continue; // Skip to the next iteration
                 }
-            }
-        
-            if (empty($nonExistentStudentEmails)) {
-                $courseid=Courses::where('course_code',$request['course'])->first();
-                
-        
-                foreach ($studentIds as $studentId) {
-                    $course_student=new Course_students;
-                    $course_student->course_id=$courseid->course_id;
-                    $course_student->stud_id=$studentId;
-                    $course_student->year=$request['year'];
-                    $course_student->sem=$request['sem'];
-                    $course_student->batch=$request['batch'];
-                    $course_student->save();
+
+                $studentIds[] = $user->user_id;
+                $courseId = Courses::where('course_code', $request['course'])->first();
+                // Check if the student is already assigned to the course, semester, batch, and year
+                $existingAssignment = Course_students::where('stud_id', $user->user_id)
+                    ->where('year', $request['year'])
+                    ->where('sem', $request['sem'])
+                    ->where('batch', $request['batch'])
+                    ->where('course_id',$courseId->course_id)
+                    ->first();
+
+                if ($existingAssignment) {
+                    $existingAssignmentStudentEmails[] = $studentEmail;
                 }
-        
-                return redirect('/superadmin/course');
             } else {
-                // Handle the case where some student emails do not exist
-                $errorMessage = 'The following student emails do not exist: ' . implode(', ', $nonExistentStudentEmails);
-                return redirect()->route('assign_student')->withError($errorMessage);
+                $nonExistentStudentEmails[] = $studentEmail;
             }
-        
-    
-    return redirect('/superadmin/course');
+        }
 
-        
+        // Check for inappropriate role emails
+        if (!empty($inappropriateRoleStudentEmails)) {
+            $errorMessage = 'The following emails have inappropriate roles for student enrollment: ' . implode(', ', $inappropriateRoleStudentEmails) . '. ';
+            return redirect()->route('assign_student')->withError($errorMessage);
+        }
+
+        // Check for already assigned students
+        if (!empty($existingAssignmentStudentEmails)) {
+            $errorMessage = 'The following students are already assigned to the course, semester, batch, and year: ' . implode(', ', $existingAssignmentStudentEmails) . '. ';
+            return redirect()->route('assign_student')->withError($errorMessage);
+        }
+
+        if (empty($nonExistentStudentEmails)) {
+            $courseId = Courses::where('course_code', $request['course'])->first();
+
+            foreach ($studentIds as $studentId) {
+                $courseStudent = new Course_students;
+                $courseStudent->course_id = $courseId->course_id;
+                $courseStudent->stud_id = $studentId;
+                $courseStudent->year = $request['year'];
+                $courseStudent->sem = $request['sem'];
+                $courseStudent->batch = $request['batch'];
+                $courseStudent->save();
+            }
+
+            return redirect('/superadmin/course');
+        } else {
+            // Handle the case where some student emails do not exist
+            $errorMessage = 'The following student emails do not exist: ' . implode(', ', $nonExistentStudentEmails);
+            return redirect()->route('assign_student')->withError($errorMessage);
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with a generic error message
+        return redirect()->route('assign_student')->withErrors(['error' => 'An error occurred. Please try again.']);
     }
+}
+
+    
     //show assign student to course form of admin dashboard
     public function assign_stud_ent(Request $request){
         $userObj = $request->session()->get("user");
@@ -233,56 +333,91 @@ $program_course->course_id = $courseid->course_id;
         $courses = Courses::whereIn('course_id', $courseIds)->get();
         return view('admindashboard.assignstudent_tocourse',compact('courses'));
     }
-    //To validate and assign student into the course
-    public function assign_stud_ent_tocourse(Request $request){
-        $request->validate(
-            [
-                'batch'=>'required',
-                
-            ]
-            );
-            $studentEmails = $request['student_emails'];
+   // To validate and assign students into the course
+public function assign_stud_ent_tocourse(Request $request)
+{
+    try {
+        $request->validate([
+            'batch' => 'required',
+        ]);
 
-            $studentIds = [];
-            $nonExistentStudentEmails = [];
-        
-            // Check if each student email exists
-            foreach ($studentEmails as $studentEmail) {
-                $student = User::where('email', $studentEmail)->first();
-        
-                if ($student) {
-                    $studentIds[] = $student->user_id;
-                } else {
-                    $nonExistentStudentEmails[] = $studentEmail;
+        $studentEmails = $request['student_emails'];
+
+        $studentIds = [];
+        $nonExistentStudentEmails = [];
+        $existingAssignmentStudentEmails = [];
+        $inappropriateRoleStudentEmails = [];
+
+        // Check if each student email exists
+        foreach ($studentEmails as $studentEmail) {
+            $user = User::where('email', $studentEmail)->first();
+
+            if ($user) {
+                // Check if the user has the inappropriate role for student enrollment (not 4)
+                if ($user->role_id !== 4) {
+                    $inappropriateRoleStudentEmails[] = $studentEmail;
+                    continue; // Skip to the next iteration
                 }
-            }
-        
-            if (empty($nonExistentStudentEmails)) {
-                $courseid=Courses::where('course_code',$request['course'])->first();
-                
-        
-                foreach ($studentIds as $studentId) {
-                    $course_student=new Course_students;
-                    $course_student->course_id=$courseid->course_id;
-                    $course_student->stud_id=$studentId;
-                    $course_student->year=$request['year'];
-                    $course_student->sem=$request['sem'];
-                    $course_student->batch=$request['batch'];
-                    $course_student->save();
+
+                $studentIds[] = $user->user_id;
+                $courseId = Courses::where('course_code', $request['course'])->first();
+                // Check if the student is already assigned to the course, semester, batch, and year
+                $existingAssignment = Course_students::where('stud_id', $user->user_id)
+                    ->where('year', $request['year'])
+                    ->where('sem', $request['sem'])
+                    ->where('batch', $request['batch'])
+                    ->where('course_id',$courseId->course_id)
+                    ->first();
+
+                if ($existingAssignment) {
+                    $existingAssignmentStudentEmails[] = $studentEmail;
                 }
-        
-                return redirect('/admin/course');
             } else {
-                // Handle the case where some student emails do not exist
-                $errorMessage = 'The following student emails do not exist: ' . implode(', ', $nonExistentStudentEmails);
-                return redirect()->route('assign_stud_ent')->withError($errorMessage);
+                $nonExistentStudentEmails[] = $studentEmail;
             }
-        
-    
-    return redirect('/admin/course');
+        }
 
-        
+        // Check for inappropriate role emails
+        if (!empty($inappropriateRoleStudentEmails)) {
+            $errorMessage = 'The following emails have inappropriate roles for student enrollment: ' . implode(', ', $inappropriateRoleStudentEmails) . '. ';
+            return redirect()->route('assign_stud_ent')->withError($errorMessage);
+        }
+
+        // Check for already assigned students
+        if (!empty($existingAssignmentStudentEmails)) {
+            $errorMessage = 'The following students are already assigned to the course, semester, batch, and year: ' . implode(', ', $existingAssignmentStudentEmails) . '. ';
+            return redirect()->route('assign_stud_ent')->withError($errorMessage);
+        }
+
+        if (empty($nonExistentStudentEmails)) {
+            $courseId = Courses::where('course_code', $request['course'])->first();
+
+            foreach ($studentIds as $studentId) {
+                $courseStudent = new Course_students;
+                $courseStudent->course_id = $courseId->course_id;
+                $courseStudent->stud_id = $studentId;
+                $courseStudent->year = $request['year'];
+                $courseStudent->sem = $request['sem'];
+                $courseStudent->batch = $request['batch'];
+                $courseStudent->save();
+            }
+
+            return redirect('/admin/course');
+        } else {
+            // Handle the case where some student emails do not exist
+            $errorMessage = 'The following student emails do not exist: ' . implode(', ', $nonExistentStudentEmails);
+            return redirect()->route('assign_stud_ent')->withError($errorMessage);
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with a generic error message
+        return redirect()->route('assign_stud_ent')->withErrors(['error' => 'An error occurred. Please try again.']);
     }
+}
+
+
 
     //show assign professor to course form of superadmin dashboard
     public function assign_professor(){
@@ -290,46 +425,71 @@ $program_course->course_id = $courseid->course_id;
         return view('superadmindashboard.assignprofessor_tocourse',compact('courses'));
     }
 
+    // To validate and assign professor into the course
+public function assign_professor_tocourse(Request $request)
+{
+    try {
+        $request->validate([
+            'batch' => 'required',
+            'professor_email' => 'required|email',
+        ]);
+
+        $requestedProfessor = $request['professor_email'];
+
+        // Check if the professor's email exists in the database
+        $existingUser = User::where('email', $requestedProfessor)->first();
+
+        if ($existingUser) {
+            // Check if the user with the given email is a professor
+            $professor = Professors::where('user_id', $existingUser->user_id)->first();
+
+            if ($professor) {
+                // Check if the professor is already associated with the course, batch, semester, and year
+                $courseId = Courses::where('course_code', $request['course'])->first();
+                $existingAssociation = Course_professors::where('prof_id', $professor->user_id)
+                    ->where('year', $request['year'])
+                    ->where('sem', $request['sem'])
+                    ->where('batch', $request['batch'])
+                    ->where('course_id',$courseId->course_id)
+                    ->first();
+
+                if ($existingAssociation) {
+                    // Handle the case where the professor is already associated with the course, batch, semester, and year
+                    return redirect()->route('assign_professor')->withError('The professor is already associated with the course, batch, semester, and year');
+                }
+
+                // Assign the professor to the course
+                $courseId = Courses::where('course_code', $request['course'])->first();
+                $courseProfessor = new Course_professors;
+                $courseProfessor->course_id = $courseId->course_id;
+                $courseProfessor->prof_id = $professor->user_id;
+                $courseProfessor->year = $request['year'];
+                $courseProfessor->sem = $request['sem'];
+                $courseProfessor->batch = $request['batch'];
+                $courseProfessor->save();
+
+                return redirect('/superadmin/course');
+            } else {
+                // Handle the case where the email belongs to a user, but not a professor
+                return redirect()->route('assign_professor')->withError('The email belongs to a user, but not a professor');
+            }
+        } else {
+            // Handle the case where the professor's email does not exist
+            return redirect()->route('assign_professor')->withError('The email of the professor does not exist');
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with a generic error message
+        return redirect()->route('assign_professor')->withErrors(['error' => 'An error occurred. Please try again.']);
+    }
+}
+
     
 
-     //To validate and assign professor into the course
-     public function assign_professor_tocourse(Request $request){
-        $request->validate(
-            [
-                'batch'=>'required',
-                'professor_email'=>'required|email',
-            ]
-            );
-            $requestedprofessor = $request['professor_email'];
+     
 
-// Check if the professor's email exists in the database
-$existingemail = User::where('email', $requestedprofessor)->first();
-if($existingemail){
-$existingid=Professors::find($existingemail->user_id);
-      if ($existingid) {
-          // Assign  
-          $courseid=Courses::where('course_code',$request['course'])->first();
-          $course_professor=new Course_professors;
-          $course_professor->course_id=$courseid->course_id;
-          $course_professor->prof_id=$existingid->user_id;
-          $course_professor->year=$request['year'];
-          $course_professor->sem=$request['sem'];
-          $course_professor->batch=$request['batch'];
-          $course_professor->save();
-      
-
-      return redirect('/superadmin/course');
-          
-            
-}
-else {
-    // Handle the case where the professor's email does not exist
-    return redirect()->route('assign_professor')->withError('The email of the professor does not exist'); }}
-    else {
-        // Handle the case where the email does not exist
-        return redirect()->route('assign_professor')->withError('The email does not exist in the system');
-}
-}
 //show assign professor to course form of admin dashboard
 public function assign_prof_essor(Request $request){
     $userObj = $request->session()->get("user");
@@ -339,44 +499,67 @@ public function assign_prof_essor(Request $request){
         $courses = Courses::whereIn('course_id', $courseIds)->get();
     return view('admindashboard.assignprofessor_tocourse',compact('courses'));
 }
-//To validate and assign professor into the course
-public function assign_prof_essor_tocourse(Request $request){
-    $request->validate(
-        [
-            'batch'=>'required',
-            'professor_email'=>'required|email',
-        ]
-        );
-        $requestedprofessor = $request['professor_email'];
+// To validate and assign professor into the course
+public function assign_prof_essor_tocourse(Request $request)
+{
+    try {
+        $request->validate([
+            'batch' => 'required',
+            'professor_email' => 'required|email',
+        ]);
 
-// Check if the professor's email exists in the database
-$existingemail = User::where('email', $requestedprofessor)->first();
-if($existingemail){
-$existingid=Professors::find($existingemail->user_id);
-  if ($existingid) {
-      // Assign  
-      $courseid=Courses::where('course_code',$request['course'])->first();
-      $course_professor=new Course_professors;
-      $course_professor->course_id=$courseid->course_id;
-      $course_professor->prof_id=$existingid->user_id;
-      $course_professor->year=$request['year'];
-      $course_professor->sem=$request['sem'];
-      $course_professor->batch=$request['batch'];
-      $course_professor->save();
-  
+        $requestedProfessor = $request['professor_email'];
 
-  return redirect('/admin/course');
-      
-        
+        // Check if the professor's email exists in the database
+        $existingUser = User::where('email', $requestedProfessor)->first();
+
+        if ($existingUser) {
+            // Check if the user with the given email is a professor
+            $professor = Professors::where('user_id', $existingUser->user_id)->first();
+
+            if ($professor) {
+                // Check if the professor is already associated with the course, batch, semester, and year
+                $courseId = Courses::where('course_code', $request['course'])->first();
+                $existingAssociation = Course_professors::where('prof_id', $professor->user_id)
+                    ->where('year', $request['year'])
+                    ->where('sem', $request['sem'])
+                    ->where('batch', $request['batch'])
+                    ->where('course_id',$courseId->course_id)
+                    ->first();
+
+                if ($existingAssociation) {
+                    // Handle the case where the professor is already associated with the course, batch, semester, and year
+                    return redirect()->route('assign_prof_essor')->withError('The professor is already associated with the course, batch, semester, and year');
+                }
+
+                // Assign the professor to the course
+                $courseId = Courses::where('course_code', $request['course'])->first();
+                $courseProfessor = new Course_professors;
+                $courseProfessor->course_id = $courseId->course_id;
+                $courseProfessor->prof_id = $professor->user_id;
+                $courseProfessor->year = $request['year'];
+                $courseProfessor->sem = $request['sem'];
+                $courseProfessor->batch = $request['batch'];
+                $courseProfessor->save();
+
+                return redirect('/admin/course');
+            } else {
+                // Handle the case where the email belongs to a user, but not a professor
+                return redirect()->route('assign_prof_essor')->withError('The email belongs to a user, but not a professor');
+            }
+        } else {
+            // Handle the case where the professor's email does not exist
+            return redirect()->route('assign_prof_essor')->withError('The email of the professor does not exist');
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with a generic error message
+        return redirect()->route('assign_prof_essor')->withErrors(['error' => 'An error occurred. Please try again.']);
+    }
 }
-else {
-// Handle the case where the professor's email does not exist
-return redirect()->route('assign_prof_essor')->withError('The email of the professor does not exist'); }}
-else {
-    // Handle the case where the email does not exist
-    return redirect()->route('assign_prof_essor')->withError('The email does not exist in the system');
-}
-}
+
 
 
     // Refernce code starts from here:

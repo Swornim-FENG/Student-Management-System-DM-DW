@@ -4,16 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
-    <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Student</title>
+    <title>student</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
@@ -325,36 +320,29 @@
       }
 
       main .new-users .user-list {
-        /* background-color: var(--color-white); */
+        background-color: var(--color-white);
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
         margin-top: 1rem;
         box-shadow: var(--box-shadow);
         display: flex;
+        flex-direction: column;
         justify-content: space-around;
         flex-wrap: wrap;
         gap: 1.4rem;
         cursor: pointer;
+        transition: all 0.3s ease;
       }
 
-      /* main .new-users .user-list:hover {
+      main .new-users .user-list:hover {
         box-shadow: none;
-      } */
+      }
 
       main .new-users .user-list .user {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: var(--color-white);
-        border-radius: var(--card-border-radius);
-        padding: var(--card-padding);
-        box-shadow: var(--box-shadow);
-        margin-left: -5px;
-        transition: all 0.3s ease;
-      }
-      main .new-users .user-list .user:hover {
-        box-shadow: none;
       }
 
       main .new-users .user-list .user img {
@@ -484,98 +472,62 @@
         margin-bottom: 0.2rem;
       }
 
-      .right-section .reminders {
-        margin-top: 2rem;
-      }
-
-      .right-section .reminders .header {
+      .container main .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 0.8rem;
+        grid-gap: 16px;
+        flex-wrap: wrap;
       }
 
-      .right-section .reminders .header span {
-        padding: 10px;
-        box-shadow: var(--box-shadow);
-        background-color: var(--color-white);
-        border-radius: 50%;
-      }
-
-      .right-section .reminders .notification {
-        background-color: var(--color-white);
+      .container main .header .left {
         display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 0.7rem;
-        padding: 1.4rem var(--card-padding);
-        border-radius: var(--border-radius-2);
-        box-shadow: var(--box-shadow);
-        cursor: pointer;
-        transition: all 0.3s ease;
       }
 
-      .right-section .reminders .notification:hover {
-        box-shadow: none;
+      .container main .header .left h1 {
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--dark);
+      }
+      .container main .header .left h2 {
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--dark);
+        margin-top: 10px;
+      }
+      .table-container {
+        max-width: 800px;
+        margin: 0 auto;
       }
 
-      .right-section .reminders .notification .content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0;
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      table {
         width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
       }
 
-      .right-section .reminders .notification .icon {
-        padding: 0.6rem;
-        color: var(--color-white);
-        background-color: var(--color-success);
-        border-radius: 20%;
-        display: flex;
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
       }
 
-      .right-section .reminders .notification.deactive .icon {
-        background-color: var(--color-danger);
+      th {
+        background-color: #f2f2f2;
       }
-
-      .right-section .reminders .add-reminder {
-        background-color: var(--color-white);
-        border: 2px dashed var(--color-primary);
-        color: var(--color-primary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
+      .description {
+        /* border: 2px solid red; */
+        padding: 10px;
+        /* text-align: center; */
       }
-
-      .right-section .reminders .add-reminder:hover {
-        background-color: var(--color-primary);
-        color: white;
-      }
-
-      .right-section .reminders .add-reminder div {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-      }
-      #modal {
-        display: none;
-        position: fixed;
-        top: 65%;
-        left: 90%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        background-color: var(--color-white);
-        border: 1px solid #ccc;
-        z-index: 1000;
-      }
-      #calendar {
-        margin-top: 50px;
-        max-width: 400px;
-        background-color: var(--color-white);
-      }
-
       @media screen and (max-width: 1200px) {
         .container {
           width: 95%;
@@ -628,6 +580,9 @@
         main table tbody tr td:last-child,
         main table tbody tr td:first-child {
           display: none;
+        }
+        .new-users .user-list .user h2 {
+          font-size: 13px;
         }
       }
 
@@ -744,6 +699,26 @@
         .right-section .nav button span {
           font-size: 2rem;
         }
+        .new-users .user-list .user h2 {
+          font-size: 11px;
+        }
+        .new-users .user-list .user {
+          width: 500px;
+        }
+      }
+      .left {
+        display: flex;
+      }
+      .left h2 {
+        margin-top: 7px;
+      }
+      .new-users .user-list .user h3 {
+        margin-top: 20px;
+        font-size: 16px;
+      }
+      .new-users .user-list .description h3 {
+        margin-top: 20px;
+        font-size: 16px;
       }
     </style>
   </head>
@@ -802,30 +777,34 @@
 
       <!-- Main Content -->
       <main>
-        <h1>Grades</h1>
-
-        <!-- New Users Section -->
+        <div class="header">
+          <div class="left">
+            <a href="student-grades.html"><h1>Grades</h1></a>
+            
+          </div>
+        </div>
         <div class="new-users">
-    
-    <div class="user-list">
-        @forelse ($combinedData as $data)
-            <a href="/student/individual/grades/{{ $data['course']->course_id }}/{{ $data['courseStudentInfo']->year }}/{{ $data['courseStudentInfo']->sem }}/{{ $data['courseStudentInfo']->batch }}">
-                <div class="user">
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <h2>{{ $data['course']->course_code }}</h2>
-                    @if ($data['courseStudentInfo'])
-                        <p>{{ $data['courseStudentInfo']->year }}-year {{ $data['courseStudentInfo']->sem }}-sem</p>
-                    @else
-                        <p>No enrollment information found</p>
-                    @endif
-                </div>
-            </a>
-        @empty
-            <p>No courses found </p>
-        @endforelse
+          <div class="user-list">
+            <div class="user">
+              <img src="{{ asset('images/ku logo.png') }}" />
+              @if($grades)
+    <h2>{{$profinfo->Fullname}}</h2>
+    <p>{{$profinfo->email}}</p>
+
+            </div>
+            <div class="description">
+        <h3>First internal - ({{ $grades->first_internal ?? 'N/A' }})</h3>
+        <h3>Second Internal - ({{ $grades->second_internal ?? 'N/A' }})</h3>
+        <h3>Presentation - ({{ $grades->presentation ?? 'N/A' }})</h3>
+        <h3>Assignments - ({{ $grades->assignments ?? 'N/A' }})</h3>
+        <h3>MCQ - ({{ $grades->mcq ?? 'N/A' }})</h3>
+        <h3>Extra credits - ({{ $grades->extra_credit ?? 'N/A' }})</h3>
     </div>
-</div>
-        <!-- End of New Users Section -->
+@else
+    <p>No grades information available.</p>
+@endif
+          </div>
+        </div>
       </main>
       <!-- End of Main Content -->
 
@@ -849,13 +828,8 @@
             </div>
           </div>
         </div>
-        <!-- End of Nav -->
-
-        <div id="calendar"></div>
-
-        <!-- Modal for event details -->
-        <div id="modal"></div>
       </div>
+      <!-- End of Nav -->
     </div>
 
     <script>
@@ -917,68 +891,27 @@
           status: "Active",
         },
       ];
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var calendarEl = document.getElementById("calendar");
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          timeZone: "local", // Set the time zone to local
-          initialView: "dayGridMonth",
-          events: [], // Initialize with an empty array
-          dateClick: function (info) {
-            // Prompt for title and description
-            var title = prompt("Enter event title:");
-            var description = prompt("Enter event description:");
+      function openStudentPopup(name, department, remarks, pastReports) {
+        const popupTitle = document.getElementById("popupTitle");
+        const popupContent = document.getElementById("popupContent");
+        const popupRemarks = document.getElementById("popupRemarks");
+        const popupReports = document.getElementById("popupReports");
 
-            if (title) {
-              // Add the event to the calendar
-              var event = {
-                title: title,
-                description: description,
-                start: info.dateStr,
-                allDay: true,
-              };
-              calendar.addEvent(event);
-            }
-          },
-          eventMouseEnter: function (info) {
-            // Show the modal on hover
-            showModal(
-              info.event.title,
-              info.event.extendedProps.description,
-              info.event.start.toISOString().split("T")[0]
-            );
-          },
-          eventMouseLeave: function () {
-            // Hide the modal on mouse leave
-            hideModal();
-          },
-        });
+        // Set popup title and content
+        popupTitle.textContent = name;
+        popupContent.textContent = `Department: ${department}`;
 
-        calendar.render();
+        // Set remarks and past reports
+        popupRemarks.textContent = remarks || "N/A";
+        popupReports.textContent = pastReports || "N/A";
 
-        function showModal(title, description, date) {
-          // Basic implementation of a modal
-          var modal = document.getElementById("modal");
+        // Display the popup
+        document.getElementById("studentPopup").style.display = "block";
+      }
 
-          // Update the modal content with event details
-          modal.innerHTML =
-            "<p>Title: " +
-            title +
-            "</p><p>Description: " +
-            description +
-            "</p><p>Date: ";
-
-          // Show the modal
-          modal.style.display = "block";
-        }
-
-        function hideModal() {
-          // Hide the modal
-          var modal = document.getElementById("modal");
-          modal.style.display = "none";
-        }
-      });
+      function closeStudentPopup() {
+        document.getElementById("studentPopup").style.display = "none";
+      }
     </script>
   </body>
 </html>

@@ -34,7 +34,8 @@ class ProfessorController extends Controller
         $userObj = $request->session()->get("user");
         $userId=$userObj->user_id;
         $professor = Professors::where('user_id', $userId)->first();
-$courseIds = Course_professors::where('prof_id', $userId)->pluck('course_id');
+$courseIds = Course_professors::where('prof_id', $userId)->orderBy('year')
+->orderBy('sem')->pluck('course_id');
 
 // Fetch courses from the Courses table
 $courses = Courses::whereIn('course_id', $courseIds)->get();
@@ -97,43 +98,68 @@ $combinedData = $courses->map(function ($course) use ($courseprofInfo) {
         $studentInfos = User::whereIn('user_id', $studentIds)->get();
         return view('professordashboard.add_grades',compact('professor','studentInfos', 'course_id', 'year', 'sem', 'batch'));
     }
-    //WORK REMAINING
+    
     //To show the add grades form of each course
-    public function insert_grades(Request $request,$course_id,$year,$sem,$batch){
-        $request->validate(
-            [
-                'Firstinternal'=>'required',
-                'Secondinternal'=>'required',
-                'MCQ'=>'required',
-                'Presentation'=>'required',
-                'Assignments'=>'required',
-                'Extracredits'=>'required',
-                
-                
-            ]  );
-        $userObj = $request->session()->get("user");
-        $userId=$userObj->user_id;
-        $professor=Professors::where('user_id',$userId)->first();
-        $grades=new Grades;
-        $grades->prof_id=$userId;
-        $grades->course_id=$course_id;
-        $grades->year=$year;
-        $grades->sem=$sem;
-        $grades->batch=$batch;
-        $studentname=$request['studentname'];
-        $studentid=User::where('Fullname',$studentname)->first();
-        $grades->stud_id=$studentid->user_id;
-        $grades->first_internal = $request['Firstinternal'];
-        $grades->second_internal = $request['Secondinternal'];
-        $grades->assignments = $request['Assignments'];
-        $grades->presentation = $request['Presentation'];
-        $grades->mcq = $request['MCQ'];
-        $grades->extra_credit = $request['Extracredits'];
-        $grades->first_internal = $request['Firstinternal'];
-        $grades->save();
-        return redirect('/professor/grades');
+public function insert_grades(Request $request, $course_id, $year, $sem, $batch)
+{
+    $request->validate([
+        'Firstinternal' => 'required',
+        'Secondinternal' => 'required',
+        'MCQ' => 'required',
+        'Presentation' => 'required',
+        'Assignments' => 'required',
+        'Extracredits' => 'required',
+        
+    ]);
+
+    $userObj = $request->session()->get("user");
+    $userId = $userObj->user_id;
+    $professor = Professors::where('user_id', $userId)->first();
+
+    // Get the student ID based on the provided student name
+    $studentName = $request['studentname'];
+    $student = User::where('Fullname', $studentName)->first();
+
+
+    // Check if a grade entry already exists for the specified course, professor, student, and academic details
+    $existingGrade = Grades::where('prof_id', $userId)
+        ->where('course_id', $course_id)
+        ->where('year', $year)
+        ->where('sem', $sem)
+        ->where('batch', $batch)
+        ->where('stud_id', $student->user_id)
+        ->first();
+
+    if ($existingGrade) {
+        // Handle the case where the student already has grades for the specified course
+        return redirect()->route('insertgrades', [
+            'course_id' => $course_id,
+            'year' => $year,
+            'sem' => $sem,
+            'batch' => $batch,
+        ])->withError('Grades already exist for the specified student and course.');
         
     }
+
+    // Create a new grade entry
+    $grades = new Grades;
+    $grades->prof_id = $userId;
+    $grades->course_id = $course_id;
+    $grades->year = $year;
+    $grades->sem = $sem;
+    $grades->batch = $batch;
+    $grades->stud_id = $student->user_id;
+    $grades->first_internal = $request['Firstinternal'];
+    $grades->second_internal = $request['Secondinternal'];
+    $grades->assignments = $request['Assignments'];
+    $grades->presentation = $request['Presentation'];
+    $grades->mcq = $request['MCQ'];
+    $grades->extra_credit = $request['Extracredits'];
+    $grades->save();
+
+    return redirect('/professor/grades');
+}
+
 
     // To show analytics page of professordashboard
     public function show_analytics(Request $request){
@@ -156,7 +182,8 @@ $combinedData = $courses->map(function ($course) use ($courseprofInfo) {
         $userObj = $request->session()->get("user");
         $userId=$userObj->user_id;
         $professor = Professors::where('user_id', $userId)->first();
-$courseIds = Course_professors::where('prof_id', $userId)->pluck('course_id');
+$courseIds = Course_professors::where('prof_id', $userId)->orderBy('year')
+->orderBy('sem')->pluck('course_id');
 
 // Fetch courses from the Courses table
 $courses = Courses::whereIn('course_id', $courseIds)->get();
@@ -269,7 +296,8 @@ public function course_insert_resources(Request $request, $course_id, $year, $se
         $userObj = $request->session()->get("user");
         $userId=$userObj->user_id;
         $professor = Professors::where('user_id', $userId)->first();
-$courseIds = Course_professors::where('prof_id', $userId)->pluck('course_id');
+$courseIds = Course_professors::where('prof_id', $userId)->orderBy('year')
+->orderBy('sem')->pluck('course_id');
 
 // Fetch courses from the Courses table
 $courses = Courses::whereIn('course_id', $courseIds)->get();
@@ -288,100 +316,118 @@ $combinedData = $courses->map(function ($course) use ($courseprofInfo) {
         return view('professordashboard.courses',compact('professor','courses','combinedData'));
     }
 
-    //To validate and insert students into the system
-    public function insertprofessors(Request $request){
-        $request->validate(
-            [
-                'first_name'=>'required',
-                'last_name'=>'required',
-                'permanent_address'=>'required',
-                'temporary_address'=>'required',
-                'email'=>'required|email',
-                'password'=>'required',
-                'phone_number'=>'required',
-                
-            ]
-            );
-            $user=new User;
-            $user->Fullname = $request['first_name'] . ' ' . $request['last_name'];
-            
-            $requestedEmail = $request['email'];
-            
-            // Check if the email already exists in the database
-            $existingEmail = User::where('email', $requestedEmail)->first();
-            
-            if ($existingEmail) {
-                // Email already taken, show a message or take appropriate action
-                return redirect()->route('professor')->withError('This email has already been taken');
-                
-            } else {
-                // Assign the email to the user
-                $user->email = $requestedEmail;
+    // To validate and insert professors into the system
+public function insertprofessors(Request $request)
+{
+    try {
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'permanent_address' => 'required',
+            'temporary_address' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'phone_number' => 'required',
+        ]);
 
-            $user->password=\Hash::make($request['password']);
-            $user->role_id=3;
-            $user->phone_number=$request['phone_number'];
+        $user = new User;
+        $user->Fullname = $request['first_name'] . ' ' . $request['last_name'];
+
+        $requestedEmail = $request['email'];
+
+        // Check if the email already exists in the database
+        $existingEmail = User::where('email', $requestedEmail)->first();
+
+        if ($existingEmail) {
+            // Email already taken, show a message or take appropriate action
+            return redirect()->route('professor')->withError('This email has already been taken');
+        } else {
+            // Assign the email to the user
+            $user->email = $requestedEmail;
+
+            $user->password = \Hash::make($request['password']);
+            $user->role_id = 3;
+            $user->phone_number = $request['phone_number'];
             $user->save();
-            $professors=new Professors;
-            $professors->Firstname=$request['first_name'];
-            $professors->Lastname=$request['last_name'];
-            $professors->permanent_address=$request['permanent_address'];
-            $professors->temporary_address=$request['temporary_address'];
+
+            $professors = new Professors;
+            $professors->Firstname = $request['first_name'];
+            $professors->Lastname = $request['last_name'];
+            $professors->permanent_address = $request['permanent_address'];
+            $professors->temporary_address = $request['temporary_address'];
             $lastInsertedUserId = $user->getKey();
-            $professors->user_id=$lastInsertedUserId;
+            $professors->user_id = $lastInsertedUserId;
             $professors->save();
+
             return redirect('/admin');
-       
-        }}
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with an error message
+        return redirect()->route('professor')->withErrors(['error' => 'An error occurred. Please try again.']);
+    }
+}
+
 
         //To show add professor form of superadmin dashboard
     public function add_professors(){
         return view('superadmindashboard.addprofessors');
     }
 
-    //To validate and insert students into the system
-    public function insert_professors(Request $request){
-        $request->validate(
-            [
-                'first_name'=>'required',
-                'last_name'=>'required',
-                'permanent_address'=>'required',
-                'temporary_address'=>'required',
-                'email'=>'required|email',
-                'password'=>'required',
-                'phone_number'=>'required',
-                
-            ]
-            );
-            $user=new User;
-            $user->Fullname = $request['first_name'] . ' ' . $request['last_name'];
-            
-            $requestedEmail = $request['email'];
-            
-            // Check if the email already exists in the database
-            $existingEmail = User::where('email', $requestedEmail)->first();
-            
-            if ($existingEmail) {
-                // Email already taken, show a message or take appropriate action
-                return redirect()->route('add_professor')->withError('This email has already been taken');
-                
-            } else {
-                // Assign the email to the user
-                $user->email = $requestedEmail;
+    //To validate and insert professors into the system
+public function insert_professors(Request $request)
+{
+    try {
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'permanent_address' => 'required',
+            'temporary_address' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'phone_number' => 'required',
+        ]);
 
-            $user->password=\Hash::make($request['password']);
-            $user->role_id=3;
-            $user->phone_number=$request['phone_number'];
+        $user = new User;
+        $user->Fullname = $request['first_name'] . ' ' . $request['last_name'];
+
+        $requestedEmail = $request['email'];
+
+        // Check if the email already exists in the database
+        $existingEmail = User::where('email', $requestedEmail)->first();
+
+        if ($existingEmail) {
+            // Email already taken, show a message or take appropriate action
+            return redirect()->route('add_professor')->withError('This email has already been taken');
+        } else {
+            // Assign the email to the user
+            $user->email = $requestedEmail;
+
+            $user->password = \Hash::make($request['password']);
+            $user->role_id = 3;
+            $user->phone_number = $request['phone_number'];
             $user->save();
-            $professors=new Professors;
-            $professors->Firstname=$request['first_name'];
-            $professors->Lastname=$request['last_name'];
-            $professors->permanent_address=$request['permanent_address'];
-            $professors->temporary_address=$request['temporary_address'];
+
+            $professor = new Professors;
+            $professor->Firstname = $request['first_name'];
+            $professor->Lastname = $request['last_name'];
+            $professor->permanent_address = $request['permanent_address'];
+            $professor->temporary_address = $request['temporary_address'];
             $lastInsertedUserId = $user->getKey();
-            $professors->user_id=$lastInsertedUserId;
-            $professors->save();
+            $professor->user_id = $lastInsertedUserId;
+            $professor->save();
+
             return redirect('/superadmin');
-       
-        }}
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        \Log::error($e);
+
+        // Redirect back with an error message
+        return redirect()->route('add_professor')->withErrors(['error' => 'An error occurred. Please try again.']);
+    }
+}
+
 }

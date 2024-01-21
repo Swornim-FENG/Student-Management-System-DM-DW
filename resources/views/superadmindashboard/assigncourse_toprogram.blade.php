@@ -814,7 +814,7 @@
             ><i class="bx bx-home-alt"></i>Department</a
           >
         </li>
-        <li  class="active">
+        <li>
           <a href="/superadmin/program"
             ><i class="bx bx-book-open"></i>Program</a
           >
@@ -829,7 +829,7 @@
             ><i class="bx bx-group"></i>Professors</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/course"
             ><i class="bx bx-book"></i>Courses</a
           >
@@ -906,6 +906,7 @@
                {{ session('error') }}
                 </span>
                 @endif
+                <br>
 
             <button class="btn" type="submit">Assign Course</button>
           </form>

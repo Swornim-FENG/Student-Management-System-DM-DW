@@ -161,9 +161,11 @@ Route::get('/professor/grades',[ProfessorController::class,'show_grades']);
 
 Route::get('/professor/individual/grades/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'show_individual_grades']);
 
-Route::get('/professor/add/grades/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'add_grades']);
+Route::get('/professor/add/grades/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'add_grades'])->name('insertgrades');
 
 Route::post('/professor/add/grades/{course_id}/{year}/{sem}/{batch}',[ProfessorController::class,'insert_grades']);
+
+Route::get('/student/individual/grades/{course_id}/{year}/{sem}/{batch}',[StudentController::class,'show_individual_grades']);
 
 Route::get('/professor/analytics',[ProfessorController::class,'show_analytics']);
 

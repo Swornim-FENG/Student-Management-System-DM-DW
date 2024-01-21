@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
       rel="stylesheet"
     />
@@ -320,7 +325,7 @@
       }
 
       main .new-users .user-list {
-        background-color: var(--color-white);
+        /* background-color: var(--color-white); */
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
         margin-top: 1rem;
@@ -330,18 +335,26 @@
         flex-wrap: wrap;
         gap: 1.4rem;
         cursor: pointer;
-        transition: all 0.3s ease;
       }
 
-      main .new-users .user-list:hover {
+      /* main .new-users .user-list:hover {
         box-shadow: none;
-      }
+      } */
 
       main .new-users .user-list .user {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+        box-shadow: var(--box-shadow);
+        margin-left: -5px;
+        transition: all 0.3s ease;
+      }
+      main .new-users .user-list .user:hover {
+        box-shadow: none;
       }
 
       main .new-users .user-list .user img {
@@ -545,6 +558,22 @@
         display: flex;
         align-items: center;
         gap: 0.6rem;
+      }
+      #modal {
+        display: none;
+        position: fixed;
+        top: 65%;
+        left: 90%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: var(--color-white);
+        border: 1px solid #ccc;
+        z-index: 1000;
+      }
+      #calendar {
+        margin-top: 50px;
+        max-width: 400px;
+        background-color: var(--color-white);
       }
 
       @media screen and (max-width: 1200px) {
@@ -796,7 +825,6 @@
         @endforelse
     </div>
 </div>
-            
         <!-- End of New Users Section -->
       </main>
       <!-- End of Main Content -->
@@ -817,51 +845,16 @@
               <p>Hey, <b>{{$student->Firstname}}</b></p>
             </div>
             <div class="profile-photo">
-              <img src="kathmandu_university_logo_nepal .png" />
+              <img src="{{ asset('images/ku logo.png') }}" />
             </div>
           </div>
         </div>
         <!-- End of Nav -->
 
-        <div class="reminders">
-          <div class="header">
-            <h2>Reminders</h2>
-            <span class="material-icons-sharp"> notifications_none </span>
-          </div>
+        <div id="calendar"></div>
 
-          <div class="notification">
-            <div class="icon">
-              <span class="material-icons-sharp"> volume_up </span>
-            </div>
-            <div class="content">
-              <div class="info">
-                <h3>Workshop</h3>
-                <small class="text_muted"> 08:00 AM - 12:00 PM </small>
-              </div>
-              <span class="material-icons-sharp"> more_vert </span>
-            </div>
-          </div>
-
-          <div class="notification deactive">
-            <div class="icon">
-              <span class="material-icons-sharp"> edit </span>
-            </div>
-            <div class="content">
-              <div class="info">
-                <h3>Class</h3>
-                <small class="text_muted"> 1:00 PM - 4:00 PM </small>
-              </div>
-              <span class="material-icons-sharp"> more_vert </span>
-            </div>
-          </div>
-
-          <div class="notification add-reminder">
-            <div>
-              <span class="material-icons-sharp"> add </span>
-              <h3>Add Reminder</h3>
-            </div>
-          </div>
-        </div>
+        <!-- Modal for event details -->
+        <div id="modal"></div>
       </div>
     </div>
 
@@ -924,6 +917,68 @@
           status: "Active",
         },
       ];
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          timeZone: "local", // Set the time zone to local
+          initialView: "dayGridMonth",
+          events: [], // Initialize with an empty array
+          dateClick: function (info) {
+            // Prompt for title and description
+            var title = prompt("Enter event title:");
+            var description = prompt("Enter event description:");
+
+            if (title) {
+              // Add the event to the calendar
+              var event = {
+                title: title,
+                description: description,
+                start: info.dateStr,
+                allDay: true,
+              };
+              calendar.addEvent(event);
+            }
+          },
+          eventMouseEnter: function (info) {
+            // Show the modal on hover
+            showModal(
+              info.event.title,
+              info.event.extendedProps.description,
+              info.event.start.toISOString().split("T")[0]
+            );
+          },
+          eventMouseLeave: function () {
+            // Hide the modal on mouse leave
+            hideModal();
+          },
+        });
+
+        calendar.render();
+
+        function showModal(title, description, date) {
+          // Basic implementation of a modal
+          var modal = document.getElementById("modal");
+
+          // Update the modal content with event details
+          modal.innerHTML =
+            "<p>Title: " +
+            title +
+            "</p><p>Description: " +
+            description +
+            "</p><p>Date: ";
+
+          // Show the modal
+          modal.style.display = "block";
+        }
+
+        function hideModal() {
+          // Hide the modal
+          var modal = document.getElementById("modal");
+          modal.style.display = "none";
+        }
+      });
     </script>
   </body>
 </html>

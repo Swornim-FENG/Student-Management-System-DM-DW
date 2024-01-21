@@ -325,7 +325,7 @@
       }
 
       main .new-users .user-list {
-        background-color: var(--color-white);
+        /* background-color: var(--color-white); */
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
         margin-top: 1rem;
@@ -335,18 +335,26 @@
         flex-wrap: wrap;
         gap: 1.4rem;
         cursor: pointer;
-        transition: all 0.3s ease;
       }
 
-      main .new-users .user-list:hover {
+      /* main .new-users .user-list:hover {
         box-shadow: none;
-      }
+      } */
 
       main .new-users .user-list .user {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+        box-shadow: var(--box-shadow);
+        margin-left: -5px;
+        transition: all 0.3s ease;
+      }
+      main .new-users .user-list .user:hover {
+        box-shadow: none;
       }
 
       main .new-users .user-list .user img {
@@ -554,8 +562,8 @@
       #modal {
         display: none;
         position: fixed;
-        top: 50%;
-        left: 50%;
+        top: 65%;
+        left: 90%;
         transform: translate(-50%, -50%);
         padding: 20px;
         background-color: var(--color-white);
@@ -563,10 +571,11 @@
         z-index: 1000;
       }
       #calendar {
-        margin: 10px;
+        margin-top: 50px;
         max-width: 400px;
         background-color: var(--color-white);
       }
+
       @media screen and (max-width: 1200px) {
         .container {
           width: 95%;
@@ -820,8 +829,7 @@
 
       <!-- Main Content -->
       <main>
-        <!-- New Users Section -->
-        <h1>Students</h1>
+        <h1>Courses</h1>
 
         <!-- New Users Section -->
         <div class="new-users">

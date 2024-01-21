@@ -69,48 +69,57 @@ class AdminController extends Controller
 
     
 
-    public function insertadmin(Request $request){
-        $request->validate(
-            [
-                'first_name'=>'required',
-                'last_name'=>'required',
-                'per_address'=>'required',
-                'tem_address'=>'required',
-                'phone_number'=>'required|digits:10',
-                'email'=>'required|email',
-                'password'=>'required',
-                
-            ]
-            );
-            $user=new User;
-            $user->Fullname = $request['first_name'] . ' ' . $request['last_name'];
-            
-            $requestedEmail = $request['email'];
-            
-            // Check if the email already exists in the database
-            $existingEmail = User::where('email', $requestedEmail)->first();
-            
-            if ($existingEmail) {
-                // Email already taken, show a message or take appropriate action
-                return redirect()->route('addadmin')->withError('This email has already been taken');
-                
-            } else {
-                // Assign the email to the user
-                $user->email = $requestedEmail;
+    public function insertadmin(Request $request)
+{
+    try {
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'per_address' => 'required',
+            'tem_address' => 'required',
+            'phone_number' => 'required|digits:10',
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-            $user->password=\Hash::make($request['password']);
-            $user->role_id=2;
-            $user->phone_number=$request['phone_number'];
+        $user = new User;
+        $user->Fullname = $request['first_name'] . ' ' . $request['last_name'];
+
+        $requestedEmail = $request['email'];
+
+        // Check if the email already exists in the database
+        $existingEmail = User::where('email', $requestedEmail)->first();
+
+        if ($existingEmail) {
+            // Email already taken, show a message or take appropriate action
+            return redirect()->route('addadmin')->withError('This email has already been taken');
+        } else {
+            // Assign the email to the user
+            $user->email = $requestedEmail;
+            $user->password = \Hash::make($request['password']);
+            $user->role_id = 2;
+            $user->phone_number = $request['phone_number'];
             $user->save();
-            $admins=new Admins;
-            $admins->Firstname=$request['first_name'];
-            $admins->Lastname=$request['last_name'];
-            $admins->permanent_address=$request['per_address'];
-            $admins->temporary_address=$request['tem_address'];
+
+            $admins = new Admins;
+            $admins->Firstname = $request['first_name'];
+            $admins->Lastname = $request['last_name'];
+            $admins->permanent_address = $request['per_address'];
+            $admins->temporary_address = $request['tem_address'];
             $lastInsertedUserId = $user->getKey();
-            $admins->user_id=$lastInsertedUserId;
+            $admins->user_id = $lastInsertedUserId;
             $admins->save();
+
             return redirect('/superadmin/admin');
-       
-        }}
+        }
+    } catch (\Exception $e) {
+        // Log the exception or handle it as needed
+        // For example, log the exception details:
+        \Log::error($e);
+
+        // Redirect back with an error message
+        return redirect()->route('addadmin')->withError('An error occurred. Please try again.');
+    }
+}
+
 }
