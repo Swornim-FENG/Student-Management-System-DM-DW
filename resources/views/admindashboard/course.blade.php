@@ -747,6 +747,12 @@
         <li class="active">
           <a href="/admin/course"><i class="bx bx-book"></i>Courses</a>
         </li>
+        <li>
+          <a href="/admin/notice"><i class="bx bx-news"></i>Notice</a>
+        </li>
+        <li>
+          <a href="/admin/fee"> <i class="bx bx-dollar"></i> Fee</a>
+        </li>
         
       </ul>
       <ul class="side-menu">

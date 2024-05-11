@@ -115,5 +115,15 @@ class SuperadminController extends Controller
     $professors = User::whereIn('user_id', $professorIds)->get(['Fullname', 'email','phone_number']);
         return view('superadmindashboard.professors_in_program' , ['professors' => $professors],compact('program'));
     }
+
+    public function notice(){
+        
+        return view('superadmindashboard.notice');
+    }
+
+    public function show_add_notice(){
+        
+        return view('superadmindashboard.addnotice');
+    }
     
 }

@@ -122,4 +122,19 @@ class AdminController extends Controller
     }
 }
 
+public function notice(){
+        
+    return view('admindashboard.notice');
+}
+
+public function show_add_notice(){
+    
+    return view('admindashboard.addnotice');
+}
+
+public function fee(){
+        
+    return view('admindashboard.fee');
+}
+
 }

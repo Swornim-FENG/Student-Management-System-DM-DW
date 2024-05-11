@@ -324,5 +324,19 @@ public function insert_students(Request $request)
         return redirect()->route('add_student')->withError('An error occurred. Please try again.');
     }
 }
+public function fee(Request $request){
+    $userObj = $request->session()->get("user");
+    $userId = $userObj->user_id;
+    $student = Students::where('user_id', $userId)->first();   
+    return view('studentdashboard.fee',compact('student'));
+}
+
+public function notice(Request $request){
+    $userObj = $request->session()->get("user");
+    $userId = $userObj->user_id;
+    $student = Students::where('user_id', $userId)->first();
+        
+    return view('studentdashboard.notice',compact('student'));
+}
 
 }

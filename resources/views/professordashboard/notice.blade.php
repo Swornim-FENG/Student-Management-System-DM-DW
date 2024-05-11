@@ -4,15 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-    />
     <link rel="stylesheet" href="style.css" />
-    <title>Student</title>
+
+    <title>Professor-main</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
@@ -550,68 +552,21 @@
         align-items: center;
         gap: 0.6rem;
       }
-      /* Add this to your existing CSS */
-
-      .profile-section {
-        display: flex;
-        align-items: center;
-        margin-top: 1rem;
-      }
-
-      .profile-photo {
-        width: 2.8rem;
-        height: 2.8rem;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-right: 1rem;
-      }
-
-      .profile-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .profile-info {
-        text-align: left;
-      }
-
-      .username {
-        color: var(--color-primary);
-      }
-
-      .widget {
+      #modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
         background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
+        border: 1px solid #ccc;
+        z-index: 1000;
       }
-
-      .upcoming-deadlines ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .upcoming-deadlines li {
-        margin-bottom: 0.5rem;
-      }
-
-      .notifications {
-        margin-top: 2rem;
-      }
-
-      .notification {
+      #calendar {
+        margin: 10px;
+        max-width: 400px;
         background-color: var(--color-white);
-        padding: 1rem;
-        border-radius: var(--border-radius-2);
-        box-shadow: var(--box-shadow);
-        margin-bottom: 1rem;
-      }
-
-      .notification p {
-        margin: 0;
-        color: var(--color-dark);
       }
 
       @media screen and (max-width: 1200px) {
@@ -783,27 +738,17 @@
           font-size: 2rem;
         }
       }
-      .setting-list {
+      .notification1 {
         background-color: var(--color-white);
         padding: 1rem;
         border-radius: var(--border-radius-2);
         box-shadow: var(--box-shadow);
         margin-bottom: 1rem;
-        margin-top: 1rem;
+        width: 100%;
       }
-      .setting {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-        width: 50%;
-      }
-      .setting:hover {
-        background-color: rgb(184, 182, 186);
-        /* background-color: red; */
-        display: flex;
-        flex-direction: column;
+      .iframe {
+        width: 90%;
+        height: 200px;
       }
     </style>
   </head>
@@ -812,83 +757,101 @@
     <div class="container">
       <!-- Sidebar Section -->
       <aside>
-        <div class="toggle">
-          <div class="logo">
-            <img src="{{ asset('images/ku logo.png') }}" />
-            <h2><span class="danger">Student</span></h2>
-          </div>
-          <div class="close" id="close-btn">
-            <span class="material-icons-sharp"> close </span>
-          </div>
-        </div>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="{{ asset('images/ku logo.png') }}">
+                    <h2><span class="danger">Professor</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
 
-        <div class="sidebar">
-          <a href="/student" >
-            <span class="material-icons-sharp"> dashboard </span>
-            <h3>Dashboard</h3>
-          </a>
+            <div class="sidebar">
+                <a href="/professor" >
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="/professor/students">
+                    <span class="material-icons-sharp">
+                        person_outline
+                    </span>
+                    <h3>Students</h3>
+                </a>
+                <a href="/professor/grades">
+                    <span class="material-icons-sharp">
+                        receipt_long
+                    </span>
+                    <h3>Grades</h3>
+                </a>
+                <a href="/professor/analytics" >
+                    <span class="material-icons-sharp">
+                        insights
+                    </span>
+                    <h3>Analytics</h3>
+                </a>
+                <a href="/professor/courses">
+                <span class='material-icons-sharp'>menu_book</span>
+                    <h3>Courses</h3>
+                </a>
 
-          <a href="/student/grades">
-            <span class="material-icons-sharp"> receipt_long </span>
-            <h3>Grades</h3>
-          </a>
-
-          <a href="/student/courses">
-            <span class="material-icons-sharp">menu_book</span>
-            <h3>Courses</h3>
-          </a>
-
-          <a href="/student/fee" >
-            <span class="material-icons-sharp"> attach_money </span>
-            <h3>Fee</h3>
-          </a>
-          
-          <a href="/student/notice" >
-            <span class="material-symbols-outlined"> quick_reference </span>
+                <a href="/professor/notice" class="active">
+            <span class="material-icons-sharp"> newspaper </span>
             <h3>Notice</h3>
           </a>
-
-          <a href="/student/settings"  class="active">
-            <span class="material-icons-sharp"> settings </span>
-            <h3>Settings</h3>
-          </a>
-
-          <a href="{{url('/')}}/logout">
-            <span class="material-icons-sharp"> logout </span>
-            <h3>Logout</h3>
-          </a>
-        </div>
-      </aside>
+                
+                
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        settings
+                    </span>
+                    <h3>Settings</h3>
+                </a>
+                
+                <a href="{{url('/')}}/logout">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
       <!-- End of Sidebar Section -->
 
       <!-- Main Content -->
       <main>
-        <!-- Inside the <body> tag -->
-
-        <div class="profile-section">
-          <div class="profile-photo">
-            <img
+        <h1>Notice</h1>
+        <div class="notifications">
+          <h3>Recent Notices</h3>
+          <div class="notification1">
+            <h4>Notice-Title</h4>
+            <p>notice content</p>
+            <iframe
               src="kathmandu_university_logo_nepal .png"
-              alt="Profile Picture"
-            />
+              class="iframe"
+            ></iframe>
           </div>
-          <div class="profile-info">
-            <h2>Hey, <span class="username">{{$student->Firstname}}</span></h2>
-            <p>GPA: 3.8</p>
-            <p>Courses Completed: 15</p>
+          <div class="notification1">
+            <h4>Notice-Title</h4>
+            <p>notice content with no image or pdf</p>
           </div>
-        </div>
-        <div class="setting-list">
-          <h2>settings</h2>
-          <div class="setting">
-            <a href="#">
-              <span class="material-icons-sharp"> perm_identity </span>
-              <h3>change Profile Photo</h3>
-            </a>
+          <div class="notification1">
+            <h4>Notice-Title</h4>
+            <p>notice content</p>
+            <iframe
+              src="kathmandu_university_logo_nepal .png"
+              class="iframe"
+            ></iframe>
           </div>
-          <div class="setting">change personal details</div>
         </div>
       </main>
+      <!-- End of Main Content -->
+
+      <!-- Right Section -->
       <div class="right-section">
         <div class="nav">
           <button id="menu-btn">
@@ -898,7 +861,22 @@
             <span class="material-icons-sharp active"> light_mode </span>
             <span class="material-icons-sharp"> dark_mode </span>
           </div>
+
+          <div class="profile">
+            <div class="info">
+              <p>Hey, <b>{{$professor->Firstname}}</b></p>
+            </div>
+            <div class="profile-photo">
+              <img src="{{ asset('images/ku logo.png') }}" />
+            </div>
+          </div>
         </div>
+        <!-- End of Nav -->
+
+        <div id="calendar"></div>
+
+        <!-- Modal for event details -->
+        <div id="modal"></div>
       </div>
     </div>
 
@@ -961,6 +939,68 @@
           status: "Active",
         },
       ];
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          timeZone: "local", // Set the time zone to local
+          initialView: "dayGridMonth",
+          events: [], // Initialize with an empty array
+          dateClick: function (info) {
+            // Prompt for title and description
+            var title = prompt("Enter event title:");
+            var description = prompt("Enter event description:");
+
+            if (title) {
+              // Add the event to the calendar
+              var event = {
+                title: title,
+                description: description,
+                start: info.dateStr,
+                allDay: true,
+              };
+              calendar.addEvent(event);
+            }
+          },
+          eventMouseEnter: function (info) {
+            // Show the modal on hover
+            showModal(
+              info.event.title,
+              info.event.extendedProps.description,
+              info.event.start.toISOString().split("T")[0]
+            );
+          },
+          eventMouseLeave: function () {
+            // Hide the modal on mouse leave
+            hideModal();
+          },
+        });
+
+        calendar.render();
+
+        function showModal(title, description, date) {
+          // Basic implementation of a modal
+          var modal = document.getElementById("modal");
+
+          // Update the modal content with event details
+          modal.innerHTML =
+            "<p>Title: " +
+            title +
+            "</p><p>Description: " +
+            description +
+            "</p><p>Date: ";
+
+          // Show the modal
+          modal.style.display = "block";
+        }
+
+        function hideModal() {
+          // Hide the modal
+          var modal = document.getElementById("modal");
+          modal.style.display = "none";
+        }
+      });
     </script>
   </body>
 </html>

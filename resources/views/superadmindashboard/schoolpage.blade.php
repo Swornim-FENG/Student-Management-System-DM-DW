@@ -751,7 +751,7 @@
           >
         </li>
         <li>
-          <a href="/add/department/users"><i class="bx bx-news"></i>Notice</a>
+          <a href="/superadmin/notice"><i class="bx bx-news"></i>Notice</a>
         </li>
 
         <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->

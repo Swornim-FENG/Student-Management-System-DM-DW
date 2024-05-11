@@ -752,30 +752,32 @@
     <div class="container">
       <!-- Sidebar Section -->
       <aside>
-        <div class="toggle">
-          <div class="logo">
-            <img src="{{ asset('images/ku logo.png') }}" />
-            <h2><span class="danger">Professor</span></h2>
-          </div>
-          <div class="close" id="close-btn">
-            <span class="material-icons-sharp"> close </span>
-          </div>
-        </div>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="{{ asset('images/ku logo.png') }}">
+                    <h2><span class="danger">Professor</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
 
-        <div class="sidebar">
+            <div class="sidebar">
                 <a href="/professor" >
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="/professor/students" class="active" >
+                <a href="/professor/students" class="active">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
                     <h3>Students</h3>
                 </a>
-                <a href="/professor/grades">
+                <a href="/professor/grades" >
                     <span class="material-icons-sharp">
                         receipt_long
                     </span>
@@ -791,19 +793,12 @@
                 <span class='material-icons-sharp'>menu_book</span>
                     <h3>Courses</h3>
                 </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        mail_outline
-                    </span>
-                    <h3>Messages</h3>
-                    <span class="message-count">18</span>
-                </a>
-                <a href="/professor/todolist">
-                    <span class="material-icons-sharp">
-                        inventory
-                    </span>
-                    <h3>To do List</h3>
-                </a>
+
+                <a href="/professor/notice" >
+            <span class="material-icons-sharp"> newspaper </span>
+            <h3>Notice</h3>
+          </a>
+                
                 
                 <a href="#">
                     <span class="material-icons-sharp">
@@ -811,12 +806,7 @@
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        add
-                    </span>
-                    <h3>New Login</h3>
-                </a>
+                
                 <a href="{{url('/')}}/logout">
                     <span class="material-icons-sharp">
                         logout

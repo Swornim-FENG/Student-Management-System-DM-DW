@@ -185,6 +185,22 @@ Route::get('/superadmin/professor/program/{program_id}',[SuperadminController::c
 
 Route::get('/professor/todolist',[ProfessorController::class,'professor_todolist']);
 
+Route::get('/superadmin/notice',[SuperadminController::class,'notice']);
+
+Route::get('/superadmin/add/notice',[SuperadminController::class,'show_add_notice']);
+
+Route::get('/admin/notice',[AdminController::class,'notice']);
+
+Route::get('/admin/add/notice',[AdminController::class,'show_add_notice']);
+
+Route::get('/admin/fee',[AdminController::class,'fee']);
+
+Route::get('/student/fee',[StudentController::class,'fee']);
+
+Route::get('/student/notice',[StudentController::class,'notice']);
+
+Route::get('/professor/notice',[ProfessorController::class,'notice']);
+
 Route::get('/test', function () {
     return view('test');
 });

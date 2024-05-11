@@ -12,6 +12,10 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Student</title>
     <style>
@@ -777,14 +781,15 @@
             <span class="material-icons-sharp">menu_book</span>
             <h3>Courses</h3>
           </a>
-          <a href="#">
-            <span class="material-icons-sharp"> mail_outline </span>
-            <h3>Messages</h3>
-            <span class="message-count">18</span>
+
+          <a href="/student/fee" >
+            <span class="material-icons-sharp"> attach_money </span>
+            <h3>Fee</h3>
           </a>
-          <a href="#">
-            <span class="material-icons-sharp"> inventory </span>
-            <h3>To do List</h3>
+          
+          <a href="/student/notice" >
+            <span class="material-symbols-outlined"> quick_reference </span>
+            <h3>Notice</h3>
           </a>
 
           <a href="/student/settings">

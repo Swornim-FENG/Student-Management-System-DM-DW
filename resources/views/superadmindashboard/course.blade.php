@@ -772,6 +772,9 @@
             ><i class="bx bx-book"></i>Courses</a
           >
         </li>
+        <li>
+          <a href="/superadmin/notice"><i class="bx bx-news"></i>Notice</a>
+        </li>
         
 
         <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->

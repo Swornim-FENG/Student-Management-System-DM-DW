@@ -786,19 +786,12 @@
                 <span class='material-icons-sharp'>menu_book</span>
                     <h3>Courses</h3>
                 </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        mail_outline
-                    </span>
-                    <h3>Messages</h3>
-                    <span class="message-count">18</span>
-                </a>
-                <a href="/professor/todolist">
-                    <span class="material-icons-sharp">
-                        inventory
-                    </span>
-                    <h3>To do List</h3>
-                </a>
+
+                <a href="/professor/notice">
+            <span class="material-icons-sharp"> newspaper </span>
+            <h3>Notice</h3>
+          </a>
+                
                 
                 <a href="#">
                     <span class="material-icons-sharp">
@@ -806,12 +799,7 @@
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        add
-                    </span>
-                    <h3>New Login</h3>
-                </a>
+                
                 <a href="{{url('/')}}/logout">
                     <span class="material-icons-sharp">
                         logout

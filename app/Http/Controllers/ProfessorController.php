@@ -429,5 +429,11 @@ public function insert_professors(Request $request)
         return redirect()->route('add_professor')->withErrors(['error' => 'An error occurred. Please try again.']);
     }
 }
+public function notice(Request $request){
+    $userObj = $request->session()->get("user");
+    $userId = $userObj->user_id;
+    $professor = Professors::where('user_id', $userId)->first();
+    return view('professordashboard.notice',compact('professor'));
+}
 
 }

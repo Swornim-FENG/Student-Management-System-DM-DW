@@ -7,7 +7,14 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css"
+    />
     <title>Super Admin</title>
   </head>
   <style>
@@ -209,23 +216,6 @@
       width: calc(100% - 60px);
       left: 60px;
     }
-    .add {
-      margin-left: 900px;
-    }
-    .custom-button {
-      background-color: #3498db;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-left: 900px;
-    }
-
-    .custom-button:hover {
-      background-color: #2980b9;
-    }
 
     .content nav {
       height: 56px;
@@ -367,22 +357,12 @@
       grid-gap: 16px;
       flex-wrap: wrap;
     }
-    .content main .header .left {
-      display: flex;
-    }
 
     .content main .header .left h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 10px;
       color: var(--dark);
-    }
-    .content main .header .left h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-      margin-top: 10px;
     }
 
     .content main .header .left .breadcrumb {
@@ -626,9 +606,6 @@
         width: calc(100% - 60px);
         left: 200px;
       }
-      .add {
-        margin-left: 200px;
-      }
     }
 
     @media screen and (max-width: 576px) {
@@ -677,174 +654,65 @@
       .content main .bottom-data .reminders .task-list {
         min-width: 340px;
       }
-      .custom-button {
-        margin-left: 10px;
-      }
-      .content main .header .left h1 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-      .content main .header .left h2 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
     }
-    @media screen and (max-width: 768px) {
-      main {
-        flex-direction: column;
-      }
-
-      .left {
-        max-width: 100%;
-      }
-
-      .header {
-        text-align: center;
-      }
-
-      .add-form {
-        text-align: center;
-      }
-      .first {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-      .second {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-      .top {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-      .third {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-      .fourth {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-      .mid {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-top: -30px;
-      }
-      .fifth {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-      .bot {
-        display: flex;
-        flex-direction: column;
-        margin-top: -30px;
-        justify-content: space-between;
-      }
+    #calendar {
+      max-width: 400px;
+      margin: 0 auto;
     }
 
-    .add-form {
-      max-width: 800px;
-      margin-top: 80px;
-      margin-left: -150px;
+    #event-modal {
+      display: none;
+      position: fixed;
+      background-color: #fff;
       padding: 20px;
-      border: 2px solid rgb(235, 225, 225);
-      border-radius: 5px;
-      color: var(--dark);
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transition: opacity 0.3s ease-in-out;
     }
 
-    label {
+    #close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #333;
+    }
+    .notice-content {
+      display: none;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-toggle {
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 5px 0;
+      z-index: 1;
+    }
+
+    .dropdown-menu a {
       display: block;
-      margin-bottom: 8px;
-      background: var(--grey);
-      color: var(--dark);
-      margin-left: 5px;
+      padding: 8px 12px;
+      text-decoration: none;
+      color: #333;
     }
 
-    input {
-      width: 300px;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      background: var(--grey);
-      color: var(--dark);
-    }
-
-    .s-button {
-      background-color: rgb(51, 81, 230);
-      color: #fff;
-    }
-    .s-button:hover {
-      background-color: #1525a1;
-    }
-    .first {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .second {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .top {
-      display: flex;
-      justify-content: space-between;
-    }
-    .third {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .fourth {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .mid {
-      display: flex;
-      justify-content: space-between;
-      margin-top: -30px;
-    }
-    .fifth {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .bot {
-      display: flex;
-      margin-top: -30px;
-      justify-content: space-between;
+    .dropdown-menu a:hover {
+      background-color: #f0f0f0;
     }
   </style>
 
@@ -856,7 +724,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -892,7 +760,7 @@
             ><i class="bx bx-book"></i>Courses</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/notice"><i class="bx bx-news"></i>Notice</a>
         </li>
 
@@ -938,137 +806,196 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Students</h1>
-            <h2>>add student</h2>
-            <div class="lol">
-              <form class="add-form" action="{{url('/')}}/superadmin/addstudents" method="post">
-              @csrf
-                <div class="top">
-                  <div class="first">
-                  <label for="fname">First Name:</label>
-                 <input type="text" id="fname" name="first_name" value="{{old('first_name')}}" />
-                 <span class="text-danger"style="color:red">
-                 @error('first_name')
-               {{$message}}
-               @enderror
-               </span>
-                    <label for="Ft-name">Father's Name:</label>
-                    <input type="text" id="Ft-name" name="father_name" value="{{old('father_name')}}"/>
-                    <span class="text-danger"style="color:red">
-            @error('father_name')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-                  <div class="second">
-                  <label for="lname">Last Name:</label>
-        <input type="text" id="lname" name="last_name" value="{{old('last_name')}}"  />
-        <span class="text-danger"style="color:red">
-            @error('last_name')
-               {{$message}}
-               @enderror
-               </span>
-
-                    <label for="Mt-name">Mother's Name:</label>
-                    <input type="text" id="Mt-name" name="mother_name" value="{{old('mother_name')}}"/>
-                    <span class="text-danger"style="color:red">
-            @error('mother_name')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-                </div>
-                <div class="mid">
-                  <div class="third">
-                  <label for="tem_address">Temporary Address:</label>
-        <input type="text" id="tem_address" name="temporary_address" value="{{old('temporary_address')}}" />
-        <span class="text-danger"style="color:red">
-            @error('temporary_address')
-               {{$message}}
-               @enderror
-               </span>
-               
-               <label for="phone_number">Phone Number:</label>
-          <input type="tel" id="phone_number" name="phone_number" value="{{old('phone_number')}}" />
-          <span class="text-danger"style="color:red">
-            @error('phone_number')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-
-                  <div class="fourth">
-                  <label for="per_address">Permanent Address:</label>
-        <input type="text" id="per_address" name="permanent_address" value="{{old('permanent_address')}}" />
-        <span class="text-danger"style="color:red">
-            @error('permanent_address')
-               {{$message}}
-               @enderror
-               </span>
-
-               <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{old('email')}}"  />
-        <span class="text-danger"style="color:red">
-            @error('email')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-                </div>
-                <div class="bot">
-                  <div class="dob">
-                    <label for="dob">Date of Birth (yyyy/mm/dd):</label>
-                    <input
-                      type="text"
-                      id="dob"
-                      name="date_of_birth"
-                      pattern="\d{4}/\d{2}/\d{2}"
-                      title="Please enter a date in the format yyyy/mm/dd"
-                      value="{{old('date_of_birth')}}"
-                    />
-                    <br>
-                  <span class="text-danger"style="color:red">
-                  @error('date_of_birth')
-                    {{$message}}
-                    @enderror
-                   </span>
-                  </div>
-                  
-                  <div class="rno">
-                  <label for="SId">Registration No.:</label>
-        <input type="text" id="SId" name="registration_no"  value="{{old('registration_no')}}"/>
-        <span class="text-danger"style="color:red">
-        <br>
-            @error('registration_no')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-                </div>
-                <div class="fifth">
-
-                <label for="password">Password:</label>
-        <div class="password-container">
-          <input type="password" id="password" name="password"  />
-          <i class="fas fa-eye" id="togglePassword"></i>
-          <br>
-          <span class="text-danger"style="color:red">
-            @error('password')
-               {{$message}}
-               @enderror
-               </span>
+            <h1>Notice</h1>
+          </div>
         </div>
-                </div>
-                
-                @if(session('error'))
-                <br>
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-              <br>
-                <input class="s-button" type="submit" value="Add Student" />
-              </form>
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-receipt"></i>
+              <h3>Recent Notices</h3>
+              <a href="/superadmin/add/notice"> <i class="bx bx-plus"></i></a>
+              <i class="bx bx-search"></i>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="notice-row" data-notice="notice-6">
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>HOD</p>
+                  </td>
+                  <td>10-18-2023</td>
+                  <td class="options">
+                    <div class="dropdown">
+                      <i
+                        class="bx bx-dots-vertical-rounded dropdown-toggle"
+                        onclick="toggleDropdown(this)"
+                      ></i>
+                      <div class="dropdown-menu">
+                        <a href="#" onclick="editNotice()">Edit</a>
+                        <a href="#" onclick="deleteNotice()">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="notice-row" data-notice="notice-6">
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>Classes</p>
+                  </td>
+                  <td>10-18-2023</td>
+                  <td class="options">
+                    <div class="dropdown">
+                      <i
+                        class="bx bx-dots-vertical-rounded dropdown-toggle"
+                        onclick="toggleDropdown(this)"
+                      ></i>
+                      <div class="dropdown-menu">
+                        <a href="#" onclick="editNotice()">Edit</a>
+                        <a href="#" onclick="deleteNotice()">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="notice-row" data-notice="notice-6">
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>holiday</p>
+                  </td>
+                  <td>10-18-2023</td>
+                  <td class="options">
+                    <div class="dropdown">
+                      <i
+                        class="bx bx-dots-vertical-rounded dropdown-toggle"
+                        onclick="toggleDropdown(this)"
+                      ></i>
+                      <div class="dropdown-menu">
+                        <a href="#" onclick="editNotice()">Edit</a>
+                        <a href="#" onclick="deleteNotice()">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Add more rows as needed -->
+                <tr class="notice-row" data-notice="notice-6">
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>Fund</p>
+                  </td>
+                  <td>10-18-2023</td>
+                  <td class="options">
+                    <div class="dropdown">
+                      <i
+                        class="bx bx-dots-vertical-rounded dropdown-toggle"
+                        onclick="toggleDropdown(this)"
+                      ></i>
+                      <div class="dropdown-menu">
+                        <a href="#" onclick="editNotice()">Edit</a>
+                        <a href="#" onclick="deleteNotice()">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="notice-row" data-notice="notice-6">
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>results</p>
+                  </td>
+                  <td>10-18-2023</td>
+                  <td class="options">
+                    <div class="dropdown">
+                      <i
+                        class="bx bx-dots-vertical-rounded dropdown-toggle"
+                        onclick="toggleDropdown(this)"
+                      ></i>
+                      <div class="dropdown-menu">
+                        <a href="#" onclick="editNotice()">Edit</a>
+                        <a href="#" onclick="deleteNotice()">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="notice-row" data-notice="notice-6">
+                  <td>
+                    <img src="{{ asset('images/ku logo.png') }}" />
+                    <p>Elections</p>
+                  </td>
+                  <td>10-18-2023</td>
+                  <td class="options">
+                    <div class="dropdown">
+                      <i
+                        class="bx bx-dots-vertical-rounded dropdown-toggle"
+                        onclick="toggleDropdown(this)"
+                      ></i>
+                      <div class="dropdown-menu">
+                        <a href="#" onclick="editNotice()">Edit</a>
+                        <a href="#" onclick="deleteNotice()">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Notice Content Slider -->
+            <div class="notice-content" id="notice-1">
+              <p><strong>I-I results</strong></p>
+              <p>
+                This is the content of the notice. Add your detailed information
+                here.
+              </p>
+              <img src="kathmandu_university_logo_nepal .png" />
+              <!-- Add more details as needed -->
+            </div>
+            <div class="notice-content" id="notice-2">
+              <p><strong>Fee Payment</strong></p>
+              <p>
+                This is the content of the notice. Add your detailed information
+                here.
+              </p>
+              <img src="kathmandu_university_logo_nepal .png" />
+              <!-- Add more details as needed -->
+            </div>
+            <div class="notice-content" id="notice-3">
+              <p><strong>Scholarship</strong></p>
+              <p>
+                This is the content of the notice. Add your detailed information
+                here.
+              </p>
+              <img src="kathmandu_university_logo_nepal .png" />
+              <!-- Add more details as needed -->
+            </div>
+            <div class="notice-content" id="notice-4">
+              <p><strong>Fund</strong></p>
+              <p>
+                This is the content of the notice. Add your detailed information
+                here.
+              </p>
+              <img src="kathmandu_university_logo_nepal .png" />
+            </div>
+            <!-- Add more details as needed -->
+            <div class="notice-content" id="notice-5">
+              <p><strong>Workshop</strong></p>
+              <p>
+                This is the content of the notice. Add your detailed information
+                here.
+              </p>
+              <img src="kathmandu_university_logo_nepal .png" />
+            </div>
+            <!-- Add more details as needed -->
+            <div class="notice-content" id="notice-6">
+              <p><strong>Elections</strong></p>
+              <p>
+                This is the content of the notice. Add your detailed information
+                here.
+              </p>
+              <img src="kathmandu_university_logo_nepal .png" />
+              <!-- Add more details as needed -->
             </div>
           </div>
         </div>
@@ -1138,6 +1065,138 @@
           document.body.classList.remove("dark");
         }
       });
+      //calander script start
+      var selectedDate; // Declare a global variable to store the selected date
+
+      $(document).ready(function () {
+        $("#calendar").fullCalendar({
+          header: {
+            left: "prev,next ",
+            center: "title",
+            right: "",
+          },
+          eventMouseover: function (event, jsEvent, view) {
+            openModal(event.start, false, jsEvent);
+          },
+          dayClick: function (date, jsEvent, view) {
+            openModal(date, true, jsEvent);
+          },
+        });
+
+        // Handle mouseenter and mouseleave events for the modal
+        $("#event-modal")
+          .mouseenter(function () {
+            // No need to close the modal when the mouse enters the modal
+          })
+          .mouseleave(function () {
+            closeModal();
+          });
+
+        // Handle click event for the close button
+        $("#close-modal").click(function () {
+          closeModal();
+        });
+      });
+
+      function openModal(date, isAddingEvent, jsEvent) {
+        // Get events for the clicked date
+        var events = $("#calendar").fullCalendar(
+          "clientEvents",
+          function (event) {
+            return event.start.isSame(date, "day");
+          }
+        );
+
+        // Populate modal with event details
+        var modalContent = "";
+
+        if (events.length > 0) {
+          events.forEach(function (event) {
+            modalContent += `<p><strong>${event.title}</strong>: ${event.description}</p>`;
+          });
+        }
+
+        if (isAddingEvent) {
+          modalContent +=
+            '<button id="add-event-btn" onclick="addEvent()">Add Event</button>';
+        }
+
+        modalContent +=
+          '<span id="close-modal" onclick="closeModal()">X</span>';
+
+        $("#event-modal-content").html(modalContent);
+
+        // Position the modal based on mouse coordinates
+        var modalLeft = jsEvent.pageX;
+        var modalTop = jsEvent.pageY;
+
+        $("#event-modal").css({
+          left: modalLeft,
+          top: modalTop,
+        });
+
+        $("#event-modal").fadeIn();
+
+        selectedDate = date; // Store the selected date
+      }
+
+      function closeModal() {
+        $("#event-modal").fadeOut();
+      }
+
+      function addEvent() {
+        var title = prompt("Enter event title:");
+        var description = prompt("Enter event description:");
+
+        if (title && description) {
+          var newEvent = {
+            title: title,
+            start: selectedDate.format(),
+            description: description,
+          };
+
+          $("#calendar").fullCalendar("renderEvent", newEvent, true);
+          closeModal();
+        }
+      }
+      function showConfirmationPopup() {
+        document.getElementById("confirmationPopup").style.display = "block";
+      }
+
+      function closeConfirmationPopup() {
+        document.getElementById("confirmationPopup").style.display = "none";
+      }
+
+      function confirmAddAdmin() {
+        // Perform the action when the user confirms
+        document.getElementById("addAdminForm").submit();
+
+        // Close the confirmation popup
+        closeConfirmationPopup();
+      }
+      // jQuery script to toggle visibility of notice content
+      $(document).ready(function () {
+        $(".notice-row").click(function () {
+          var noticeId = $(this).data("notice");
+          $("#" + noticeId).slideToggle();
+        });
+      });
+      //edit and delete
+      function toggleDropdown(dropdownToggle) {
+        var dropdownMenu = dropdownToggle.nextElementSibling;
+        dropdownMenu.style.display =
+          dropdownMenu.style.display === "block" ? "none" : "block";
+      }
+
+      function editNotice() {
+        // Implement your edit functionality here
+        alert("Edit action triggered");
+      }
+
+      function deleteNotice() {
+        // Implement your delete functionality here
+        alert("Delete action triggered");
+      }
     </script>
   </body>
 </html>

@@ -282,6 +282,7 @@
       outline: none;
       width: 100%;
       color: var(--dark);
+      margin-top: 25px;
     }
 
     .content nav form .form-input button {
@@ -629,6 +630,9 @@
       .add {
         margin-left: 200px;
       }
+      .button1S {
+        margin-left: 0px;
+      }
     }
 
     @media screen and (max-width: 576px) {
@@ -692,97 +696,34 @@
         margin-bottom: 10px;
         color: var(--dark);
       }
-    }
-    @media screen and (max-width: 768px) {
-      main {
-        flex-direction: column;
-      }
-
-      .left {
-        max-width: 100%;
-      }
-
-      .header {
-        text-align: center;
-      }
-
       .add-form {
-        text-align: center;
+        max-width: 300px;
       }
-      .first {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
+      input,
+      select {
+        max-width: 270px;
       }
-      .second {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-      .top {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-      .third {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-      .fourth {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-      .mid {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-top: -30px;
-      }
-      .fifth {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-      .bot {
-        display: flex;
-        flex-direction: column;
-        margin-top: -30px;
-        justify-content: space-between;
+      .btn {
+        margin-left: 0px;
       }
     }
-
     .add-form {
-      max-width: 800px;
-      margin-top: 80px;
-      margin-left: -150px;
+      max-width: 550px;
+      margin: 20px auto;
       padding: 20px;
-      border: 2px solid rgb(235, 225, 225);
+      border: 1px solid #ddd;
       border-radius: 5px;
-      color: var(--dark);
     }
 
     label {
       display: block;
       margin-bottom: 8px;
-      background: var(--grey);
       color: var(--dark);
-      margin-left: 5px;
     }
 
-    input {
-      width: 300px;
+    input,
+    select {
+      width: 500px;
       padding: 8px;
       margin-bottom: 15px;
       box-sizing: border-box;
@@ -790,61 +731,89 @@
       color: var(--dark);
     }
 
-    .s-button {
+    button {
       background-color: rgb(51, 81, 230);
-      color: #fff;
+      color: white;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-    .s-button:hover {
+
+    button:hover {
       background-color: #1525a1;
     }
-    .first {
+    .button1S {
+      background-color: rgb(38, 194, 98);
+      color: white;
+      padding: 10px 15px;
+      margin-top: 10px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button1S:hover {
+      background-color: #15a12a;
+    }
+    .email-list {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .email-item {
+      display: flex;
+      align-items: center;
       padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
+
+      border-radius: 5px;
+      margin: 5px;
+      width: 100%;
+      cursor: pointer;
     }
-    .second {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
+
+    .email-item input {
+      border: 1px solid #746a6a;
+      outline: none;
+      width: 100%;
+      background: var(--grey);
+      color: var(--dark);
     }
-    .top {
-      display: flex;
-      justify-content: space-between;
+
+    .remove-button {
+      margin-left: -20px;
+      margin-bottom: 16px;
+      background: var(--grey);
+      color: var(--dark);
     }
-    .third {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
+    .confirmation-popup {
+      display: none;
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      left: 49.5%; /* Center horizontally */
+      top: 75%;
+      transform: translateX(-50%); /* Adjust to move towards left */
     }
-    .fourth {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
+    .s-button {
+      background-color: rgb(51, 81, 230);
+      color: white;
+      padding: 10px 15px;
+      margin-top: 10px;
+      margin-left: 0px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-    .mid {
-      display: flex;
-      justify-content: space-between;
-      margin-top: -30px;
-    }
-    .fifth {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .bot {
-      display: flex;
-      margin-top: -30px;
-      justify-content: space-between;
+
+    .s-button:hover {
+      background-color: #1525a1;
     }
   </style>
 
@@ -856,7 +825,7 @@
         <h4>Super Admin</h4>
       </div>
       <ul class="side-menu">
-        <li class="active">
+        <li >
           <a href="/superadmin"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
@@ -892,7 +861,7 @@
             ><i class="bx bx-book"></i>Courses</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/superadmin/notice"><i class="bx bx-news"></i>Notice</a>
         </li>
 
@@ -938,139 +907,37 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Students</h1>
-            <h2>>add student</h2>
-            <div class="lol">
-              <form class="add-form" action="{{url('/')}}/superadmin/addstudents" method="post">
-              @csrf
-                <div class="top">
-                  <div class="first">
-                  <label for="fname">First Name:</label>
-                 <input type="text" id="fname" name="first_name" value="{{old('first_name')}}" />
-                 <span class="text-danger"style="color:red">
-                 @error('first_name')
-               {{$message}}
-               @enderror
-               </span>
-                    <label for="Ft-name">Father's Name:</label>
-                    <input type="text" id="Ft-name" name="father_name" value="{{old('father_name')}}"/>
-                    <span class="text-danger"style="color:red">
-            @error('father_name')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-                  <div class="second">
-                  <label for="lname">Last Name:</label>
-        <input type="text" id="lname" name="last_name" value="{{old('last_name')}}"  />
-        <span class="text-danger"style="color:red">
-            @error('last_name')
-               {{$message}}
-               @enderror
-               </span>
-
-                    <label for="Mt-name">Mother's Name:</label>
-                    <input type="text" id="Mt-name" name="mother_name" value="{{old('mother_name')}}"/>
-                    <span class="text-danger"style="color:red">
-            @error('mother_name')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-                </div>
-                <div class="mid">
-                  <div class="third">
-                  <label for="tem_address">Temporary Address:</label>
-        <input type="text" id="tem_address" name="temporary_address" value="{{old('temporary_address')}}" />
-        <span class="text-danger"style="color:red">
-            @error('temporary_address')
-               {{$message}}
-               @enderror
-               </span>
-               
-               <label for="phone_number">Phone Number:</label>
-          <input type="tel" id="phone_number" name="phone_number" value="{{old('phone_number')}}" />
-          <span class="text-danger"style="color:red">
-            @error('phone_number')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-
-                  <div class="fourth">
-                  <label for="per_address">Permanent Address:</label>
-        <input type="text" id="per_address" name="permanent_address" value="{{old('permanent_address')}}" />
-        <span class="text-danger"style="color:red">
-            @error('permanent_address')
-               {{$message}}
-               @enderror
-               </span>
-
-               <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{old('email')}}"  />
-        <span class="text-danger"style="color:red">
-            @error('email')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-                </div>
-                <div class="bot">
-                  <div class="dob">
-                    <label for="dob">Date of Birth (yyyy/mm/dd):</label>
-                    <input
-                      type="text"
-                      id="dob"
-                      name="date_of_birth"
-                      pattern="\d{4}/\d{2}/\d{2}"
-                      title="Please enter a date in the format yyyy/mm/dd"
-                      value="{{old('date_of_birth')}}"
-                    />
-                    <br>
-                  <span class="text-danger"style="color:red">
-                  @error('date_of_birth')
-                    {{$message}}
-                    @enderror
-                   </span>
-                  </div>
-                  
-                  <div class="rno">
-                  <label for="SId">Registration No.:</label>
-        <input type="text" id="SId" name="registration_no"  value="{{old('registration_no')}}"/>
-        <span class="text-danger"style="color:red">
-        <br>
-            @error('registration_no')
-               {{$message}}
-               @enderror
-               </span>
-                  </div>
-                </div>
-                <div class="fifth">
-
-                <label for="password">Password:</label>
-        <div class="password-container">
-          <input type="password" id="password" name="password"  />
-          <i class="fas fa-eye" id="togglePassword"></i>
-          <br>
-          <span class="text-danger"style="color:red">
-            @error('password')
-               {{$message}}
-               @enderror
-               </span>
-        </div>
-                </div>
-                
-                @if(session('error'))
-                <br>
-               <span class="alert alert-danger"style="color:red">
-               {{ session('error') }}
-                </span>
-                @endif
-              <br>
-                <input class="s-button" type="submit" value="Add Student" />
-              </form>
-            </div>
+            <a href="suAdmin-notice.html"><h1>Notice</h1></a>
+            <h2>>Add notice</h2>
           </div>
+        </div>
+        <div>
+          <form class="add-form" method="post" enctype="multipart/form-data">
+            <!-- Notice Heading -->
+            <label for="noticeHeading">Notice Heading:</label>
+            <input
+              type="text"
+              id="noticeHeading"
+              name="noticeHeading"
+              required
+            />
+
+            <!-- Notice Description -->
+            <label for="noticeDescription">Notice Description:</label>
+            <textarea
+              id="noticeDescription"
+              name="noticeDescription"
+              rows="4"
+              required
+            ></textarea>
+
+            <!-- File Upload for PDF or Image -->
+            <label for="fileUpload">Upload PDF or Image:</label>
+            <input type="file" id="fileUpload" name="fileUpload" />
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+          </form>
         </div>
       </main>
     </div>
@@ -1138,6 +1005,22 @@
           document.body.classList.remove("dark");
         }
       });
+
+      function showConfirmationPopup() {
+        document.getElementById("confirmationPopup").style.display = "block";
+      }
+
+      function closeConfirmationPopup() {
+        document.getElementById("confirmationPopup").style.display = "none";
+      }
+
+      function confirmAddAdmin() {
+        // Perform the action when the user confirms
+        document.getElementById("addAdminForm").submit();
+
+        // Close the confirmation popup
+        closeConfirmationPopup();
+      }
     </script>
   </body>
 </html>

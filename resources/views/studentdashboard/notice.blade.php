@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
       rel="stylesheet"
     />
@@ -587,6 +592,10 @@
         margin-top: 1rem;
         box-shadow: var(--box-shadow);
       }
+      .widget h3 {
+        font-size: 16px;
+        font-style: bold;
+      }
 
       .upcoming-deadlines ul {
         list-style: none;
@@ -607,11 +616,43 @@
         border-radius: var(--border-radius-2);
         box-shadow: var(--box-shadow);
         margin-bottom: 1rem;
+        width: 100%;
+      }
+      .notification1 {
+        background-color: var(--color-white);
+        padding: 1rem;
+        border-radius: var(--border-radius-2);
+        box-shadow: var(--box-shadow);
+        margin-bottom: 1rem;
+        width: 100%;
       }
 
       .notification p {
         margin: 0;
         color: var(--color-dark);
+      }
+      .notifications h3 {
+        font-size: 16px;
+      }
+      .iframe {
+        width: 90%;
+        height: 200px;
+      }
+      #modal {
+        display: none;
+        position: fixed;
+        top: 55%;
+        left: 90%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: var(--color-white);
+        border: 1px solid #ccc;
+        z-index: 1000;
+      }
+      #calendar {
+        margin-top: 50px;
+        max-width: 400px;
+        background-color: var(--color-white);
       }
 
       @media screen and (max-width: 1200px) {
@@ -783,28 +824,6 @@
           font-size: 2rem;
         }
       }
-      .setting-list {
-        background-color: var(--color-white);
-        padding: 1rem;
-        border-radius: var(--border-radius-2);
-        box-shadow: var(--box-shadow);
-        margin-bottom: 1rem;
-        margin-top: 1rem;
-      }
-      .setting {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-        width: 50%;
-      }
-      .setting:hover {
-        background-color: rgb(184, 182, 186);
-        /* background-color: red; */
-        display: flex;
-        flex-direction: column;
-      }
     </style>
   </head>
 
@@ -823,17 +842,17 @@
         </div>
 
         <div class="sidebar">
-          <a href="/student" >
+          <a href="/student">
             <span class="material-icons-sharp"> dashboard </span>
             <h3>Dashboard</h3>
           </a>
 
-          <a href="/student/grades">
+          <a href="/student/grades" >
             <span class="material-icons-sharp"> receipt_long </span>
             <h3>Grades</h3>
           </a>
 
-          <a href="/student/courses">
+          <a href="/student/courses"  >
             <span class="material-icons-sharp">menu_book</span>
             <h3>Courses</h3>
           </a>
@@ -843,12 +862,12 @@
             <h3>Fee</h3>
           </a>
           
-          <a href="/student/notice" >
+          <a href="/student/notice" class="active">
             <span class="material-symbols-outlined"> quick_reference </span>
             <h3>Notice</h3>
           </a>
 
-          <a href="/student/settings"  class="active">
+          <a href="/student/settings">
             <span class="material-icons-sharp"> settings </span>
             <h3>Settings</h3>
           </a>
@@ -863,32 +882,35 @@
 
       <!-- Main Content -->
       <main>
-        <!-- Inside the <body> tag -->
-
-        <div class="profile-section">
-          <div class="profile-photo">
-            <img
+        <h1>Notice</h1>
+        <div class="notifications">
+          <h3>Recent Notices</h3>
+          <div class="notification1">
+            <h4>Notice-Title</h4>
+            <p>notice content</p>
+            <iframe
               src="kathmandu_university_logo_nepal .png"
-              alt="Profile Picture"
-            />
+              class="iframe"
+            ></iframe>
           </div>
-          <div class="profile-info">
-            <h2>Hey, <span class="username">{{$student->Firstname}}</span></h2>
-            <p>GPA: 3.8</p>
-            <p>Courses Completed: 15</p>
+          <div class="notification1">
+            <h4>Notice-Title</h4>
+            <p>notice content with no image or pdf</p>
+          </div>
+          <div class="notification1">
+            <h4>Notice-Title</h4>
+            <p>notice content</p>
+            <iframe
+              src="kathmandu_university_logo_nepal .png"
+              class="iframe"
+            ></iframe>
           </div>
         </div>
-        <div class="setting-list">
-          <h2>settings</h2>
-          <div class="setting">
-            <a href="#">
-              <span class="material-icons-sharp"> perm_identity </span>
-              <h3>change Profile Photo</h3>
-            </a>
-          </div>
-          <div class="setting">change personal details</div>
-        </div>
+        <!-- Inside the <body> tag -->
       </main>
+      <!-- End of Main Content -->
+
+      <!-- Right Section -->
       <div class="right-section">
         <div class="nav">
           <button id="menu-btn">
@@ -898,7 +920,21 @@
             <span class="material-icons-sharp active"> light_mode </span>
             <span class="material-icons-sharp"> dark_mode </span>
           </div>
+          <div class="profile">
+            <div class="info">
+              <p>Hey, <b>{{$student->Firstname}}</b></p>
+            </div>
+            <div class="profile-photo">
+              <img src="{{ asset('images/ku logo.png') }}" />
+            </div>
+          </div>
         </div>
+        <!-- End of Nav -->
+
+        <div id="calendar"></div>
+
+        <!-- Modal for event details -->
+        <div id="modal"></div>
       </div>
     </div>
 
@@ -961,6 +997,68 @@
           status: "Active",
         },
       ];
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          timeZone: "local", // Set the time zone to local
+          initialView: "dayGridMonth",
+          events: [], // Initialize with an empty array
+          dateClick: function (info) {
+            // Prompt for title and description
+            var title = prompt("Enter event title:");
+            var description = prompt("Enter event description:");
+
+            if (title) {
+              // Add the event to the calendar
+              var event = {
+                title: title,
+                description: description,
+                start: info.dateStr,
+                allDay: true,
+              };
+              calendar.addEvent(event);
+            }
+          },
+          eventMouseEnter: function (info) {
+            // Show the modal on hover
+            showModal(
+              info.event.title,
+              info.event.extendedProps.description,
+              info.event.start.toISOString().split("T")[0]
+            );
+          },
+          eventMouseLeave: function () {
+            // Hide the modal on mouse leave
+            hideModal();
+          },
+        });
+
+        calendar.render();
+
+        function showModal(title, description, date) {
+          // Basic implementation of a modal
+          var modal = document.getElementById("modal");
+
+          // Update the modal content with event details
+          modal.innerHTML =
+            "<p>Title: " +
+            title +
+            "</p><p>Description: " +
+            description +
+            "</p><p>Date: ";
+
+          // Show the modal
+          modal.style.display = "block";
+        }
+
+        function hideModal() {
+          // Hide the modal
+          var modal = document.getElementById("modal");
+          modal.style.display = "none";
+        }
+      });
     </script>
   </body>
 </html>
