@@ -19,6 +19,7 @@ use App\Models\Schools;
 use App\Models\Students;
 use App\Models\Program_students;
 use App\Models\Program_professors;
+use App\Models\Superadmin_notice;
 
 class SuperadminController extends Controller
 {
@@ -117,13 +118,34 @@ class SuperadminController extends Controller
     }
 
     public function notice(){
-        
-        return view('superadmindashboard.notice');
+        $notices = Superadmin_notice::all();
+        return view('superadmindashboard.notice', compact('notices'));
     }
 
     public function show_add_notice(){
-        
         return view('superadmindashboard.addnotice');
+    }
+
+    public function add_notice(Request $request){
+        $request->validate(
+            [
+                'noticeHeading'=>'required',
+                'noticeDescription'=>'required',
+                'fileUpload'=>'required'
+                
+            ]
+            );
+            $superadmin_notice=new Superadmin_notice;
+            $superadmin_notice->notice_description = $request['noticeDescription'];
+            $superadmin_notice->notice_heading = $request['noticeHeading'];
+            $name =$request->file('fileUpload')->getClientOriginalName();
+            $request->file('fileUpload')->storeAs('public/images/',$name);
+            $superadmin_notice->notice_file =$name;
+            $superadmin_notice->save();
+            return redirect('/superadmin/notice');
+
+        
+        
     }
     
 }

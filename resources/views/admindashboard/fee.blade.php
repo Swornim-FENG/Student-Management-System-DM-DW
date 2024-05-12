@@ -543,9 +543,9 @@
     }
 
     .content main .bottom-data .orders table td img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      /* border-radius: 50%; */
       object-fit: cover;
     }
 
@@ -799,6 +799,7 @@
     }
   </style>
 
+
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -878,7 +879,7 @@
               <i class="bx bx-receipt"></i>
               <h3>Fee Details</h3>
             </div>
-            <table>
+            <table id="feeTable">
               <thead>
                 <tr>
                   <th>Student Name</th>
@@ -1067,6 +1068,7 @@
                       Submit
                     </button>
                   </td>
+                  <td id="admissionFeeCell"></td>
                 </tr>
                 <tr>
                   <td>Rikshal Shrestha</td>
@@ -1232,6 +1234,7 @@
                       Submit
                     </button>
                   </td>
+                  <td id="admissionFeeCell"></td>
                 </tr>
                 <tr>
                   <td>Swornim Aacharya</td>
@@ -1397,6 +1400,7 @@
                       Submit
                     </button>
                   </td>
+                  <td id="admissionFeeCell"></td>
                 </tr>
 
                 <!-- Add more rows as needed -->
@@ -1507,6 +1511,86 @@
           } else {
             submitButtons[index].style.display = "none";
           }
+        });
+      });
+
+      function displayPDF(input) {
+        var file = input.files[0];
+        var pdfDisplayCell = document.getElementById("pdfDisplayCell");
+
+        // Check if a file is selected
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var fileType = file.type.split("/")[0]; // Check file type
+            if (fileType === "application/pdf" || fileType === "image") {
+              var iframe = document.createElement("iframe");
+              iframe.src = e.target.result;
+              iframe.width = "100%";
+              iframe.height = "500px"; // Adjust height as needed
+              iframe.frameBorder = "0";
+              pdfDisplayCell.innerHTML = ""; // Clear existing content
+              pdfDisplayCell.appendChild(iframe);
+            } else {
+              alert("Invalid file format. Please select a PDF or image file.");
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+      // dispplay
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInputs = document.querySelectorAll(".fileInput");
+
+        fileInputs.forEach(function (input) {
+          input.addEventListener("change", function () {
+            const file = this.files[0];
+            const reader = new FileReader();
+            const parentCell = this.parentElement;
+
+            reader.onload = function (e) {
+              const fileContent = e.target.result;
+              const fileType = file.type;
+
+              // Check if file type is PDF or image
+              if (fileType.includes("pdf")) {
+                // Display PDF
+                parentCell.innerHTML = `<embed src="${fileContent}" width="100%" height="200px" type="application/pdf" />`;
+              } else if (fileType.includes("image")) {
+                // Display image
+                const img = new Image();
+                img.src = fileContent;
+                img.onload = function () {
+                  const canvas = document.createElement("canvas");
+                  const ctx = canvas.getContext("2d");
+
+                  // Calculate aspect ratio
+                  const aspectRatio = img.width / img.height;
+
+                  // Set canvas dimensions based on aspect ratio
+                  let canvasWidth, canvasHeight;
+                  if (aspectRatio > 1) {
+                    canvasWidth = 100;
+                    canvasHeight = 100 / aspectRatio;
+                  } else {
+                    canvasWidth = 100 * aspectRatio;
+                    canvasHeight = 100;
+                  }
+
+                  canvas.width = canvasWidth;
+                  canvas.height = canvasHeight;
+
+                  // Draw image onto canvas
+                  ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
+
+                  // Display resized image
+                  parentCell.innerHTML = `<img src="${canvas.toDataURL()}" alt="Uploaded Image" width="${canvasWidth}" height="${canvasHeight}" />`;
+                };
+              }
+            };
+
+            reader.readAsDataURL(file);
+          });
         });
       });
     </script>

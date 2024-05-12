@@ -803,6 +803,7 @@
 
       <!-- End of Navbar -->
 
+
       <main>
         <div class="header">
           <div class="left">
@@ -819,190 +820,76 @@
             </div>
             <table>
               <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                </tr>
+                
               </thead>
               <tbody>
-                <tr class="notice-row" data-notice="notice-6">
-                  <td>
+              @if($notices->isEmpty())
+    <p>No notices available.</p>
+@else
+    <table>
+        <tbody>
+            @foreach($notices as $notice)
+            <tr class="notice-row" data-notice="{{ $notice->id }}">
+                <td>
                     <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>HOD</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td class="options">
+                    <p>{{ $notice->notice_heading }}</p>
+                </td>
+                <td>{{ $notice->created_at->format('m-d-Y') }}</td>
+                <td class="options">
                     <div class="dropdown">
-                      <i
-                        class="bx bx-dots-vertical-rounded dropdown-toggle"
-                        onclick="toggleDropdown(this)"
-                      ></i>
-                      <div class="dropdown-menu">
-                        <a href="#" onclick="editNotice()">Edit</a>
-                        <a href="#" onclick="deleteNotice()">Delete</a>
-                      </div>
+                        <i class="bx bx-dots-vertical-rounded dropdown-toggle" onclick="toggleDropdown(this)"></i>
+                        <div class="dropdown-menu">
+                            <a href="#" onclick="editNotice()">Edit</a>
+                            <a href="#" onclick="deleteNotice()">Delete</a>
+                        </div>
                     </div>
-                  </td>
-                </tr>
-                <tr class="notice-row" data-notice="notice-6">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Classes</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td class="options">
-                    <div class="dropdown">
-                      <i
-                        class="bx bx-dots-vertical-rounded dropdown-toggle"
-                        onclick="toggleDropdown(this)"
-                      ></i>
-                      <div class="dropdown-menu">
-                        <a href="#" onclick="editNotice()">Edit</a>
-                        <a href="#" onclick="deleteNotice()">Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="notice-row" data-notice="notice-6">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>holiday</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td class="options">
-                    <div class="dropdown">
-                      <i
-                        class="bx bx-dots-vertical-rounded dropdown-toggle"
-                        onclick="toggleDropdown(this)"
-                      ></i>
-                      <div class="dropdown-menu">
-                        <a href="#" onclick="editNotice()">Edit</a>
-                        <a href="#" onclick="deleteNotice()">Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <!-- Add more rows as needed -->
-                <tr class="notice-row" data-notice="notice-6">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Fund</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td class="options">
-                    <div class="dropdown">
-                      <i
-                        class="bx bx-dots-vertical-rounded dropdown-toggle"
-                        onclick="toggleDropdown(this)"
-                      ></i>
-                      <div class="dropdown-menu">
-                        <a href="#" onclick="editNotice()">Edit</a>
-                        <a href="#" onclick="deleteNotice()">Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="notice-row" data-notice="notice-6">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>results</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td class="options">
-                    <div class="dropdown">
-                      <i
-                        class="bx bx-dots-vertical-rounded dropdown-toggle"
-                        onclick="toggleDropdown(this)"
-                      ></i>
-                      <div class="dropdown-menu">
-                        <a href="#" onclick="editNotice()">Edit</a>
-                        <a href="#" onclick="deleteNotice()">Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="notice-row" data-notice="notice-6">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Elections</p>
-                  </td>
-                  <td>10-18-2023</td>
-                  <td class="options">
-                    <div class="dropdown">
-                      <i
-                        class="bx bx-dots-vertical-rounded dropdown-toggle"
-                        onclick="toggleDropdown(this)"
-                      ></i>
-                      <div class="dropdown-menu">
-                        <a href="#" onclick="editNotice()">Edit</a>
-                        <a href="#" onclick="deleteNotice()">Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <!-- Notice Content Slider -->
-            <div class="notice-content" id="notice-1">
-              <p><strong>I-I results</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-              <!-- Add more details as needed -->
-            </div>
-            <div class="notice-content" id="notice-2">
-              <p><strong>Fee Payment</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-              <!-- Add more details as needed -->
-            </div>
-            <div class="notice-content" id="notice-3">
-              <p><strong>Scholarship</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-              <!-- Add more details as needed -->
-            </div>
-            <div class="notice-content" id="notice-4">
-              <p><strong>Fund</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-            </div>
-            <!-- Add more details as needed -->
-            <div class="notice-content" id="notice-5">
-              <p><strong>Workshop</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-            </div>
-            <!-- Add more details as needed -->
-            <div class="notice-content" id="notice-6">
-              <p><strong>Elections</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-              <!-- Add more details as needed -->
-            </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="notice-content" id="notice-{{ $notice->id }}" style="display: none;">
+                    <p><strong>{{ $notice->notice_heading }}</strong></p>
+                    <p>{{ $notice->notice_description }}</p>
+                    @if($notice->notice_file)
+                    <iframe src="{{ asset('storage/images/' . $notice->notice_file) }}" width="100%" height="300px"></iframe>
+                    @endif
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+@endif
+
+
+
+            
           </div>
         </div>
       </main>
     </div>
 
     <script>
+
+function toggleNoticeContent(id) {
+    var content = document.getElementById('notice-' + id);
+    if (content.style.display === "none" || content.style.display === "") {
+        content.style.display = "block";
+    } else {
+        content.style.display = "none";
+    }
+}
+
+function toggleDropdown(element) {
+    var dropdownMenu = element.nextElementSibling;
+    dropdownMenu.style.display =
+        dropdownMenu.style.display === "block" ? "none" : "block";
+}
+
+$(document).ready(function () {
+    $(".notice-row").click(function () {
+        var noticeId = $(this).data("notice");
+        toggleNoticeContent(noticeId);
+    });
+});
       const sideLinks = document.querySelectorAll(
         ".sidebar .side-menu li a:not(.logout)"
       );
@@ -1175,18 +1062,9 @@
         closeConfirmationPopup();
       }
       // jQuery script to toggle visibility of notice content
-      $(document).ready(function () {
-        $(".notice-row").click(function () {
-          var noticeId = $(this).data("notice");
-          $("#" + noticeId).slideToggle();
-        });
-      });
+      
       //edit and delete
-      function toggleDropdown(dropdownToggle) {
-        var dropdownMenu = dropdownToggle.nextElementSibling;
-        dropdownMenu.style.display =
-          dropdownMenu.style.display === "block" ? "none" : "block";
-      }
+      
 
       function editNotice() {
         // Implement your edit functionality here
@@ -1200,3 +1078,6 @@
     </script>
   </body>
 </html>
+
+
+      

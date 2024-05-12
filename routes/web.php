@@ -189,6 +189,8 @@ Route::get('/superadmin/notice',[SuperadminController::class,'notice']);
 
 Route::get('/superadmin/add/notice',[SuperadminController::class,'show_add_notice']);
 
+Route::post('/superadmin/add/notice',[SuperadminController::class,'add_notice']);
+
 Route::get('/admin/notice',[AdminController::class,'notice']);
 
 Route::get('/admin/add/notice',[AdminController::class,'show_add_notice']);
