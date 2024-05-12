@@ -359,4 +359,18 @@ $student = Students::where('user_id', $userId)->first();
 return view('studentdashboard.notice', compact('student', 'grouped_notices'));
 }
 
+public function student_attendance(Request $request){
+    $userObj = $request->session()->get("user");
+    $userId=$userObj->user_id;
+    $student=Students::where('user_id',$userId)->first();
+    return view('studentdashboard.attendance',compact('student'));
+}
+
+public function student_individual_attendance(Request $request){
+    $userObj = $request->session()->get("user");
+    $userId=$userObj->user_id;
+    $student=Students::where('user_id',$userId)->first();
+    return view('studentdashboard.individualattendance',compact('student'));
+}
+
 }

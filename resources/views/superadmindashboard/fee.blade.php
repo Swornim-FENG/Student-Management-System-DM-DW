@@ -7,14 +7,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css"
-    />
     <title>Super Admin</title>
   </head>
   <style>
@@ -215,6 +208,23 @@
     .sidebar.close ~ .content {
       width: calc(100% - 60px);
       left: 60px;
+    }
+    .add {
+      margin-left: 900px;
+    }
+    .custom-button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 900px;
+    }
+
+    .custom-button:hover {
+      background-color: #2980b9;
     }
 
     .content nav {
@@ -596,6 +606,54 @@
     .content main .bottom-data .reminders .task-list li:last-child {
       margin-bottom: 0;
     }
+    main .new-users {
+      margin-top: 1.3rem;
+    }
+
+    main .new-users .user-list {
+      background-color: var(--color-white);
+      padding: var(--card-padding);
+      border-radius: var(--card-border-radius);
+      margin-top: 1rem;
+      box-shadow: var(--box-shadow);
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      max-width: 900px;
+    }
+
+    main .new-users .user-list:hover {
+      box-shadow: none;
+    }
+
+    main .new-users .user-list .user {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+    }
+    .new-users h2 {
+      font-size: 1.5em;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .user h2 {
+      margin-top: 5px;
+      font-size: 1.2em;
+
+      color: #1976d2;
+    }
+
+    main .new-users .user-list .user img {
+      width: 5rem;
+      height: 5rem;
+      margin-bottom: 0.4rem;
+      border-radius: 50%;
+    }
 
     @media screen and (max-width: 768px) {
       .sidebar {
@@ -605,6 +663,9 @@
       .content {
         width: calc(100% - 60px);
         left: 200px;
+      }
+      .add {
+        margin-left: 200px;
       }
     }
 
@@ -654,65 +715,9 @@
       .content main .bottom-data .reminders .task-list {
         min-width: 340px;
       }
-    }
-    #calendar {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    #event-modal {
-      display: none;
-      position: fixed;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    #close-modal {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      color: #333;
-    }
-    .notice-content {
-      display: none;
-      padding: 10px;
-      border: 1px solid #ccc;
-      margin-top: 10px;
-    }
-
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-toggle {
-      cursor: pointer;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      padding: 5px 0;
-      z-index: 1;
-    }
-
-    .dropdown-menu a {
-      display: block;
-      padding: 8px 12px;
-      text-decoration: none;
-      color: #333;
-    }
-
-    .dropdown-menu a:hover {
-      background-color: #f0f0f0;
+      .custom-button {
+        margin-left: 10px;
+      }
     }
   </style>
 
@@ -760,10 +765,10 @@
             ><i class="bx bx-book"></i>Courses</a
           >
         </li>
-        <li class="active">
+        <li >
           <a href="/superadmin/notice"><i class="bx bx-news"></i>Notice</a>
         </li>
-        <li >
+        <li class="active">
           <a href="/superadmin/fee"> <i class="bx bx-dollar"></i> Fee</a>
         </li>
 
@@ -806,93 +811,48 @@
 
       <!-- End of Navbar -->
 
-
       <main>
         <div class="header">
           <div class="left">
-            <h1>Notice</h1>
+            <h1>Fee</h1>
           </div>
         </div>
-        <div class="bottom-data">
-          <div class="orders">
-            <div class="header">
-              <i class="bx bx-receipt"></i>
-              <h3>Recent Notices</h3>
-              <a href="/superadmin/add/notice"> <i class="bx bx-plus"></i></a>
-              <i class="bx bx-search"></i>
-            </div>
-            <table>
-              <thead>
-                
-              </thead>
-              <tbody>
-              @if($notices->isEmpty())
-    <p>No notices available.</p>
-@else
-    <table>
-        <tbody>
-            @foreach($notices as $notice)
-            <tr class="notice-row" data-notice="{{ $notice->notice_id }}">
-                <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>{{ $notice->notice_heading }}</p>
-                </td>
-                <td>{{ $notice->created_at->format('m-d-Y') }}</td>
-                <td class="options">
-                    <div class="dropdown">
-                        <i class="bx bx-dots-vertical-rounded dropdown-toggle" onclick="toggleDropdown(this)"></i>
-                        <div class="dropdown-menu">
-                            <a href="#" onclick="editNotice()">Edit</a>
-                            <a href="#" onclick="deleteNotice()">Delete</a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" class="notice-content" id="notice-{{ $notice->notice_id }}" style="display: none;">
-                    <p><strong>{{ $notice->notice_heading }}</strong></p>
-                    <p>{{ $notice->notice_description }}</p>
-                    @if($notice->notice_file)
-                    <iframe src="{{ asset('storage/images/' . $notice->notice_file) }}" width="100%" height="300px"></iframe>
-                    @endif
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-@endif
 
-
-
-            
+        <!-- New Users Section -->
+        <div class="new-users">
+          <h2>Departments</h2>
+          <div class="user-list">
+            <a href="/superadmin/individual/fee"
+              ><div class="user">
+                <img src="{{ asset('images/ku logo.png') }}" />
+                <h2>BBIS</h2>
+              </div>
+            </a>
+            <a href="/superadmin/individual/fee"
+              ><div class="user">
+                <img src="{{ asset('images/ku logo.png') }}" />
+                <h2>Architecture</h2>
+              </div>
+            </a>
+            <a href="/superadmin/individual/fee"
+              ><div class="user">
+                <img src="{{ asset('images/ku logo.png') }}" />
+                <h2>Civil Engineering</h2>
+              </div>
+            </a>
+            <a href="/superadmin/individual/fee"
+              ><div class="user">
+                <img src="{{ asset('images/ku logo.png') }}" />
+                <h2>Computer Science</h2>
+              </div>
+            </a>
           </div>
         </div>
+        <!-- End of New Users Section -->
       </main>
     </div>
 
     <script>
-
-function toggleNoticeContent(id) {
-    var content = document.getElementById('notice-' + id);
-    if (content.style.display === "none" || content.style.display === "") {
-        content.style.display = "block";
-    } else {
-        content.style.display = "none";
-    }
-}
-
-function toggleDropdown(element) {
-    var dropdownMenu = element.nextElementSibling;
-    dropdownMenu.style.display =
-        dropdownMenu.style.display === "block" ? "none" : "block";
-}
-
-$(document).ready(function () {
-    $(".notice-row").click(function () {
-        var noticeId = $(this).data("notice");
-        toggleNoticeContent(noticeId);
-    });
-});
       const sideLinks = document.querySelectorAll(
         ".sidebar .side-menu li a:not(.logout)"
       );
@@ -955,132 +915,6 @@ $(document).ready(function () {
           document.body.classList.remove("dark");
         }
       });
-      //calander script start
-      var selectedDate; // Declare a global variable to store the selected date
-
-      $(document).ready(function () {
-        $("#calendar").fullCalendar({
-          header: {
-            left: "prev,next ",
-            center: "title",
-            right: "",
-          },
-          eventMouseover: function (event, jsEvent, view) {
-            openModal(event.start, false, jsEvent);
-          },
-          dayClick: function (date, jsEvent, view) {
-            openModal(date, true, jsEvent);
-          },
-        });
-
-        // Handle mouseenter and mouseleave events for the modal
-        $("#event-modal")
-          .mouseenter(function () {
-            // No need to close the modal when the mouse enters the modal
-          })
-          .mouseleave(function () {
-            closeModal();
-          });
-
-        // Handle click event for the close button
-        $("#close-modal").click(function () {
-          closeModal();
-        });
-      });
-
-      function openModal(date, isAddingEvent, jsEvent) {
-        // Get events for the clicked date
-        var events = $("#calendar").fullCalendar(
-          "clientEvents",
-          function (event) {
-            return event.start.isSame(date, "day");
-          }
-        );
-
-        // Populate modal with event details
-        var modalContent = "";
-
-        if (events.length > 0) {
-          events.forEach(function (event) {
-            modalContent += `<p><strong>${event.title}</strong>: ${event.description}</p>`;
-          });
-        }
-
-        if (isAddingEvent) {
-          modalContent +=
-            '<button id="add-event-btn" onclick="addEvent()">Add Event</button>';
-        }
-
-        modalContent +=
-          '<span id="close-modal" onclick="closeModal()">X</span>';
-
-        $("#event-modal-content").html(modalContent);
-
-        // Position the modal based on mouse coordinates
-        var modalLeft = jsEvent.pageX;
-        var modalTop = jsEvent.pageY;
-
-        $("#event-modal").css({
-          left: modalLeft,
-          top: modalTop,
-        });
-
-        $("#event-modal").fadeIn();
-
-        selectedDate = date; // Store the selected date
-      }
-
-      function closeModal() {
-        $("#event-modal").fadeOut();
-      }
-
-      function addEvent() {
-        var title = prompt("Enter event title:");
-        var description = prompt("Enter event description:");
-
-        if (title && description) {
-          var newEvent = {
-            title: title,
-            start: selectedDate.format(),
-            description: description,
-          };
-
-          $("#calendar").fullCalendar("renderEvent", newEvent, true);
-          closeModal();
-        }
-      }
-      function showConfirmationPopup() {
-        document.getElementById("confirmationPopup").style.display = "block";
-      }
-
-      function closeConfirmationPopup() {
-        document.getElementById("confirmationPopup").style.display = "none";
-      }
-
-      function confirmAddAdmin() {
-        // Perform the action when the user confirms
-        document.getElementById("addAdminForm").submit();
-
-        // Close the confirmation popup
-        closeConfirmationPopup();
-      }
-      // jQuery script to toggle visibility of notice content
-      
-      //edit and delete
-      
-
-      function editNotice() {
-        // Implement your edit functionality here
-        alert("Edit action triggered");
-      }
-
-      function deleteNotice() {
-        // Implement your delete functionality here
-        alert("Delete action triggered");
-      }
     </script>
   </body>
 </html>
-
-
-      

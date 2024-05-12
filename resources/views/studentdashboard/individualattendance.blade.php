@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
       rel="stylesheet"
     />
@@ -324,7 +329,7 @@
       }
 
       main .new-users .user-list {
-        background-color: var(--color-white);
+        /* background-color: var(--color-white); */
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
         margin-top: 1rem;
@@ -334,18 +339,26 @@
         flex-wrap: wrap;
         gap: 1.4rem;
         cursor: pointer;
-        transition: all 0.3s ease;
       }
 
-      main .new-users .user-list:hover {
+      /* main .new-users .user-list:hover {
         box-shadow: none;
-      }
+      } */
 
       main .new-users .user-list .user {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+        box-shadow: var(--box-shadow);
+        margin-left: -5px;
+        transition: all 0.3s ease;
+      }
+      main .new-users .user-list .user:hover {
+        box-shadow: none;
       }
 
       main .new-users .user-list .user img {
@@ -550,68 +563,21 @@
         align-items: center;
         gap: 0.6rem;
       }
-      /* Add this to your existing CSS */
-
-      .profile-section {
-        display: flex;
-        align-items: center;
-        margin-top: 1rem;
-      }
-
-      .profile-photo {
-        width: 2.8rem;
-        height: 2.8rem;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-right: 1rem;
-      }
-
-      .profile-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .profile-info {
-        text-align: left;
-      }
-
-      .username {
-        color: var(--color-primary);
-      }
-
-      .widget {
+      #modal {
+        display: none;
+        position: fixed;
+        top: 65%;
+        left: 90%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
         background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
+        border: 1px solid #ccc;
+        z-index: 1000;
       }
-
-      .upcoming-deadlines ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .upcoming-deadlines li {
-        margin-bottom: 0.5rem;
-      }
-
-      .notifications {
-        margin-top: 2rem;
-      }
-
-      .notification {
+      #calendar {
+        margin-top: 50px;
+        max-width: 400px;
         background-color: var(--color-white);
-        padding: 1rem;
-        border-radius: var(--border-radius-2);
-        box-shadow: var(--box-shadow);
-        margin-bottom: 1rem;
-      }
-
-      .notification p {
-        margin: 0;
-        color: var(--color-dark);
       }
 
       @media screen and (max-width: 1200px) {
@@ -783,27 +749,26 @@
           font-size: 2rem;
         }
       }
-      .setting-list {
-        background-color: var(--color-white);
-        padding: 1rem;
-        border-radius: var(--border-radius-2);
-        box-shadow: var(--box-shadow);
-        margin-bottom: 1rem;
-        margin-top: 1rem;
+      .table-container {
+        padding: 10px;
+        margin-top: 20px;
+        width: 100%;
       }
-      .setting {
-        background-color: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-top: 1rem;
-        box-shadow: var(--box-shadow);
-        width: 50%;
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
       }
-      .setting:hover {
-        background-color: rgb(184, 182, 186);
-        /* background-color: red; */
-        display: flex;
-        flex-direction: column;
+
+      thead th,
+      tbody td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+
+      thead th {
+        background-color: #f2f2f2;
       }
     </style>
   </head>
@@ -823,7 +788,7 @@
         </div>
 
         <div class="sidebar">
-          <a href="/student" >
+          <a href="/student">
             <span class="material-icons-sharp"> dashboard </span>
             <h3>Dashboard</h3>
           </a>
@@ -833,11 +798,12 @@
             <h3>Grades</h3>
           </a>
 
-          <a href="/student/courses">
+          <a href="/student/courses" >
             <span class="material-icons-sharp">menu_book</span>
             <h3>Courses</h3>
           </a>
-          <a href="/student/attendance">
+
+          <a href="/student/attendance" class="active">
             <span class="material-icons-sharp">inventory</span>
             <h3>Attendance</h3>
           </a>
@@ -852,7 +818,7 @@
             <h3>Notice</h3>
           </a>
 
-          <a href="/student/settings"  class="active">
+          <a href="/student/settings">
             <span class="material-icons-sharp"> settings </span>
             <h3>Settings</h3>
           </a>
@@ -867,32 +833,141 @@
 
       <!-- Main Content -->
       <main>
-        <!-- Inside the <body> tag -->
+        <h1>Attandance</h1>
 
-        <div class="profile-section">
-          <div class="profile-photo">
-            <img
-              src="kathmandu_university_logo_nepal .png"
-              alt="Profile Picture"
-            />
-          </div>
-          <div class="profile-info">
-            <h2>Hey, <span class="username">{{$student->Firstname}}</span></h2>
-            <p>GPA: 3.8</p>
-            <p>Courses Completed: 15</p>
-          </div>
+        <!-- New Users Section -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Roll no</th>
+                <th>Day 1</th>
+                <th>Day 2</th>
+                <th>Day 3</th>
+                <th>Day 4</th>
+                <th>Day 5</th>
+                <th>Day 6</th>
+                <th>Day 7</th>
+                <th>Day 8</th>
+                <th>Day 9</th>
+                <th>Day 10</th>
+                <th>Day 11</th>
+                <th>Day 12</th>
+                <th>Day 13</th>
+                <th>Day 14</th>
+                <th>Day 15</th>
+                <th>Day 16</th>
+                <th>Day 17</th>
+                <th>Day 18</th>
+                <th>Day 19</th>
+                <th>Day 20</th>
+                <th>Day 21</th>
+                <th>Day 22</th>
+                <th>Day 23</th>
+                <th>Day 24</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Swornim Acharya</td>
+                <td>218001</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>ab</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>ab</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>ab</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+
+                <td>ab</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Arpan Adhikari</td>
+                <td>218002</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>ab</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>ab</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>ab</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>ex</td>
+
+                <td>ab</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Rikshal Shrestha</td>
+                <td>218003</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>ab</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>ab</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>ab</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>ex</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+                <td>pr</td>
+
+                <td>ex</td>
+                <td>pr</td>
+                <td>ab</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="setting-list">
-          <h2>settings</h2>
-          <div class="setting">
-            <a href="#">
-              <span class="material-icons-sharp"> perm_identity </span>
-              <h3>change Profile Photo</h3>
-            </a>
-          </div>
-          <div class="setting">change personal details</div>
-        </div>
+        <!-- End of New Users Section -->
       </main>
+      <!-- End of Main Content -->
+
+      <!-- Right Section -->
       <div class="right-section">
         <div class="nav">
           <button id="menu-btn">
@@ -902,7 +977,17 @@
             <span class="material-icons-sharp active"> light_mode </span>
             <span class="material-icons-sharp"> dark_mode </span>
           </div>
+
+          <div class="profile">
+            <div class="info">
+              <p>Hey, <b>Feng</b></p>
+            </div>
+            <div class="profile-photo">
+              <img src="kathmandu_university_logo_nepal .png" />
+            </div>
+          </div>
         </div>
+        <!-- End of Nav -->
       </div>
     </div>
 
@@ -926,45 +1011,37 @@
         darkMode.querySelector("span:nth-child(1)").classList.toggle("active");
         darkMode.querySelector("span:nth-child(2)").classList.toggle("active");
       });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const table = document.querySelector("table");
+        const rows = table.querySelectorAll("tbody tr");
 
-      Orders.forEach((order) => {
-        const tr = document.createElement("tr");
-        const trContent = `
-        <td>${order.productName}</td>
-        <td>${order.productNumber}</td>
-        <td>${order.paymentStatus}</td>
-        <td class="${
-          order.status === "Declined"
-            ? "danger"
-            : order.status === "Pending"
-            ? "warning"
-            : "primary"
-        }">${order.status}</td>
-        <td class="primary">Details</td>
-    `;
-        tr.innerHTML = trContent;
-        document.querySelector("table tbody").appendChild(tr);
+        rows.forEach((row) => {
+          const cells = row.querySelectorAll("td");
+
+          cells.forEach((cell) => {
+            // Skip first three columns (SN, Name, Roll no)
+            if (cell.cellIndex >= 3) {
+              const status = cell.textContent.trim().toLowerCase();
+              switch (status) {
+                case "pr":
+                  cell.style.color = "green";
+                  break;
+                case "ab":
+                  cell.style.color = "red";
+                  break;
+                case "ex":
+                  cell.style.color = "blue";
+                  break;
+                default:
+                  // Default text color if status is not recognized
+                  cell.style.color = "black";
+              }
+            }
+          });
+        });
       });
-      const Orders = [
-        {
-          productName: "JavaScript Tutorial",
-          productNumber: "85743",
-          paymentStatus: "Due",
-          status: "Pending",
-        },
-        {
-          productName: "CSS Full Course",
-          productNumber: "97245",
-          paymentStatus: "Refunded",
-          status: "Declined",
-        },
-        {
-          productName: "Flex-Box Tutorial",
-          productNumber: "36452",
-          paymentStatus: "Paid",
-          status: "Active",
-        },
-      ];
     </script>
   </body>
 </html>

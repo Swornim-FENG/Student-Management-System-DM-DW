@@ -207,6 +207,14 @@ Route::get('/professor/notice',[ProfessorController::class,'notice']);
 
 Route::get('/professor/attendance',[ProfessorController::class,'attendance']);
 
+Route::get('/student/attendance',[StudentController::class,'student_attendance']);
+
+Route::get('/student/indiviual/attendance',[StudentController::class,'student_individual_attendance']);
+
+Route::get('/superadmin/fee',[SuperadminController::class,'fee']);
+
+Route::get('/superadmin/individual/fee',[SuperadminController::class,'individual_fee']);
+
 Route::get('/test', function () {
     return view('test');
 });

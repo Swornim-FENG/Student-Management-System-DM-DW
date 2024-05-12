@@ -830,11 +830,36 @@
     .btn1:hover {
       background-color: #2980b9;
     }
+    table {
+      border-collapse: collapse;
+      border-radius: 5px;
+      width: 100%;
+    }
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #ddd;
+    }
+    table input[type="file"] {
+      border: 1px solid #ccc;
+      padding: 5px;
+      width: 200px;
+    }
   </style>
 
   <body>
     <!-- Sidebar -->
-    <div class="sidebar">
+   <div class="sidebar">
       <div class="logo">
         <img src="{{ asset('images/ku logo.png') }}" alt="" />
         <h4>Super Admin</h4>
@@ -861,7 +886,7 @@
             ><i class="bx bx-book-open"></i>Program</a
           >
         </li>
-        <li class="active">
+        <li>
           <a href="/superadmin/student"
             ><i class="bx bx-group"></i>Students</a
           >
@@ -876,10 +901,10 @@
             ><i class="bx bx-book"></i>Courses</a
           >
         </li>
-        <li>
+        <li >
           <a href="/superadmin/notice"><i class="bx bx-news"></i>Notice</a>
         </li>
-        <li >
+        <li class="active">
           <a href="/superadmin/fee"> <i class="bx bx-dollar"></i> Fee</a>
         </li>
 
@@ -925,43 +950,546 @@
       <main>
         <div class="header">
           <div class="left">
-            <a href="/superadmin/student"><h1>Students</h1></a>
-            <h2>>{{$program->name}}</h2>
+            <a href="suAdmin-fee.html"><h1>Fee</h1></a>
+            <h2>>BBIS</h2>
           </div>
-          
         </div>
-        <div class="student-display-grid">
-    <div class="grid">
-        @forelse ($students as $student)
-            <div class="card" onclick="openStudentPopup('{{ $student->Fullname }}', '{{ $student->email }}', '{{ $student->phone_number }}')">
-                <img src="{{ asset('images/ku logo.png') }}" alt="{{ $student->fullname }}" />
-                <div class="card-content">
-                    <h2>{{ $student->Fullname }}</h2>
-                    <!-- Additional content if needed -->
-                </div>
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-receipt"></i>
+              <h3>Fee Details</h3>
             </div>
-        @empty
-            <p>No students</p>
-        @endforelse
-    </div>
-</div>
-            
+            <table>
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Roll Number</th>
+                  <th>Batch</th>
+                  <th>Admission Fee</th>
+                  <th>Installment 1</th>
+                  <th>Installment 2</th>
+                  <th>Installment 3</th>
+                  <th>Installment 4</th>
+                  <th>Installment 5</th>
+                  <th>Installment 6</th>
+                  <th>Installment 7</th>
+                  <th>Installment 8</th>
+                  <th>Installment 9</th>
+                  <th>Installment 10</th>
+                  <th>Installment 11</th>
+                  <th>Installment 12</th>
+                  <th>Installment 13</th>
+                  <th>Installment 14</th>
+                  <th>Installment 15</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Arpan Adhikari</td>
+                  <td>218002</td>
+                  <td>2021</td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td id="admissionFeeCell"></td>
+                </tr>
+                <tr>
+                  <td>Rikshal Shrestha</td>
+                  <td>218032</td>
+                  <td>2021</td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td id="admissionFeeCell"></td>
+                </tr>
+                <tr>
+                  <td>Swornim Aacharya</td>
+                  <td>218001</td>
+                  <td>2021</td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      class="fileInput"
+                      accept=".pdf, image/*"
+                    />
+                    <button class="submitButton" style="display: none">
+                      Submit
+                    </button>
+                  </td>
+                  <td id="admissionFeeCell"></td>
+                </tr>
 
-            <!-- Add more students as needed -->
+                <!-- Add more rows as needed -->
+              </tbody>
+            </table>
           </div>
         </div>
       </main>
-      <div class="right-section">
-        <!-- student info section-->
-        <div class="popup" id="studentPopup">
-          <span class="close-btn" onclick="closeStudentPopup()">&times;</span>
-          <h2 id="popupTitle"></h2>
-          <p id="popupContent"></p>
-          <p><strong>Remarks:</strong> <span id="popupRemarks"></span></p>
-          <p><strong>Past Reports:</strong> <span id="popupReports"></span></p>
-        </div>
-        <!-- student info section close-->
-      </div>
     </div>
 
     <script>
@@ -1027,7 +1555,7 @@
           document.body.classList.remove("dark");
         }
       });
-      function openStudentPopup(name, email, remarks, pastReports) {
+      function openStudentPopup(name, department, remarks, pastReports) {
         const popupTitle = document.getElementById("popupTitle");
         const popupContent = document.getElementById("popupContent");
         const popupRemarks = document.getElementById("popupRemarks");
@@ -1035,7 +1563,7 @@
 
         // Set popup title and content
         popupTitle.textContent = name;
-        popupContent.textContent = `email: ${email}`;
+        popupContent.textContent = `Department: ${department}`;
 
         // Set remarks and past reports
         popupRemarks.textContent = remarks || "N/A";
@@ -1048,6 +1576,58 @@
       function closeStudentPopup() {
         document.getElementById("studentPopup").style.display = "none";
       }
+      //display
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInputs = document.querySelectorAll(".fileInput");
+
+        fileInputs.forEach(function (input) {
+          input.addEventListener("change", function () {
+            const file = this.files[0];
+            const parentCell = this.parentElement;
+
+            // Display confirmation popup
+            if (confirm("Do you confirm the upload?")) {
+              // If confirmed, proceed with reading the file
+              const reader = new FileReader();
+
+              reader.onload = function (e) {
+                const fileContent = e.target.result;
+                const fileType = file.type;
+
+                // Display file using embed tag
+                parentCell.innerHTML = `<embed src="${fileContent}" width="100%" height="100px" type="${fileType}" id="uploadedDocument" />`;
+
+                // Create an "Open File" button
+                const openFileButton = document.createElement("button");
+                openFileButton.textContent = "Open File";
+                openFileButton.addEventListener("click", function () {
+                  try {
+                    // Open the uploaded file in a new tab
+                    const newTab = window.open(fileContent, "_blank");
+                    if (!newTab) {
+                      throw new Error("Unable to open new tab.");
+                    }
+                  } catch (error) {
+                    console.error("Error opening file:", error);
+                    // Provide feedback to the user
+                    alert(
+                      "Error opening file. Please check your browser settings."
+                    );
+                  }
+                });
+
+                // Append the "Open File" button below the embed element
+                parentCell.appendChild(openFileButton);
+              };
+
+              reader.readAsDataURL(file);
+            } else {
+              // If not confirmed, do nothing or provide feedback to the user
+              console.log("Upload canceled");
+            }
+          });
+        });
+      });
     </script>
   </body>
 </html>

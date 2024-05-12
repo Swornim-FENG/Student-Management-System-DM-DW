@@ -835,8 +835,8 @@
             <h3>{{ $date }}</h3>
             @foreach ($notices as $notice)
                 <div class="notification1">
-                    <h4>{{ $notice->notice_title }}</h4>
-                    <p>{{ $notice->notice_content }}</p>
+                    <h4>{{ $notice->notice_heading }}</h4>
+                    <p>{{ $notice->notice_description }}</p>
                     @if ($notice->notice_file)
                         <iframe src="{{ asset('storage/images/' . $notice->notice_file) }}" class="iframe"></iframe>
                     @endif

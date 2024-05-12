@@ -33,10 +33,10 @@ class SuperadminController extends Controller
         return view('superadmindashboard.superadmindashboard',compact('studentsCount','professorsCount','schoolsCount','coursesCount','recentUsers'));
     }
     //show adminpage of superadmindashboard
-    public function showadmin(){
-        $adminsCount = Admins::count();
+    public function showadmin() {
+    $adminsCount = Admins::count();
 
-        // Step 1: Retrieve all user_ids from admin table
+    // Step 1: Retrieve all user_ids from admin table
     $userIds = Admins::pluck('user_id')->toArray();
 
     // Check if there are no user_ids
@@ -48,6 +48,12 @@ class SuperadminController extends Controller
     // Step 2: Retrieve Fullname, department, and email for each user
     $users = User::whereIn('user_id', $userIds)->get();
 
+    // Check if there are no users
+    if ($users->isEmpty()) {
+        // Handle the case where there are no users
+        return view('superadmindashboard.adminpage', ['adminsCount' => $adminsCount, 'noUsers' => true]);
+    }
+
     // Step 3: Retrieve program_ids from program_admins table based on user_ids
     $programAdmins = Program_admins::whereIn('admin_id', $userIds)->get();
     $programIds = $programAdmins->pluck('program_id');
@@ -57,7 +63,8 @@ class SuperadminController extends Controller
     $programNames = $programs->pluck('name');
 
     return view('superadmindashboard.adminpage', ['adminsCount' => $adminsCount, 'users' => $users, 'programNames' => $programNames]);
-    }
+}
+
 
     //show  schoolpage of superadmindashboard
     public function showschool(){
@@ -146,6 +153,13 @@ class SuperadminController extends Controller
 
         
         
+    }
+    public function fee(){
+        return view('superadmindashboard.fee');
+    }
+
+    public function individual_fee(){
+        return view('superadmindashboard.individualfee');
     }
     
 }

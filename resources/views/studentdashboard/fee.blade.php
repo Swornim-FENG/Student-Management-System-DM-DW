@@ -880,6 +880,10 @@
             <span class="material-icons-sharp">menu_book</span>
             <h3>Courses</h3>
           </a>
+          <a href="/student/attendance">
+            <span class="material-icons-sharp">inventory</span>
+            <h3>Attendance</h3>
+          </a>
           <a href="/student/fee" class="active">
             <span class="material-icons-sharp"> attach_money </span>
             <h3>Fee</h3>

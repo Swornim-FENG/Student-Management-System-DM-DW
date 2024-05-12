@@ -768,6 +768,9 @@
         <li>
           <a href="/superadmin/notice"><i class="bx bx-news"></i>Notice</a>
         </li>
+        <li >
+          <a href="/superadmin/fee"> <i class="bx bx-dollar"></i> Fee</a>
+        </li>
 
         <!-- <li><a href="#"><i class='bx bx-spreadsheet'></i>Documents</a></li> -->
       </ul>
