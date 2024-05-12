@@ -826,27 +826,27 @@
       <main>
         <h1>Notice</h1>
         <div class="notifications">
-          <h3>Recent Notices</h3>
-          <div class="notification1">
-            <h4>Notice-Title</h4>
-            <p>notice content</p>
-            <iframe
-              src="kathmandu_university_logo_nepal .png"
-              class="iframe"
-            ></iframe>
-          </div>
-          <div class="notification1">
-            <h4>Notice-Title</h4>
-            <p>notice content with no image or pdf</p>
-          </div>
-          <div class="notification1">
-            <h4>Notice-Title</h4>
-            <p>notice content</p>
-            <iframe
-              src="kathmandu_university_logo_nepal .png"
-              class="iframe"
-            ></iframe>
-          </div>
+          <h2>Recent Notices</h2>
+          @if ($grouped_notices->isEmpty())
+    <p>No notices available.</p>
+@else
+    @foreach ($grouped_notices as $date => $notices)
+        <div class="notification-group">
+            <h3>{{ $date }}</h3>
+            @foreach ($notices as $notice)
+                <div class="notification1">
+                    <h4>{{ $notice->notice_title }}</h4>
+                    <p>{{ $notice->notice_content }}</p>
+                    @if ($notice->notice_file)
+                        <iframe src="{{ asset('storage/images/' . $notice->notice_file) }}" class="iframe"></iframe>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    @endforeach
+@endif
+          
+          
         </div>
       </main>
       <!-- End of Main Content -->

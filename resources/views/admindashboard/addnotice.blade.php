@@ -849,10 +849,16 @@
             <h2>>Add a notice</h2>
           </div>
         </div>
-        <form class="add-form" method="post" enctype="multipart/form-data">
+        <form class="add-form" method="post"  action="/admin/add/notice" enctype="multipart/form-data">
+        @csrf
           <!-- Notice Heading -->
           <label for="noticeHeading">Notice Heading:</label>
           <input type="text" id="noticeHeading" name="noticeHeading" required />
+          <span class="text-danger" style="color:red">
+            @error('noticeHeading')
+            {{ $message }}
+            @enderror
+            </span>
 
           <!-- Notice Description -->
           <label for="noticeDescription">Notice Description:</label>
@@ -862,10 +868,26 @@
             rows="4"
             required
           ></textarea>
+          <span class="text-danger" style="color:red">
+            @error('noticeDescription')
+            {{ $message }}
+            @enderror
+            </span>
 
           <!-- File Upload for PDF or Image -->
           <label for="fileUpload">Upload PDF or Image:</label>
           <input type="file" id="fileUpload" name="fileUpload" />
+          <span class="text-danger" style="color:red">
+            @error('fileUpload')
+            {{ $message }}
+            @enderror
+            </span>
+
+            @if(session('error'))
+        <span class="alert alert-danger" style="color:red">
+            {{ session('error') }}
+        </span>
+    @endif
 
           <!-- Submit Button -->
           <button type="submit">Submit</button>

@@ -922,14 +922,14 @@
                 <td>1</td>
 
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file1" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file2" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
@@ -938,14 +938,14 @@
                 <td>2</td>
 
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file1" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file2" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
@@ -954,14 +954,14 @@
                 <td>3</td>
 
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file1" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file2" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
@@ -970,14 +970,14 @@
                 <td>4</td>
 
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file1" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file2" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
@@ -986,14 +986,14 @@
                 <td>5</td>
 
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file1" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file2" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
@@ -1002,14 +1002,14 @@
                 <td>6</td>
 
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file1" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file2" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
@@ -1018,14 +1018,14 @@
                 <td>7</td>
 
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file1" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file2" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
@@ -1034,14 +1034,14 @@
                 <td>8</td>
 
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file1" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
                 <td>
-                  <input type="file" accept=".pdf,image/*" name="file2" />
-                  <button class="submitBtn" style="display: none">
+                  <input type="file" class="fileInput" accept=".pdf, image/*" />
+                  <button class="submitButton" style="display: none">
                     Submit
                   </button>
                 </td>
@@ -1213,6 +1213,59 @@
               submitButtons[index].style.display = "block";
             } else {
               submitButtons[index].style.display = "none";
+            }
+          });
+        });
+      });
+
+      //display
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInputs = document.querySelectorAll(".fileInput");
+
+        fileInputs.forEach(function (input) {
+          input.addEventListener("change", function () {
+            const file = this.files[0];
+            const parentCell = this.parentElement;
+
+            // Display confirmation popup
+            if (confirm("Do you confirm the upload?")) {
+              // If confirmed, proceed with reading the file
+              const reader = new FileReader();
+
+              reader.onload = function (e) {
+                const fileContent = e.target.result;
+                const fileType = file.type;
+
+                // Display file using embed tag
+                parentCell.innerHTML = `<embed src="${fileContent}" width="100%" height="100px" type="${fileType}" id="uploadedDocument" />`;
+
+                // Create an "Open File" button
+                const openFileButton = document.createElement("button");
+                openFileButton.textContent = "Open File";
+                openFileButton.addEventListener("click", function () {
+                  try {
+                    // Open the uploaded file in a new tab
+                    const newTab = window.open(fileContent, "_blank");
+                    if (!newTab) {
+                      throw new Error("Unable to open new tab.");
+                    }
+                  } catch (error) {
+                    console.error("Error opening file:", error);
+                    // Provide feedback to the user
+                    alert(
+                      "Error opening file. Please check your browser settings."
+                    );
+                  }
+                });
+
+                // Append the "Open File" button below the embed element
+                parentCell.appendChild(openFileButton);
+              };
+
+              reader.readAsDataURL(file);
+            } else {
+              // If not confirmed, do nothing or provide feedback to the user
+              console.log("Upload canceled");
             }
           });
         });

@@ -11,6 +11,8 @@ use App\Models\Courses;
 use App\Models\Course_professors;
 use App\Models\Grades;
 use App\Models\Course_plan;
+use App\Models\Superadmin_notice;
+use App\Models\Admin_notice;
 
 class StudentController extends Controller
 {    
@@ -332,11 +334,29 @@ public function fee(Request $request){
 }
 
 public function notice(Request $request){
-    $userObj = $request->session()->get("user");
-    $userId = $userObj->user_id;
-    $student = Students::where('user_id', $userId)->first();
-        
-    return view('studentdashboard.notice',compact('student'));
+    $notices = Superadmin_notice::all();
+$userObj = $request->session()->get("user");
+$userId = $userObj->user_id;
+
+// Get the program ID of the student
+$programId = Students::where('user_id', $userId)->first()->program_id;
+
+// Get the admin notices for the student's program
+$admin_notices = Admin_notice::where('program_id', $programId)->get();
+
+// Combine all notices into a single collection
+$all_notices = $notices->concat($admin_notices);
+
+// Group notices by date
+$grouped_notices = $all_notices->groupBy(function ($item) {
+    return $item->created_at->format('Y-m-d'); // Group by date
+});
+
+$userObj = $request->session()->get("user");
+$userId = $userObj->user_id;
+$student = Students::where('user_id', $userId)->first();
+
+return view('studentdashboard.notice', compact('student', 'grouped_notices'));
 }
 
 }

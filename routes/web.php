@@ -195,6 +195,8 @@ Route::get('/admin/notice',[AdminController::class,'notice']);
 
 Route::get('/admin/add/notice',[AdminController::class,'show_add_notice']);
 
+Route::post('/admin/add/notice',[AdminController::class,'add_notice']);
+
 Route::get('/admin/fee',[AdminController::class,'fee']);
 
 Route::get('/student/fee',[StudentController::class,'fee']);
@@ -202,6 +204,8 @@ Route::get('/student/fee',[StudentController::class,'fee']);
 Route::get('/student/notice',[StudentController::class,'notice']);
 
 Route::get('/professor/notice',[ProfessorController::class,'notice']);
+
+Route::get('/professor/attendance',[ProfessorController::class,'attendance']);
 
 Route::get('/test', function () {
     return view('test');

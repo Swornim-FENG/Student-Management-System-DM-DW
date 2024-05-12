@@ -1545,51 +1545,48 @@
         fileInputs.forEach(function (input) {
           input.addEventListener("change", function () {
             const file = this.files[0];
-            const reader = new FileReader();
             const parentCell = this.parentElement;
 
-            reader.onload = function (e) {
-              const fileContent = e.target.result;
-              const fileType = file.type;
+            // Display confirmation popup
+            if (confirm("Do you confirm the upload?")) {
+              // If confirmed, proceed with reading the file
+              const reader = new FileReader();
 
-              // Check if file type is PDF or image
-              if (fileType.includes("pdf")) {
-                // Display PDF
-                parentCell.innerHTML = `<embed src="${fileContent}" width="100%" height="200px" type="application/pdf" />`;
-              } else if (fileType.includes("image")) {
-                // Display image
-                const img = new Image();
-                img.src = fileContent;
-                img.onload = function () {
-                  const canvas = document.createElement("canvas");
-                  const ctx = canvas.getContext("2d");
+              reader.onload = function (e) {
+                const fileContent = e.target.result;
+                const fileType = file.type;
 
-                  // Calculate aspect ratio
-                  const aspectRatio = img.width / img.height;
+                // Display file using embed tag
+                parentCell.innerHTML = `<embed src="${fileContent}" width="100%" height="100px" type="${fileType}" id="uploadedDocument" />`;
 
-                  // Set canvas dimensions based on aspect ratio
-                  let canvasWidth, canvasHeight;
-                  if (aspectRatio > 1) {
-                    canvasWidth = 100;
-                    canvasHeight = 100 / aspectRatio;
-                  } else {
-                    canvasWidth = 100 * aspectRatio;
-                    canvasHeight = 100;
+                // Create an "Open File" button
+                const openFileButton = document.createElement("button");
+                openFileButton.textContent = "Open File";
+                openFileButton.addEventListener("click", function () {
+                  try {
+                    // Open the uploaded file in a new tab
+                    const newTab = window.open(fileContent, "_blank");
+                    if (!newTab) {
+                      throw new Error("Unable to open new tab.");
+                    }
+                  } catch (error) {
+                    console.error("Error opening file:", error);
+                    // Provide feedback to the user
+                    alert(
+                      "Error opening file. Please check your browser settings."
+                    );
                   }
+                });
 
-                  canvas.width = canvasWidth;
-                  canvas.height = canvasHeight;
+                // Append the "Open File" button below the embed element
+                parentCell.appendChild(openFileButton);
+              };
 
-                  // Draw image onto canvas
-                  ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
-
-                  // Display resized image
-                  parentCell.innerHTML = `<img src="${canvas.toDataURL()}" alt="Uploaded Image" width="${canvasWidth}" height="${canvasHeight}" />`;
-                };
-              }
-            };
-
-            reader.readAsDataURL(file);
+              reader.readAsDataURL(file);
+            } else {
+              // If not confirmed, do nothing or provide feedback to the user
+              console.log("Upload canceled");
+            }
           });
         });
       });

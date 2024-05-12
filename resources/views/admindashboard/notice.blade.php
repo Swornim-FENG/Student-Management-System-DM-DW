@@ -772,6 +772,34 @@
       border: 1px solid #ccc;
       margin-top: 10px;
     }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-toggle {
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 5px 0;
+      z-index: 1;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 8px 12px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f0f0f0;
+    }
   </style>
 
   <body>
@@ -842,130 +870,65 @@
       <!-- End of Navbar -->
 
       <main>
-        <div class="header">
-          <div class="left">
+    <div class="header">
+        <div class="left">
             <h1>Notice</h1>
-          </div>
         </div>
-        <div class="bottom-data">
-          <div class="orders">
+    </div>
+    <div class="bottom-data">
+        <div class="orders">
             <div class="header">
-              <i class="bx bx-receipt"></i>
-              <h3>Recent Notices</h3>
-              <a href="/admin/add/notice"> <i class="bx bx-plus"></i></a>
-              <i class="bx bx-search"></i>
+                <i class="bx bx-receipt"></i>
+                <h3>Recent Notices</h3>
+                <a href="/admin/add/notice"> <i class="bx bx-plus"></i></a>
+                <i class="bx bx-search"></i>
             </div>
             <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="notice-row" data-notice="notice-1">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>I-I results</p>
-                  </td>
-                  <td>10-18-2023</td>
-                </tr>
-                <tr class="notice-row" data-notice="notice-2">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Fee Payment</p>
-                  </td>
-                  <td>10-18-2023</td>
-                </tr>
-                <tr class="notice-row" data-notice="notice-3">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Scholarship</p>
-                  </td>
-                  <td>10-18-2023</td>
-                </tr>
-                <!-- Add more rows as needed -->
-                <tr class="notice-row" data-notice="notice-4">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Fund</p>
-                  </td>
-                  <td>10-18-2023</td>
-                </tr>
-                <tr class="notice-row" data-notice="notice-5">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Wrokshop</p>
-                  </td>
-                  <td>10-18-2023</td>
-                </tr>
-                <tr class="notice-row" data-notice="notice-6">
-                  <td>
-                    <img src="{{ asset('images/ku logo.png') }}" />
-                    <p>Elections</p>
-                  </td>
-                  <td>10-18-2023</td>
-                </tr>
-              </tbody>
+                <thead>
+                    
+                </thead>
+                <tbody>
+                @if($grouped_notices->isEmpty())
+    <p>No notices available.</p>
+@else
+    @foreach($grouped_notices as $date => $notices)
+        <h3>{{ $date }}</h3>
+        <table>
+            <tbody>
+                @foreach($notices as $notice)
+                    <tr class="notice-row" data-notice="{{ $notice->notice_id }}">
+                        <td>
+                            <img src="{{ asset('images/ku logo.png') }}" />
+                            <p>{{ $notice->notice_heading }}</p>
+                        </td>
+                        <td>{{ $notice->created_at->format('m-d-Y') }}</td>
+                        <td class="options">
+                            <div class="dropdown">
+                                <i class="bx bx-dots-vertical-rounded dropdown-toggle" onclick="toggleDropdown(this)"></i>
+                                <div class="dropdown-menu">
+                                    <a href="#" onclick="editNotice()">Edit</a>
+                                    <a href="#" onclick="deleteNotice()">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="notice-content" id="notice-{{ $notice->notice_id }}" style="display: none;">
+                            <p><strong>{{ $notice->notice_heading }}</strong></p>
+                            <p>{{ $notice->notice_description }}</p>
+                            @if($notice->notice_file)
+                                <iframe src="{{ asset('storage/images/' . $notice->notice_file) }}" width="100%" height="300px"></iframe>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endforeach
+@endif
+                </tbody>
             </table>
-            <!-- Notice Content Slider -->
-            <div class="notice-content" id="notice-1">
-              <p><strong>I-I results</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-              <!-- Add more details as needed -->
-            </div>
-            <div class="notice-content" id="notice-2">
-              <p><strong>Fee Payment</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-              <!-- Add more details as needed -->
-            </div>
-            <div class="notice-content" id="notice-3">
-              <p><strong>Scholarship</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-              <!-- Add more details as needed -->
-            </div>
-            <div class="notice-content" id="notice-4">
-              <p><strong>Fund</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-            </div>
-            <!-- Add more details as needed -->
-            <div class="notice-content" id="notice-5">
-              <p><strong>Workshop</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-            </div>
-            <!-- Add more details as needed -->
-            <div class="notice-content" id="notice-6">
-              <p><strong>Elections</strong></p>
-              <p>
-                This is the content of the notice. Add your detailed information
-                here.
-              </p>
-              <img src="kathmandu_university_logo_nepal .png" />
-              <!-- Add more details as needed -->
-            </div>
-          </div>
         </div>
-      </main>
     </div>
 
     <script>
@@ -1049,10 +1012,28 @@
       // jQuery script to toggle visibility of notice content
       $(document).ready(function () {
         $(".notice-row").click(function () {
-          var noticeId = $(this).data("notice");
-          $("#" + noticeId).slideToggle();
+            var noticeId = $(this).data("notice");
+            $("#notice-" + noticeId).slideToggle();
         });
-      });
+    });
+
+      //edit and delete
+      function toggleDropdown(dropdownToggle) {
+        var dropdownMenu = dropdownToggle.nextElementSibling;
+        dropdownMenu.style.display =
+          dropdownMenu.style.display === "block" ? "none" : "block";
+      }
+
+      function editNotice() {
+        // Implement your edit functionality here
+        alert("Edit action triggered");
+      }
+
+      function deleteNotice() {
+        // Implement your delete functionality here
+        alert("Delete action triggered");
+      }
     </script>
+    </main>
   </body>
 </html>

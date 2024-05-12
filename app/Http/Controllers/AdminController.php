@@ -13,6 +13,8 @@ use App\Models\Program_professors;
 use App\Models\Program_courses;
 use App\Models\Course_students;
 use App\Models\Course_professors;
+use App\Models\Superadmin_notice;
+use App\Models\Admin_notice;
 
 class AdminController extends Controller
 {
@@ -122,9 +124,23 @@ class AdminController extends Controller
     }
 }
 
-public function notice(){
-        
-    return view('admindashboard.notice');
+public function notice(Request $request)
+{
+    $notices = Superadmin_notice::all();
+    $userObj = $request->session()->get("user");
+    $userId = $userObj->user_id;
+    $programid = Program_admins::where('admin_id', $userId)->first();
+    $admin_notices = Admin_notice::where('program_id', $programid->program_id)->get();
+
+    // Combine all notices into a single collection
+    $all_notices = $notices->concat($admin_notices);
+
+    // Group notices by date
+    $grouped_notices = $all_notices->groupBy(function ($item) {
+        return $item->created_at->format('Y-m-d'); // Group by date
+    });
+
+    return view('admindashboard.notice', compact('grouped_notices'));
 }
 
 public function show_add_notice(){
@@ -135,6 +151,33 @@ public function show_add_notice(){
 public function fee(){
         
     return view('admindashboard.fee');
+}
+
+public function add_notice(Request $request){
+    $request->validate(
+        [
+            'noticeHeading'=>'required',
+            'noticeDescription'=>'required',
+            'fileUpload'=>'required'
+            
+        ]
+        );
+        $admin_notice=new Admin_notice;
+        $userObj = $request->session()->get("user");
+        $userId=$userObj->user_id;
+        $admin_notice->user_id=$userId;
+        $programid=Program_admins::where('admin_id',$userId)->first();
+        $admin_notice->program_id=$programid->program_id;
+        $admin_notice->notice_description = $request['noticeDescription'];
+        $admin_notice->notice_heading = $request['noticeHeading'];
+        $name =$request->file('fileUpload')->getClientOriginalName();
+        $request->file('fileUpload')->storeAs('public/images/',$name);
+        $admin_notice->notice_file =$name;
+        $admin_notice->save();
+        return redirect('/admin/notice');
+
+    
+    
 }
 
 }

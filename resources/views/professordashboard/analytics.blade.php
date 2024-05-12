@@ -252,7 +252,7 @@
         gap: 1.6rem;
       }
 
-      main .analyse > div {
+      main .analyse .anchor > div {
         background-color: var(--color-white);
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
@@ -667,6 +667,7 @@
         }
       }
     </style>
+
   </head>
 
   <body>
@@ -744,6 +745,7 @@
         <!-- Analyses -->
         <h2 class="sub-heading">Class progress</h2>
         <div class="analyse">
+        <a class="anchor" href="/professor/attendance">
           <div class="sales">
             <div class="status">
               <div class="info">
@@ -760,6 +762,8 @@
               </div>
             </div>
           </div>
+          </a>
+          <a class="anchor" href="/professor/attendance">
           <div class="visits">
             <div class="status">
               <div class="info">
@@ -776,6 +780,8 @@
               </div>
             </div>
           </div>
+          </a>
+          <a class="anchor" href="/professor/attendance">
           <div class="searches">
             <div class="status">
               <div class="info">
@@ -792,6 +798,7 @@
               </div>
             </div>
           </div>
+          </a>
         </div>
         <!-- End of Analyses -->
       </main>

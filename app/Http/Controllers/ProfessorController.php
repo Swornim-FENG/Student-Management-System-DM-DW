@@ -11,6 +11,9 @@ use App\Models\Course_plan;
 use App\Models\Courses;
 use App\Models\Course_professors;
 use App\Models\Grades;
+use App\Models\Superadmin_notice;
+use App\Models\Admin_notice;
+use App\Models\Program_professors;
 
 class ProfessorController extends Controller
 {   
@@ -430,10 +433,31 @@ public function insert_professors(Request $request)
     }
 }
 public function notice(Request $request){
+    $notices = Superadmin_notice::all();
+$userObj = $request->session()->get("user");
+$userId = $userObj->user_id;
+
+// Get the program ID of the student
+$programId = Program_professors::where('prof_id', $userId)->first()->program_id;
+
+// Get the admin notices for the student's program
+$admin_notices = Admin_notice::where('program_id', $programId)->get();
+
+// Combine all notices into a single collection
+$all_notices = $notices->concat($admin_notices);
+
+// Group notices by date
+$grouped_notices = $all_notices->groupBy(function ($item) {
+    return $item->created_at->format('Y-m-d'); // Group by date
+});
     $userObj = $request->session()->get("user");
     $userId = $userObj->user_id;
     $professor = Professors::where('user_id', $userId)->first();
-    return view('professordashboard.notice',compact('professor'));
+    return view('professordashboard.notice',compact('professor', 'grouped_notices'));
+}
+
+public function attendance(){
+    return view('professordashboard.attendance');
 }
 
 }

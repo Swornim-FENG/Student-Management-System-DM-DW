@@ -829,7 +829,7 @@
     <table>
         <tbody>
             @foreach($notices as $notice)
-            <tr class="notice-row" data-notice="{{ $notice->id }}">
+            <tr class="notice-row" data-notice="{{ $notice->notice_id }}">
                 <td>
                     <img src="{{ asset('images/ku logo.png') }}" />
                     <p>{{ $notice->notice_heading }}</p>
@@ -846,7 +846,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3" class="notice-content" id="notice-{{ $notice->id }}" style="display: none;">
+                <td colspan="3" class="notice-content" id="notice-{{ $notice->notice_id }}" style="display: none;">
                     <p><strong>{{ $notice->notice_heading }}</strong></p>
                     <p>{{ $notice->notice_description }}</p>
                     @if($notice->notice_file)
