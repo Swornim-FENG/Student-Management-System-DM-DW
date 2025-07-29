@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        
         Schema::create('admin_notice', function (Blueprint $table) {
             $table->id('notice_id');
             $table->unsignedBigInteger('program_id');

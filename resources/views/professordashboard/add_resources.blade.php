@@ -880,6 +880,7 @@
            {{ $message }}
         @enderror
     </span>
+  
 
     @if(session('error'))
         <span class="alert alert-danger" style="color:red">

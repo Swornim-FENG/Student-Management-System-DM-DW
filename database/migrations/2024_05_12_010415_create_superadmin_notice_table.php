@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        
         Schema::create('superadmin_notice', function (Blueprint $table) {
             $table->id('notice_id');
             $table->string('notice_file')->nullable();

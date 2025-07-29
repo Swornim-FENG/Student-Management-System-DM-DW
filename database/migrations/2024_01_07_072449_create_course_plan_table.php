@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        
         Schema::create('course_plan', function (Blueprint $table) {
             $table->unsignedBigInteger('prof_id');
             $table->foreign('prof_id')->references('user_id')->on('professors');

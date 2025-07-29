@@ -64,6 +64,7 @@ class SuperadminController extends Controller
 
     return view('superadmindashboard.adminpage', ['adminsCount' => $adminsCount, 'users' => $users, 'programNames' => $programNames]);
 }
+//show admin dashboard
 
 
     //show  schoolpage of superadmindashboard

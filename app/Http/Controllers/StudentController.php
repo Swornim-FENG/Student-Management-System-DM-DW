@@ -365,6 +365,7 @@ public function student_attendance(Request $request){
     $student=Students::where('user_id',$userId)->first();
     return view('studentdashboard.attendance',compact('student'));
 }
+//show admin dashboard
 
 public function student_individual_attendance(Request $request){
     $userObj = $request->session()->get("user");

@@ -218,3 +218,7 @@ Route::get('/superadmin/individual/fee',[SuperadminController::class,'individual
 Route::get('/test', function () {
     return view('test');
 });
+
+// Route::get('/test', function () {
+//     return view('test');
+// });

@@ -19,6 +19,7 @@ use App\Models\Admin_notice;
 class AdminController extends Controller
 {
     //show admin dashboard
+    //show admin dashboard
     public function showadmin(Request $request){
         $userObj = $request->session()->get("user");
         $userId=$userObj->user_id;

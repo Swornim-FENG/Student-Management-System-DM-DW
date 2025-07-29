@@ -500,6 +500,7 @@ public function assign_prof_essor(Request $request){
     return view('admindashboard.assignprofessor_tocourse',compact('courses'));
 }
 // To validate and assign professor into the course
+//show admin dashboard
 public function assign_prof_essor_tocourse(Request $request)
 {
     try {

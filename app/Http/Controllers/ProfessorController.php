@@ -28,7 +28,7 @@ class ProfessorController extends Controller
         $professor=Professors::where('user_id',$userId)->first();
         return view('professordashboard.professordashboard',compact('professor'));
     }
-
+//show admin dashboard
     // To show grades page of professordashboard
     public function show_grades(Request $request){
         $userObj = $request->session()->get("user");

@@ -11,7 +11,7 @@ class SchoolController extends Controller
     public function showaddschool(){
         return view('superadmindashboard.addschool');
     }
-
+//show admin dashboard
     //To validate and insert school into the system
 public function insertschool(Request $request)
 {
