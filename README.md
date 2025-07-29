@@ -41,9 +41,6 @@ ku-student-management/
 ├── .env
 └── README.md
 
-yaml
-Copy
-Edit
 
 ---
 
