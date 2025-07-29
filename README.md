@@ -67,6 +67,7 @@ php artisan key:generate
 4. Run Migrations and Seeders
 
 php artisan migrate --seed
+
 5. Start Development Server
 
 php artisan serve
